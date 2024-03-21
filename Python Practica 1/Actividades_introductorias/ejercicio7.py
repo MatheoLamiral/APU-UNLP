@@ -3,16 +3,13 @@
 #separados por guiones ('-'). Sin embargo, excluye cualquier número que sea múltiplo
 #de 3 de la cadena final.
 
-lista = []
+numeros = input('ingrese una lista de numeros separada por espacios: ').split()
 
-cant = int(input('ingrese la cantidad de elementos de la lista: '))
+lista = [int(num) for num in numeros]
 
-for i in range(cant):
-    lista.append(int(input('ingrese un número entero: ')))
- 
 msj = ''   
-for elem in lista:
-    if elem % 3 != 0:
-        msj += str(elem) + '-'
+for num in lista:
+    if num % 3 != 0:
+        msj += str(num) + '-'
 
 print(msj)    

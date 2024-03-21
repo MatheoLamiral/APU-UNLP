@@ -2,15 +2,16 @@
 #Luego, imprime la lista pero detén la impresión si encuentras un número negativo.
 #Nota: utilice la sentencia break cuando haga falta.
 
-lista = []
+numeros = input('ingrese la lista de numeros: ').split()
 
-cant = int(input('ingrese la cantidad de elementos de la lista: '))
+lista = [int(num) for num in numeros]
 
-for i in range(cant):
-    lista.append(int(input ('ingrese un numero: ')))
-
-for i in lista:
-    if i >= 0:
-        print(i)
-    else:
+msj = "["
+for num in lista:
+   if num >= 0:
+        msj += str(num) + ","
+   else:
         break
+msj += "]"
+
+print(msj)
