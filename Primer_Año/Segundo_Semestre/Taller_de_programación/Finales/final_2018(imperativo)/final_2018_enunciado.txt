@@ -1,0 +1,11 @@
+Una pizzeria recibe pedidos telefónicos de sus clientes. De cada pedido interesa conocer: DNI del cliente, nombre, fecha y monto a abonar por el pedido
+
+1- Lea la información de los pedidos telefónicos hasta ingresar uno con monto 0. A partir de esto, genere una estructura que almacene para cada DNI de cliente, su nombre y una lista con información de la fecha y monto de los pedidos realizados. La estructura debe estar ordenada por DNI y ser eficiente para la búsqueda por dicho criterio.
+
+A partir de la estructura generada en 1) realice módulos independientes para:
+
+2-Informar la cantidad de clientes que realizaron pedidos en una fecha que se lee de teclado.
+
+3-Informar el total abonado y el total de pedidos realizados por el cliente cuyo DNI coincide con uno ingresado.
+
+Nota: la información en 1 se lee sin orden alguno.
