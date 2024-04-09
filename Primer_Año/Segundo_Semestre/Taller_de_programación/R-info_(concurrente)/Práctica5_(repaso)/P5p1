@@ -1,0 +1,146 @@
+programa P5p1
+
+procesos
+  proceso juntarFlores(ES cantF:numero)
+  comenzar
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+      cantF:=cantF+1
+  fin
+  
+  proceso juntarPapeles (ES cantP:numero)
+  comenzar
+    mientras (HayPapelEnLaEsquina)
+      tomarPapel
+      cantP:=cantP+1
+  fin
+  
+  proceso envioIds 
+  comenzar
+    EnviarMensaje(1,robot1)
+    EnviarMensaje(2,robot2)
+    EnviarMensaje(3,robot3)
+    EnviarMensaje(4,robot4)
+  fin
+
+areas
+  conflicto: AreaPC(2,98,3,99)
+  R1a1: AreaP(2,1,2,97)
+  R1a2: AreaP(2,100,2,100)
+  R2a1: AreaP(3,1,3,97)
+  R2a2: AreaP(3,100,3,100)
+  A1a1: AreaP(1,98,1,98)
+  A1a2: AreaP(4,98,100,98)
+  A2a1: AreaP(1,99,1,99)
+  A2a2: AreaP(4,99,100,99)
+  Rf: AreaP(4,97,4,97)
+robots
+  robot rojo
+  variables
+    cantF,quienSoy:numero
+  comenzar
+    cantF:=0
+    RecibirMensaje(quienSoy,robotF)
+    repetir 96
+      juntarFlores(cantF)
+      mover
+    juntarFlores(cantF)
+    BloquearEsquina(PosAv+1,98)
+    mover
+    juntarFlores(cantF)
+    BloquearEsquina(PosAv+1,99)
+    mover
+    LiberarEsquina(PosAv+1,98)
+    juntarFlores(cantF)
+    mover
+    LiberarEsquina(PosAv+1,99)
+    juntarFlores(cantF)
+    EnviarMensaje(quienSoy,robotF)
+    EnviarMensaje(cantF,robotF)
+  fin
+  robot azul
+  variables
+    cantP,quienSoy:numero
+  comenzar
+    derecha
+    cantP:=0
+    RecibirMensaje(quienSoy,robotF)
+    juntarPapeles(cantP)
+    BloquearEsquina(2,PosCa+1)
+    mover
+    juntarPapeles(cantP)
+    BloquearEsquina(3,PosCa+1)
+    mover
+    LiberarEsquina(2,PosCa+1)
+    juntarPapeles(cantP)
+    mover
+    LiberarEsquina(3,PosCa+1)
+    repetir 95
+      juntarPapeles(cantP)
+      mover
+    juntarPapeles(cantP)
+    EnviarMensaje(quienSoy,robotF)
+    EnviarMensaje(cantP,robotF)
+  fin
+  robot fisc
+  variables   
+    ID:numero
+    cantF,cantP,cant:numero
+  comenzar
+    envioIds
+    cantP:=0
+    cantF:=0
+    repetir 4
+      RecibirMensaje(ID,*)
+      si (ID=1)
+        RecibirMensaje(cant,robot1)
+        cantF:= cantF + cant
+      sino
+        si (ID=2)
+          RecibirMensaje(cant,robot2)
+          cantF:= cantF + cant
+        sino
+          si (ID=3)
+            RecibirMensaje(cant,robot3)
+            cantP:=  cantP + cant
+          sino
+            RecibirMensaje(cant,robot4)
+            cantP:= cantP + cant
+    si(cantF>cantP)
+      Informar('rojo',1)
+    sino
+      si(cantP>cantF)
+        Informar('azul',2)
+      sino
+        Informar('empate',3)
+  fin
+variables
+  robot1:rojo
+  robot2:rojo
+  robot3:azul
+  robot4:azul
+  robotF:fisc
+comenzar
+  AsignarArea(robot1,R1a1)
+  AsignarArea(robot1,R1a2)
+  AsignarArea(robot1,conflicto)
+  AsignarArea(robot2,R2a1)
+  AsignarArea(robot2,R2a2)
+  AsignarArea(robot2,conflicto)
+  AsignarArea(robot3,A1a1)
+  AsignarArea(robot3,A1a2)
+  AsignarArea(robot3,conflicto)
+  AsignarArea(robot4,A2a1)
+  AsignarArea(robot4,A2a2)
+  AsignarArea(robot4,conflicto)
+  AsignarArea(robotF,Rf)
+  Iniciar(robot1,2,1)
+  Iniciar(robot2,3,1)
+  Iniciar(robot3,1,98)
+  Iniciar(robot4,1,99)
+  Iniciar(robotF,4,97)
+fin
+
+
+
+

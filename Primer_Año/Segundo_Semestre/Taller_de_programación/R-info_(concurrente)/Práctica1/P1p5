@@ -1,0 +1,107 @@
+programa P1p3
+
+procesos
+  proceso izq 
+  comenzar
+    repetir 3
+      derecha
+  fin
+  proceso juntarFlores(ES cantF:numero)
+  comenzar
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+      cantF:=cantF+1
+  fin
+  
+  proceso juntarPapeles(ES cantP:numero)
+  comenzar
+    mientras (HayPapelEnLaEsquina)
+      tomarPapel
+      cantP:=cantP+1
+  fin
+  
+  proceso limpiarCalles(E final:numero)
+  variables
+    cantF:numero
+  comenzar
+    cantF:=0
+    repetir final -1 
+      juntarFlores(cantF)
+      mover
+    juntarFlores(cantF)
+    repetir cantF
+      depositarFlor
+  fin
+  
+  proceso limpiarAvenidas(E final:numero)
+  variables
+    cantP:numero
+  comenzar
+    cantP:=0
+    repetir final -1
+      juntarPapeles(cantP)
+      mover
+    juntarPapeles(cantP)
+    repetir cantP
+      depositarPapel
+  fin
+  
+areas
+  ciudad: AreaC(1,1,100,100)
+  
+robots
+  robot tipo1
+  variables
+    final1:numero
+  comenzar
+    final1:=15
+    derecha
+    limpiarCalles(final1)
+    Pos(1,PosCa+5)
+    limpiarCalles(final1)
+  fin
+  
+  robot tipo2
+  variables
+    final2:numero
+  comenzar
+    final2:=20
+    limpiarAvenidas(final2)
+    Pos(PosAv+5,80)
+    limpiarAvenidas(final2)
+  fin
+  robot tipo3
+  variables
+    final3:numero
+  comenzar
+    final3:=30
+    derecha
+    limpiarCalles(final3)
+    Pos(70,PosCa+5)
+    limpiarCalles(final3)
+  fin
+  robot tipo4
+  variables 
+    final4:numero
+  comenzar
+    final4:=10
+    limpiarAvenidas(final4)
+    Pos(PosAv+5,1)
+    limpiarAvenidas(final4)
+  fin
+variables
+  robot1:tipo1
+  robot2:tipo2
+  robot3:tipo3
+  robot4:tipo4
+comenzar
+  AsignarArea(robot1,ciudad)
+  AsignarArea(robot2,ciudad)
+  AsignarArea(robot3,ciudad)
+  AsignarArea(robot4,ciudad)
+  Iniciar(robot1,1,75)
+  Iniciar(robot2,75,80)
+  Iniciar(robot3,70,10)
+  Iniciar(robot4,10,1)
+fin
+

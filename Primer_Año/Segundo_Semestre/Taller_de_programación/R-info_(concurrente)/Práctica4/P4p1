@@ -1,0 +1,119 @@
+programa P4p1
+
+procesos
+  proceso juntarFlores(E cantF:numero)
+  comenzar
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+
+  fin
+  
+  proceso envioIds
+  comenzar
+    EnviarMensaje(1,cliente1)
+    EnviarMensaje(2,cliente2)
+    EnviarMensaje(3,cliente3)
+  fin
+  
+  proceso depositar(E av:numero;E ca:numero;E cant:numero)
+  comenzar
+    Pos(av,ca)
+    repetir cant
+      depositarFlor
+    Pos(100,100)
+  fin
+  
+areas
+  a1: AreaPC(1,1,1,100)
+  a2: AreaPC(2,1,2,100)
+  a3: AreaPC(3,1,3,100)
+  aS: AreaP(100,100,100,100)
+  
+robots
+  robot cliente
+  variables
+    sigo,termine:boolean
+    quienSoy,cant,av,ca:numero
+  comenzar
+    sigo:=V
+    RecibirMensaje(quienSoy,robotS)
+    mientras(sigo=V)
+      Random(cant,1,4)
+      EnviarMensaje(quienSoy,robotS)
+      EnviarMensaje(cant,robotS)
+      av:=PosAv
+      EnviarMensaje(av,robotS)
+      ca:=PosCa+1
+      EnviarMensaje(ca,robotS)
+      RecibirMensaje(termine,robotS)
+      mover
+      juntarFlores(cant)
+      Pos(PosAv,PosCa - 1)
+      mientras((PosCa < 100) &(cant > 0))
+        depositarFlor
+        mover
+        cant:=cant-1
+      si (cant > 0)
+        depositarFlor
+      si(PosCa = 100)
+        sigo:=F 
+        EnviarMensaje(0,robotS)  
+  fin
+  robot servidor
+  variables
+    terminados,cant,av,ca,ID:numero
+    termine:boolean
+  comenzar
+    envioIds
+    terminados:=0
+    mientras (terminados<3)
+      RecibirMensaje(ID,*)
+      si(ID=1)
+        RecibirMensaje(cant,cliente1)
+        si(cant<>0)
+          RecibirMensaje(av,cliente1)
+          RecibirMensaje(ca,cliente1)
+          depositar(av,ca,cant)
+          EnviarMensaje(termine,cliente1)
+        sino
+          terminados:=terminados+1
+      sino
+        si (ID=2)
+          RecibirMensaje(cant,cliente2)
+          si(cant<>0)
+            RecibirMensaje(av,cliente2)
+            RecibirMensaje(ca,cliente2)
+            depositar(av,ca,cant)
+            EnviarMensaje(termine,cliente2)
+          sino
+            terminados:=terminados+1
+        sino
+          RecibirMensaje(cant,cliente3)
+          si(cant<>0)
+            RecibirMensaje(av,cliente3)
+            RecibirMensaje(ca,cliente3)
+            depositar(av,ca,cant)
+            EnviarMensaje(termine,cliente3)
+          sino
+            terminados:=terminados+1 
+  fin
+variables
+  cliente1:cliente
+  cliente2:cliente
+  cliente3:cliente
+  robotS:servidor
+comenzar
+  AsignarArea(cliente1,a1)
+  AsignarArea(cliente2,a2)
+  AsignarArea(cliente3,a3)
+  AsignarArea(robotS,aS)
+  AsignarArea(robotS,a1)
+  AsignarArea(robotS,a2)
+  AsignarArea(robotS,a3)
+  Iniciar(cliente1,1,1)
+  Iniciar(cliente2,2,1)
+  Iniciar(cliente3,3,1)
+  Iniciar(robotS,100,100)
+fin
+
+
