@@ -1,0 +1,114 @@
+programa P3p5
+
+procesos
+  proceso izq 
+  comenzar
+    repetir 3
+      derecha
+  fin
+  proceso juntarFlores(ES cantF:numero)
+  comenzar
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+      cantF:=cantF+1
+  fin
+  
+  proceso juntarPapeles (ES cantP:numero)
+  comenzar
+    mientras (HayPapelEnLaEsquina)
+      tomarPapel
+      cantP:=cantP+1
+  fin
+
+  proceso envioIds 
+  comenzar
+    EnviarMensaje(1,robot1)
+    EnviarMensaje(2,robot2)
+    EnviarMensaje(3,robot3)
+    EnviarMensaje(4,robot4)
+  fin
+  
+areas
+  a1: AreaP(4,1,4,100)
+  a2: AreaP(6,1,6,100)
+  a3: AreaP(8,1,8,100)
+  a4: AreaP(10,1,10,100)
+  aC: AreaP(1,1,1,1)
+  aR: AreaPC(11,11,11,11)
+  
+robots
+  robot competidor
+  variables
+    vacio:boolean
+    quienSoy,caR,avR:numero
+  comenzar
+    
+    vacio:= F
+    RecibirMensaje(quienSoy,robotC)
+    mientras(vacio = F)
+      avR:= PosAv
+      caR:= PosCa
+      BloquearEsquina(11,11)
+      Pos(11,11)
+      si (HayPapelEnLaEsquina)
+        tomarPapel
+      sino
+        vacio:=V
+      Pos(avR,caR)
+      LiberarEsquina(11,11)
+      si (vacio = F)
+        depositarPapel
+        mover
+    EnviarMensaje(quienSoy,robotC)
+    EnviarMensaje(caR,robotC)
+  fin
+  
+  robot coordinador
+  variables
+    ID,ganador,pos,posMax:numero
+  comenzar
+    posMax:=0
+    envioIds
+    repetir 4
+      RecibirMensaje(ID,*)
+      si (ID=1)
+        RecibirMensaje(pos,robot1)
+      sino
+        si (ID=2)
+          RecibirMensaje(pos,robot2)
+        sino
+          si (ID=3)
+            RecibirMensaje(pos,robot3)
+          sino
+            RecibirMensaje(pos,robot4)
+      si (pos>posMax)
+        posMax:=pos
+        ganador:= ID
+    Informar(ganador)
+  fin
+variables
+  robot1:competidor
+  robot2:competidor
+  robot3:competidor
+  robot4:competidor
+  robotC:coordinador
+comenzar
+  AsignarArea(robot1,a1)
+  AsignarArea(robot1,aR)
+  AsignarArea(robot2,a2)
+  AsignarArea(robot2,aR)
+  AsignarArea(robot3,a3)
+  AsignarArea(robot3,aR)
+  AsignarArea(robot4,a4)
+  AsignarArea(robot4,aR)
+  AsignarArea(robotC,aC)
+  Iniciar(robot1,4,1)
+  Iniciar(robot2,6,1)
+  Iniciar(robot3,8,1)
+  Iniciar(robot4,10,1)
+  Iniciar(robotC,1,1)
+fin
+
+
+
+

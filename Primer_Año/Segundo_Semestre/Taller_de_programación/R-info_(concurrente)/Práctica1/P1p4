@@ -1,0 +1,83 @@
+programa P1p3
+
+procesos
+  proceso izq 
+  comenzar
+    repetir 3
+      derecha
+  fin
+  proceso juntarFlores
+  comenzar
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+  fin
+  
+  proceso juntarPapeles 
+  comenzar
+    mientras (HayPapelEnLaEsquina)
+      tomarPapel
+  fin
+  
+  proceso hacerAvenidaP 
+  comenzar
+    repetir 99
+      juntarPapeles
+      mover
+    juntarPapeles
+  fin
+  
+  proceso hacerAvenidaF
+  comenzar
+    repetir 99
+      juntarFlores
+      mover
+    juntarFlores
+  fin
+
+  proceso limpiarPares
+  comenzar
+    repetir 24
+      hacerAvenidaP
+      Pos(PosAv+1,1)
+    hacerAvenidaP
+  fin 
+  
+  proceso limpiarImpares
+  comenzar
+    repetir 24
+      hacerAvenidaF
+      Pos(PosAv+1,1)
+    hacerAvenidaF
+  fin
+areas
+  area1: AreaP(1,1,25,100)
+  area2: AreaP(26,1,50,100)
+  area3: AreaP(51,1,75,100)
+  area4: AreaP(76,1,100,100)
+robots
+  robot par
+  comenzar
+    limpiarPares
+    Pos(76,1)
+    limpiarPares
+  fin
+  
+  robot impar
+  comenzar
+    limpiarImpares
+    Pos(51,1)
+    limpiarImpares
+  fin
+
+variables
+  robotPar:par
+  robotImpar:impar
+comenzar
+  AsignarArea(robotPar,area2)
+  AsignarArea(robotPar,area4)
+  AsignarArea(robotImpar,area1)
+  AsignarArea(robotImpar,area3)
+  Iniciar(robotPar,26,1)
+  Iniciar(robotImpar,1,1)
+fin
+

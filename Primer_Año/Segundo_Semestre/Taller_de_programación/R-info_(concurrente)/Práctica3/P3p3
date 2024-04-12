@@ -1,0 +1,117 @@
+programa P3p3
+
+procesos
+
+  proceso juntarFlor(ES cantF:numero;ES vacio:boolean)
+  comenzar
+    si(HayFlorEnLaEsquina)
+      tomarFlor
+      cantF:=cantF+1
+    sino
+      vacio:=F
+  fin
+  
+  proceso envioMensajes(E calle:numero;E avenida:numero)
+  comenzar
+    EnviarMensaje(1,robot1)
+    EnviarMensaje(calle,robot1)
+    EnviarMensaje(avenida,robot1)
+    EnviarMensaje(2,robot2)
+    EnviarMensaje(calle,robot2)
+    EnviarMensaje(avenida,robot2)
+    EnviarMensaje(3,robot3)
+    EnviarMensaje(calle,robot3)
+    EnviarMensaje(avenida,robot3)
+    EnviarMensaje(4,robot4)
+    EnviarMensaje(calle,robot4)
+    EnviarMensaje(avenida,robot4)
+  fin
+
+areas
+  area1: AreaP (2,1,2,1)
+  area2: AreaP(3,1,3,1)
+  area3: AreaP(4,1,4,1)
+  area4: AreaP(5,1,5,1)
+  recolectores: AreaPC(2,2,10,10)
+  jefe: AreaP(1,1,1,1)
+ 
+robots
+  robot jefe
+  variables
+    calle,avenida:numero
+    ID:numero
+    cant,max:numero
+    IDmax:numero
+  comenzar
+    max:=0
+    IDmax:=0
+    Random(calle,2,10)
+    Random(avenida,2,10)
+    envioMensajes(calle,avenida)
+    repetir 4
+      RecibirMensaje(ID,*)
+      si (ID=1)
+        RecibirMensaje(cant,robot1)
+      sino
+        si (ID=2)
+          RecibirMensaje(cant,robot2)
+        sino
+          si (ID=3)
+            RecibirMensaje(cant,robot3)
+          sino
+            RecibirMensaje(cant,robot4)
+      si (cant>=max)
+        max:=cant
+        IDmax:= ID
+    Informar(IDmax)
+  fin
+
+  robot recolector
+  variables
+    caR,avR:numero
+    ca,av:numero
+    cantF:numero
+    vacio:boolean
+    quienSoy:numero
+  comenzar
+    vacio:=V
+    caR:=PosCa
+    avR:=PosAv
+    RecibirMensaje(quienSoy,robot5)
+    RecibirMensaje(ca,robot5)
+    RecibirMensaje(av,robot5)
+    mientras(vacio)
+      BloquearEsquina(av,ca)
+      Pos(av,ca)
+      juntarFlor(cantF,vacio)
+      Pos(avR,caR)
+      LiberarEsquina(av,ca)
+    EnviarMensaje(quienSoy,robot5)
+    EnviarMensaje(cantF,robot5)
+  fin
+  
+variables
+  robot1:recolector
+  robot2:recolector
+  robot3:recolector
+  robot4:recolector
+  robot5:jefe
+comenzar
+  AsignarArea(robot1,recolectores)
+  AsignarArea(robot1,area1)
+  AsignarArea(robot2,recolectores)
+  AsignarArea(robot2,area2)
+  AsignarArea(robot3,recolectores)
+  AsignarArea(robot3,area3)
+  AsignarArea(robot4,recolectores)
+  AsignarArea(robot4,area4)
+  AsignarArea(robot5,jefe)
+  Iniciar(robot1,2,1)
+  Iniciar(robot2,3,1)
+  Iniciar(robot3,4,1)
+  Iniciar(robot4,5,1)
+  Iniciar(robot5,1,1)
+fin
+
+
+

@@ -1,0 +1,256 @@
+programa P3p6
+
+procesos
+  proceso izq 
+  comenzar
+    repetir 3
+      derecha
+  fin
+  proceso juntarFlores(ES cantF:numero)
+  comenzar
+    mientras (HayFlorEnLaEsquina)
+      tomarFlor
+      cantF:=cantF+1
+  fin
+  
+  proceso juntarPapeles (ES cantP:numero)
+  comenzar
+    mientras (HayPapelEnLaEsquina)
+      tomarPapel
+      cantP:=cantP+1
+  fin
+  
+  proceso Asegurar (E av:numero;E ca:numero)
+  comenzar
+    BloquearEsquna
+  fin
+  
+  proceso recolectar (ES cantF:numero;ES cantP:numero)
+  comenzar
+    juntarFlores(cantF)
+    juntarPapeles(cantP)
+  fin
+  
+  proceso recorridoR1(ES cantF:numero)
+  comenzar
+    repetir 6
+      juntarFlores(cantF)
+      mover
+    derecha
+    repetir 2
+      mover
+      juntarFlores(cantF)
+    BloquearEsquina(5,8)
+    mover
+    juntarFlores(cantF)
+    mover
+    LiberarEsquina(5,8)
+    repetir 2
+      juntarFlores(cantF)
+      mover
+    derecha
+    repetir 2
+      juntarFlores(cantF)
+      mover
+    juntarFlores(cantF)
+    BloquearEsquina(8,5)
+    mover
+    juntarFlores(cantF)
+    mover
+    LiberarEsquina(8,5)
+    repetir 2
+      juntarFlores(cantF)
+      mover
+    derecha
+    repetir 6
+      juntarFlores(cantF)
+      mover
+  fin
+
+ proceso recorridoR2 (ES cantF:numero;ES cantP:numero)
+ comenzar
+    repetir 2
+      recolectar(cantF,cantP)
+      mover
+    recolectar(cantF,cantP)
+    BloquearEsquina(5,8)
+    mover
+    recolectar(cantF,cantP)
+    mover
+    LiberarEsquina(5,8)
+    repetir 6
+      recolectar(cantF,cantP)
+      mover
+    derecha
+    repetir 3
+      recolectar(cantF,cantP)
+      mover
+    BloquearEsquina(9,15)
+    mover
+    recolectar(cantF,cantP)
+    mover
+    LiberarEsquina(9,15)
+    repetir 5
+      recolectar(cantF,cantP)
+      mover
+    derecha
+    repetir 5
+      recolectar(cantF,cantP)
+      mover
+    recolectar(cantF,cantP)
+    BloquearEsquina(15,9)
+    mover
+    recolectar(cantF,cantP)
+    mover
+    LiberarEsquina(15,9)
+    repetir 3
+      recolectar(cantF,cantP)
+      mover
+    derecha
+    repetir 6
+      recolectar(cantF,cantP)
+      mover
+    BloquearEsquina(8,5)
+    mover
+    recolectar(cantF,cantP)
+    mover
+    LiberarEsquina(8,5)
+    repetir 2
+      recolectar(cantF,cantP)
+      mover
+  fin    
+ 
+ proceso recorrido3 (ES cantP:numero)
+ comenzar
+    repetir 5
+      juntarPapeles(cantP)
+      mover
+    BloquearEsquina(9,15)
+    mover
+    juntarPapeles(cantP)
+    mover
+    LiberarEsquina(9,15)
+    mover
+    derecha
+    repetir 7
+      juntarPapeles(cantP)
+      mover
+    derecha
+    repetir 7
+      juntarPapeles(cantP)
+      mover
+    derecha
+    juntarPapeles(cantP)
+    BloquearEsquina(15,9)
+    mover
+    juntarPapeles(cantP)
+    mover
+    LiberarEsquina(15,9)
+    repetir 5
+      juntarPapeles(cantP)
+      mover
+ fin
+ 
+areas
+  ciudad: AreaC(1,1,100,100)
+
+robots
+  robot comp1
+  variables
+    cantF,calle,quienSoy:numero
+    termine:boolean
+  comenzar
+    RecibirMensaje(quienSoy,robotJ)
+    recorridoR1(cantF)  
+    EnviarMensaje(quienSoy,robotJ)
+    RecibirMensaje(calle,robotJ)
+    Pos(1,calle)
+    mientras(PosCa<100)&(cantF>0)
+      depositarFlor
+      cantF:= cantF - 1
+      mover
+    si (cantF>0)
+      depositarFlor
+  fin
+  
+  robot comp2
+  variables
+    cantF,cantP,calle,quienSoy:numero
+    termine:boolean
+  comenzar
+    RecibirMensaje(quienSoy,robotJ)
+    recorridoR2(cantF,cantP)
+    EnviarMensaje(quienSoy,robotJ)
+    RecibirMensaje(calle,robotJ)
+    Pos(1,calle)
+    mientras(PosCa<100)&((cantF>0)|(cantP>0))
+      si (cantP>0)
+        depositarPapel
+        cantP:= cantP - 1
+      si (cantF>0)  
+        depositarFlor
+        cantF:= cantF - 1  
+      mover
+    si (cantP>0)
+      depositarPapel
+    si (cantF>0)
+      depositarFlor    
+  fin
+  
+  robot comp3
+  variables
+    cantP,calle,quienSoy:numero
+    termine:boolean
+  comenzar
+    RecibirMensaje(quienSoy,robotJ)
+    recorridoR3(cantP)
+    EnviarMensaje(quienSoy,robotJ)
+    RecibirMensaje(calle,robotJ)
+    Pos(1,calle)
+    mientras(PosCa<100)y(cantP>0)
+      depositarPapel
+      cantP:= cantP - 1
+      mover
+    si (cantP>0)
+      depositarPapel
+  fin
+  
+  robot jefe
+  variables
+    ID,calle:numero
+  comenzar
+    envioIds
+    calle := 20
+    repetir 3
+      RecibirMensaje(ID,*)
+      si(ID=1)
+        EnviarMensaje(calle,robot1)
+      sino
+        si (ID=2)
+          EnviarMensaje(calle,robot2)
+        sino
+          EnviarMensaje(calle,robot3)
+      calle:= calle + 1
+  fin
+  
+  
+variables
+  robot1:comp1
+  robot2:comp2
+  robot3:comp3
+  robotJ:jefe
+comenzar
+  AsignarArea(robot1,)
+  AsignarArea(robot2,)
+  AsignarArea(robot3,)
+  AsignarArea(robot4,)
+  AsignarArea(robot5,)
+  Iniciar(robot1,2,2)
+  Iniciar(robot2,5,5)
+  Iniciar(robot3,9,9)
+  Iniciar(robotJ,1,1)
+fin
+
+
+
+
