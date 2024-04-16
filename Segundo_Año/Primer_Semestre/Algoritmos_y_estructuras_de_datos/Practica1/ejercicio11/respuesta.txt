@@ -1,0 +1,3 @@
+Usaria una lista con todos los oclectivos de una linea donde cada uno tenga una Queue que tenga todas las paradas de la linea.
+Cada vez que un colectivo pasa por una parada, esta se vuelve a encolar al final de la Queue.
+Asi, cuando un colectivo termina su recorrido, vuelve a comenzar desde la primera parada.

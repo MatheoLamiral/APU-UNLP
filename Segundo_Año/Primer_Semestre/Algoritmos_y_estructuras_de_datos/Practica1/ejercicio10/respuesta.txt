@@ -1,0 +1,2 @@
+Usaría una DoubleEndedQueue, que cuando llegue una persona verifique.
+Si la persona tiene prioridad la agrego al principio de la fila, sino la agrego al final.
