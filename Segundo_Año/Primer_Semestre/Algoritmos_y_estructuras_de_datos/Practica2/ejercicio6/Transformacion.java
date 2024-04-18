@@ -23,8 +23,9 @@ public class Transformacion {
 		 }
 		 if(bint.hasLeftChild())sum+=total(bint.getLeftChild());
 		 if(bint.hasRightChild())sum+=total(bint.getRightChild());
+		 int act = bint.getData();
 		 bint.setData(sum);
-		 return sum;
+		 return sum + act;
 			 
 		 }
 	
@@ -35,6 +36,8 @@ public class Transformacion {
 		bt.getLeftChild().addRightChild(new BinaryTree<Integer>(4));
 		bt.getRightChild().addLeftChild(new BinaryTree<Integer>(5));
 		bt.getRightChild().addRightChild(new BinaryTree<Integer>(6));
+		bt.getRightChild().getLeftChild().addLeftChild(new BinaryTree<Integer>(7));
+		bt.getRightChild().getLeftChild().addRightChild(new BinaryTree<Integer>(8));
 		
 		Transformacion t = new Transformacion(bt);
 		System.out.println("Arbol original: ");
