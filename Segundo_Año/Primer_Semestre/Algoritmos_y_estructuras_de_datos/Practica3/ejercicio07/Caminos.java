@@ -1,7 +1,8 @@
-package Practica3.ejercicio7;
+package Practica3.ejercicio07;
 
 import java.util.*;
-import Practica3.ejercicio1_3_5.GeneralTree;
+
+import Practica3.ejercicio01_03_05.GeneralTree;
 
 public class Caminos {
 	private GeneralTree<Integer> gt;

@@ -1,8 +1,9 @@
-package Practica3.ejercicio6;
+package Practica3.ejercicio06;
 
 import java.util.LinkedList;
 import java.util.List;
-import Practica3.ejercicio1_3_5.GeneralTree;
+
+import Practica3.ejercicio01_03_05.GeneralTree;
 
 public class RedAguaPotable {
 	private GeneralTree<Character> gt;

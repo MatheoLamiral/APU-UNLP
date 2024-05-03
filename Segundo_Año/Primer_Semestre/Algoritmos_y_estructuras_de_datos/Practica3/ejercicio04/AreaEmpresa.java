@@ -1,4 +1,4 @@
-package Practica3.ejercicio4;
+package Practica3.ejercicio04;
 
 public class AreaEmpresa {
 	private String ident;

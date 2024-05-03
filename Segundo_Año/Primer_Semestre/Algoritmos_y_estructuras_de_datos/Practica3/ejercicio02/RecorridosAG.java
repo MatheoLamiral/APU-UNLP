@@ -1,9 +1,9 @@
-package Practica3.ejercicio2;
+package Practica3.ejercicio02;
 
 import java.util.*;
 
 import Practica1.ejercicio8.Queue;
-import Practica3.ejercicio1_3_5.GeneralTree;
+import Practica3.ejercicio01_03_05.GeneralTree;
 
 public class RecorridosAG {
 	//PREORDEN
