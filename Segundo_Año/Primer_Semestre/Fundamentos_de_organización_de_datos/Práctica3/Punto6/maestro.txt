@@ -1,0 +1,10 @@
+111 1 10 50 desc1
+rojo
+333 3 10 60 dec3
+azul
+222 2 20 15 desc2
+celeste
+666 6 30 40 desc6
+verde
+555 5 25 50 desc5
+naranja
