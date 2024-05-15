@@ -1,0 +1,20 @@
+A- Se organizan como un árbol B, con la diferencia de que sus hojas forman
+   una lista, es decir se referencian secuencialmente. Los nodos internos 
+   contienen de copias, que pueden o no formar parte del archivo, pero siguen 
+   sirviendo como separadores. La información que está en el archivo y con la 
+   que se trabaja, es la que se encuentra en las hojas 
+
+B- Permite tener un acceso secuencial más rápido, ya que forman una lista que
+   se puede recorrer secuencialmente. Las hojas se vinculan para facilitar el 
+   recorrido secuancial rápido, cuándo se lee en órden lógico, lista todos los 
+   registros por el órden de la clave
+
+D- Busco en el indice el DNI, viendo si es mayor o menor a los nodos internos hasta
+   llegar a una hoja y desde ahi verifica si la clave se encuentra o no en el árbol.
+   Ya que si lo encontrara en algún nodo interno, no significaría que la el alumno 
+   con ese DNI se encuentre en el archivo de datos. Si encuentra la clave, el proceso
+   es igual al de un árbol B 
+
+E- Buscará el extremo menor en el árbol, una vez que lo encuentra, recorre la lista 
+   de hojas hasta que encuentre el extremo mayor o se termine la lista.
+   La ventaja es que permite una búsqueda secuencial rápida  

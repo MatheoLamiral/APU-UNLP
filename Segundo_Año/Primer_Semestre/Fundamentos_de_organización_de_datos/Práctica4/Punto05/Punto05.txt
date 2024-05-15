@@ -1,0 +1,3 @@
+La redistribución se aplica cuando hay una situación de underflow en un nodo, y sus hermano/os
+adyacentes tienen la posibilidad de redistribuir (es decir, que la redistribución no ocacione underflow en sus nodos),
+en caso de no poder redistribuhir, se concatena ?????  

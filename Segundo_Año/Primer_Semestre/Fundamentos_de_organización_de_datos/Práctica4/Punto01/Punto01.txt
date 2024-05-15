@@ -1,0 +1,19 @@
+B- N = (M-1) . A + M . B + C
+
+   512 = (M-1) . 64 + M . 4 + 4
+   512 = 64M - 64 + 4M + 4
+   512 = 68M - 60
+   512 + 60 = 68M
+   572/68 = M
+   8,411 = M --> Me quedo la parte entera --> M = 8
+
+C- Que al ocupar más espacio, el orden disminuye
+
+D- Eligiría DNI, pero también se podría elegir legajo
+
+E- En el Peor de los casos, cuando el alumno buscado se encuentra en una hoja, se necesitaran h lecturas, siendo
+   h la altura del árbol. Y en el mejor de los casos, cuando el alumno buscado se encuentre en la raíz del árbol
+   se necesitará 1 lectura 
+
+F- Estaría buscando sin ningún orden, y en el peor de los casos realizaría N lecturas, siendo N la cantidad de 
+   nodos del árbol 

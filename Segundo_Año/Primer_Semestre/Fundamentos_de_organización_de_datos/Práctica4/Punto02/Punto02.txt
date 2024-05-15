@@ -1,0 +1,22 @@
+B- N = (M-1) . A + M . B + C
+
+   512 = 4 + (M-1) . 4 + (M-1) . 4 + 4M
+   512 = 4 + 4M - 4 + 4M - 4 + 4M
+   512 = 12M - 4
+   512 + 4 = 12M
+   516/12 = M
+   43 = M  
+
+C- Que se van a necesitar menos accesos a disco para encontrar un registro
+
+D- Se realizara la búsqueda en el archivo de indices, en el campo claves, si existe, obtengo
+   la posición del vector que contiene ese DNI, y con esa posición accedo al vector del campo 
+   enlaces y obtengo la dirección del alumno con ese DNI en el archivo de datos
+
+E- No tiene sentido usar este indice buscando por legajo, ya que estaría ordenando lógicamente
+   por un criterio y luego ordenado por otro.
+   Para brindar la posibilidad de buscar por legajo, crearía otro archivo indice, ordenado como
+   un árbol B por legajo
+
+F- Los árboles B no tienen buena búsqueda secuencial, seria conveniente usar un árbol B+ para
+   recorrer secuencialmente su lista de hojas 
