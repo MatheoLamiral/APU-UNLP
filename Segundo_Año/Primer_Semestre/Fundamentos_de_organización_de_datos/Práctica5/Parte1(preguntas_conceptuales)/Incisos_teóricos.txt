@@ -1,0 +1,50 @@
+1-  Técnica que convierte la llave del registro en un número aleatorio, el que 
+    sirve después para determinar donde se almacena el registro. No rquiere 
+    alamacenamiento adicional (índice), facilita la inserción y eliminación de
+    registros, y encuentra registros con muy pocos accesos a disco en promedio.
+
+2-  Función la cual devuelve una dirección de un registro, ya sea para almacenarlo o
+    o buscarlo, a partir de una calve dada.
+
+    i.Saturación progresiva: cuando se completa el nodo, se busca el próximo hasta 
+    encontrar uno libre
+
+    ii. Saturación progresiva encadenada: similar a Saturación progresiva, pero los 
+    registros de saturación se encadenan y "no ocupan" necesariamente posiciones
+    antiguas
+
+    iii. Dispersión doble: saturación tiende a agrupar en zonas contiguas, búsquedas 
+    largas cuando la densidad tiende a uno. Solución: almacenar los registros de 
+    overflow en zonas no relacionadas. Esquema con el cual se resuelven overflows
+    aplicando una segunda función a la llave para producir un Nº C, el cual se 
+    suma a la dirección original tantas veces como sea necesario hasta encontrar 
+    una dirección con espacio. 
+
+    iiii. Encadenamiento en áreas separadas: no utiliza nodos de direcciones para los 
+    overflow, estos van a nodos especiales. Ejemplo: se mejora el tratamiento de inserciones 
+    o eliminaciones. Empeora el TAP. Ubicación del desborde: a intervalos regulares entre 
+    direcciones asignadas y cilindros de desborde
+
+3-  Colisión: Situación en la que un registro es asignado a una dirección que está 
+    utilizada por otro registro
+
+    Desborde: Situación en la que un registro es asignado a una dirección que está 
+    utilizada por otro registro y no queda espacio para este nuevo
+
+    Sinónimo: Cuando dos claves primarias dan, mediante la función de hashing, la misma 
+    dirección de registro, se dice que estas claves son sinónimas para la función de hashing
+
+    Para que haya una colisión sin haber desborde, es condición necesaria que, haya al menos 
+    un registro en el nodo, para que se genere colisión, pero que quede epsacio disponible en 
+    él, para que pueda insertarse el nuevo registro sin que haya desborde 
+
+4- 
+
+5-  La densidad de empaquetamiento es la proporción de espacio del archivo asignado que en 
+    realidad almacena registros.
+    Se calcula como: número de registros del archivo/capacidad total del archivo.
+    Las consecuencias de tener una densidad de empaquetamiento menor son, menos overflow y más 
+    desperdicio de espacio
+
+6-  
+
