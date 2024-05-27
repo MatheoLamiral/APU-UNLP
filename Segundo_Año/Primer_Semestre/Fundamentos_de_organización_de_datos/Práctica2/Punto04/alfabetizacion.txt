@@ -1,0 +1,6 @@
+500 600 Buenos Aires
+010 100 300 Catamarca
+700 850 Córdoba
+345 700 Mendoza
+0011 30 60 Neuquen
+670 690 Rio Negro

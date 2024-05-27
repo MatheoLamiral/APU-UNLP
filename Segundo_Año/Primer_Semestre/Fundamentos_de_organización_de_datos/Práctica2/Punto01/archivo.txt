@@ -1,0 +1,7 @@
+1 300 Pepe
+1 200 Pepe
+1 100 Pepe
+2 400 Francisco
+3 200 Martina
+3 100 Martina
+4 1000 Agostina

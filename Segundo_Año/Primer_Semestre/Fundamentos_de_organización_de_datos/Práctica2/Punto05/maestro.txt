@@ -1,0 +1,12 @@
+1 pan
+100 30 200 desc1
+2 fideos
+100 25 100 desc2
+3 Ensalada 
+100 20 300 desc3
+4 Carne
+100 15 400 desc4
+5 Pescado
+100 10 500 desc5
+6 Bebida
+100 60 600 desc6

@@ -1,0 +1,3 @@
+Partida=1 Nombre=1 Apellido=1 Direccion=1 MatNacimiento=1 NAMadre=1 DNIMadre=1 NAPadre=1 DNIPadre=1
+Partida=2 Nombre=2 Apellido=2 Direccion=2 MatNacimiento=2 NAMadre=2 DNIMadre=2 NAPadre=2 DNIPadre=2
+Partida=3 Nombre=3 Apellido=3 Direccion=3 MatNacimiento=3 NAMadre=3 DNIMadre=3 NAPadre=3 DNIPadre=3

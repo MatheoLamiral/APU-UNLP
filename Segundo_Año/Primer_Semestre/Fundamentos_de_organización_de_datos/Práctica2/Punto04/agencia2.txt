@@ -1,0 +1,5 @@
+001 150 200 Buenos Aires
+002 100 200 Buenos Aires
+007 50 100 Mendoza
+008 70 90 Rio Negro
+009 30 60 Rio Negro

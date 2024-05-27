@@ -1,0 +1,16 @@
+111 10 nom1
+desc1
+mod1
+marca1
+222 6 nom2
+desc2
+mod2
+marca2
+333 5 nom3
+desc3
+mod3
+marca3
+444 3 nom4
+desc4
+mod4
+marca4

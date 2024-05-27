@@ -1,0 +1,18 @@
+111 2023 1 9 100 Roberto
+Flores
+111 2023 1 8 200 Roberto
+Flores
+111 2023 2 7 800 Roberto
+Flores
+111 2024 1 6 0 Roberto
+Flores
+111 2024 4 5 500 Roberto
+Flores
+112 2023 2 4 100 Lucio
+Zapata
+112 2023 2 3 200 Lucio
+Zapata
+112 2024 7 2 0 Lucio
+Zapata
+113 2024 1 1 0 Agustina
+Gutierrez

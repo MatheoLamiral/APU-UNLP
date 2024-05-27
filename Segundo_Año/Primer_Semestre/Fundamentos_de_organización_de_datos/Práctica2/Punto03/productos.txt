@@ -1,0 +1,4 @@
+001 250 50 25 jabon
+002 300 10 15 escobas
+003 150 20 15 secadores 
+004 500 5 20 guantes

@@ -1,0 +1,4 @@
+001 4 1 Gomez Pepe
+002 1 5 Perez Manuel
+003 2 3 Villareal Tomas
+004 3 2 Gutierrez Agustin
