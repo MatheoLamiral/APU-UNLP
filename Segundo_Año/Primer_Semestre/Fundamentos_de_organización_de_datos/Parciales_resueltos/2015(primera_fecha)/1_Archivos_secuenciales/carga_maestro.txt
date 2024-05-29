@@ -1,0 +1,16 @@
+111 10 5 nom1
+desc1
+codbarra1
+cat1
+222 10 20 nom2
+desc2
+codbarra2
+cat1
+333 5 10 nom3
+desc3
+codbarra3
+cat2
+444 10 10 nom4
+desc4
+codbarra4
+cat4
