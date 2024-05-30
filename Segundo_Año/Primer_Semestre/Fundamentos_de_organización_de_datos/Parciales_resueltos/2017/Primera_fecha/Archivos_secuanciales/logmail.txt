@@ -1,0 +1,12 @@
+001 10 userPepe 
+Pepe 
+Gonzales
+002 5 userGaston 
+Gaston 
+Torres
+003 20 userSnadra 
+Sandra 
+Espinoza
+004 15 userMonica 
+Monica 
+Salgado

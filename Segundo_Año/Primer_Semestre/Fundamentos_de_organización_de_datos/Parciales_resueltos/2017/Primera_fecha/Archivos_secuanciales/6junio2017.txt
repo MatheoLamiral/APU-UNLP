@@ -1,0 +1,8 @@
+001 unDestino1 
+holaaaa
+001 unDestino2 
+adioss
+002 otroDestino1 
+chauuu
+003 otroDestino2 
+como te va
