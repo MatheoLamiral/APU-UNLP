@@ -2,7 +2,7 @@
 Árbol B, orden 5, max 4, min 1.
 Política de resolución de underflows izquierda.              
 
-- *Inicial*                   
+- ```*Inicial*                   
                         2: 0 (320) 1 (490) 4(555) 5(641) 3
     0: (13)(153) 1: (325)(341)(431)(460) 4: (500)(507) 5: (608)(633) 3: (790)(923)  
 
