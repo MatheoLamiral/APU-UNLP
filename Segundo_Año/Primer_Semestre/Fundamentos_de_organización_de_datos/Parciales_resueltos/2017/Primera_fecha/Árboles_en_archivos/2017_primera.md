@@ -8,7 +8,7 @@ Política de resolución de underflows izquierda.
     0: (13)(153) 1: (325)(341)(431)(460) 4: (500)(507) 5: (608)(633) 3: (790)(923)  
 
 
-- *+445*
+## +445
 
 Intento insertar la calve 455 en el nodo 1, se produce overflow, entonces creo el
 nodo 6 y divido la cantidad de calves en partes iguales entre el nodo 1 y el nodo 6,
@@ -19,20 +19,19 @@ el nodo 8 e inserto en él la clave que promocionó.
 
 L2,L1,E1,E6,E2,E7,E8.
 
-```
                                 8: (490)
             2: 0 (320) 1 (431) 6             7: 4(555) 5(641) 3 
  0: (13)(153)  1: (325)(341)  6: (445)(460)  4: (500)(507)  5: (608)(633)  3: (790)(923)
 
 
-- *-490*
+## -490
 
 Cambio de posición la clave 490 con la clave mas chica del nodo mas a la izquierda
 de su subárbol derecho, 500, y elimino la clave 490 del nodo 4.
 
 L8,L7,L4,E4,E8.
 
-```
+
                                 8: (500)
 
             2: 0 (320) 1 (431) 6             7: 4(555) 5(641) 3 
@@ -40,7 +39,7 @@ L8,L7,L4,E4,E8.
  0: (13)(153)  1: (325)(341)  6: (445)(460)  4: (507)  5: (608)(633)  3: (790)(923)
 
 
-- *-507*
+## -507
 
 Elimino la calve 507 del nodo 4, se produce underflow, como no tiene hermano izquierdo
 redistribuyo con su hermano adyacente derecho, entonces la clave 555 pasa del nodo 7
@@ -48,7 +47,7 @@ al nodo 4, y la clave 608 pasa del nodo 5 al nodo 7.
 
 L8,L7,L4,L5,E4,E5,E7.
 
-```
+
                                 8: (500)
 
             2: 0 (320) 1 (431) 6             7: 4(608) 5(641) 3 
@@ -56,7 +55,7 @@ L8,L7,L4,L5,E4,E5,E7.
  0: (13)(153)  1: (325)(341)  6: (445)(460)  4: (555)  5: (633)  3: (790)(923)
 
 
-- *-608*
+## -608
 
 Cambio de posición la clave 608 con la clave mas chica del nodo mas a la izquierda
 de su subárbol derecho, 633, y elimino la clave 608 del nodo 5. Se produce underflow, 
@@ -66,7 +65,7 @@ del nodo 5.
 
 L8,L7,L5,L4,E4,E7.
 
-```
+
                                 8: (500)
 
             2: 0 (320) 1 (431) 6             7: 4(641) 3 
