@@ -1,4 +1,4 @@
-program P2p12;
+program primera2017;
 const
     valoralto = -1;
 type
