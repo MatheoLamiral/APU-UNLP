@@ -75,16 +75,20 @@ type
     Function existeProducto(var archivo:ArchivoProductos; cod:integer):boolean;
     var 
         reg:producto;
+        encontrado: boolean;
     begin
-        reset(archivo);
-        while(not eof(archivo)) do begin
+        encontrado := false;
+        while(not eof(archivo) and not encontrado) do 
+        begin
           read(archivo,reg);
           if(reg.cod = cod) then begin
-            existeProducto:=true;
+            encontrado := true;
           end;
         end;
-        existeProducto:=false;
-        close(archivo);
+        if(encontrado) then 
+          existeProducto:=true
+        else  
+          existeProducto:=false
     end;
 
     Procedure darDeAlta(var arch:ArchivoProductos);
@@ -96,6 +100,7 @@ type
         if(not(existeProducto(arch,reg.cod))) then
         begin
             //leo la cabecera
+            seek(arch,0);
             Read(arch,cab);
             if(cab.cod = 0) then
             begin
@@ -121,10 +126,40 @@ type
         close(arch);
     end;
 
+    Procedure darDeBaja(var arch:ArchivoProductos);
+    var
+        cab:producto;
+        pos,cod:integer;
+    begin
+        reset(arch);
+        Writeln('Ingrese el codigo del producto a dar de baja');
+        readln(cod);
+        //leo la cabecera
+        Read(arch,cab);
+        if(existeProducto(arch,cod)) then
+        begin
+            pos:=filepos(arch)-1;
+            seek(arch,pos);
+            //eacribo lo que tenia la cabecera en la ultima pos libre
+            Write(arch,cab);
+            //veulvo a la cabecera
+            seek(arch,0);
+            //escribo el nuevo valor de la cabecera
+            cab.cod:=pos*-1;
+            Write(arch,cab);
+        end
+        else writeln('El producto no existe!');
+        close(arch);
+    
+    end;
+
 var
     archivo:ArchivoProductos;
 begin
     cargarArchivo(archivo);
     imprimirArchivo(archivo);
     darDeAlta(archivo);
+    imprimirArchivo(archivo);
+    darDeBaja(archivo);
+    imprimirArchivo(archivo);
 end.
