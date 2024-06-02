@@ -1,0 +1,20 @@
+1 1.25 1.50 101 Leche Entera
+Leche entera pasteurizada
+2 0.75 1.00 102 Pan de Molde
+Pan de molde integral
+3 2.50 3.00 103 Café Molido
+Café molido 100% arábica
+4 1.00 1.30 104 Mantequilla
+Mantequilla sin sal
+5 0.50 0.75 105 Yogur Natural
+Yogur natural sin azúcar
+6 3.00 3.50 106 Aceite de Oliva
+Aceite de oliva virgen extra
+7 2.00 2.50 107 Arroz
+Arroz largo fino
+8 1.50 1.80 108 Jugo de Naranja
+Jugo de naranja natural
+9 0.90 1.20 109 Galletas de Chocolate
+Galletas de chocolate con relleno de crema
+10 4.00 5.00 110 Pollo Entero
+Pollo entero fresco

@@ -1,0 +1,10 @@
+001 100 20 100 Chupetín
+002 150 30 3 Pastillas
+003 200 40 1 Caramelo
+004 120 25 1 Chocolate
+005 180 35 9 Gomitas
+006 90 15 1 Marshmallow
+007 80 10 5 Bombones
+008 110 22 100 Alfajor
+009 160 28 2 Caramelos Ácidos
+
