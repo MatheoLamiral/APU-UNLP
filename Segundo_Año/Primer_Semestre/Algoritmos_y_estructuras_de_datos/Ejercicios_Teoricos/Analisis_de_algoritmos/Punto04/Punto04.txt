@@ -1,0 +1,10 @@
+ 8
+ ∑   n* i =
+i=3
+
+a) (8-3+1) * n
+b) (8-3+1) * i * n
+c) 33 n
+d) 5 n
+e) 8 * i
+f) Ninguna de las otras opciones x

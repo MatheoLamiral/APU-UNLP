@@ -1,0 +1,23 @@
+Teniendo en cuenta que:
+
+- T(n)= n * log(n)
+- La computadora ejecuta 10.000 op/seg
+
+Cuánto tiempo requiere el algoritmo con n=1024?
+
+T(1024)= 1024 * log(1024)  --> asumo logaritmo en base 10
+T(1024)= 1024 * 3,010
+T(1024)= 3.082,24
+
+entonces:
+
+10.000 op ---- 1 seg
+3.082,24 op ---- ? seg
+
+(regla de tres simples)
+
+El arlgoritmo requiere 0,308224 seg con n=1024
+
+
+
+

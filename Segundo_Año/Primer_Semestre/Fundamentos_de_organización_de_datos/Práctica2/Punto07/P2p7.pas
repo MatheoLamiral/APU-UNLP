@@ -1,22 +1,13 @@
-program P2p7;
+Program P2p7;
+
 uses
     SysUtils;
 const
-    valoralto = 999;
+    valoralto = 9999;
     dimF = 3;//= 10;
-type
-    subRango = 1..dimF;
+type 
 
-    casos_mun=record
-        cod_loc:integer;
-        cod_cepa:integer;
-        activos:integer;
-        nuevos:integer;
-        recuperados:integer;
-        fallecidos:integer;
-    end;
-
-    casos_minis=record
+    casos_ministerio = record
         cod_loc:integer;
         nom_loc:string;
         cod_cepa:integer;
@@ -27,193 +18,217 @@ type
         fallecidos:integer;
     end;
 
-    ArchivoMaestro = file of casos_minis;
-    ArchivoDetalle = file of casos_mun;
-    vecDetalles = array [subRango] of ArchivoDetalle;
-    vecRegistros = array [subRango] of casos_mun;
-
-    procedure crearUnDetalle(var det:ArchivoDetalle;nombre_txt:string;nombre_binario:string);
-    var
-        t: text;
-        c: casos_mun;
-    begin
-        assign(t, nombre_txt);
-        reset(t);
-        assign(det, nombre_binario);
-        rewrite(det);
-        while(not eof(t)) do
-            begin
-                with c do
-                    begin
-                        readln(t, cod_loc, cod_cepa, activos, nuevos, recuperados, fallecidos);
-                        write(det, c);
-                    end;
-            end;
-        writeln('Archivo binario detalle creado con exito!');
-        close(det);
-        close(t);
+    casos_municipio = record
+        cod_loc:integer;
+        cod_cepa:integer;
+        activos:integer;
+        nuevos:integer;
+        recuperados:integer;
+        fallecidos:integer;
     end;
+    
+    Detalle = file of casos_municipio;
+    Maestro = file of casos_ministerio;
 
-    procedure crearDetalles(var v: vecDetalles);
-    var
-        i: integer;
-    begin
-        for i:= 1 to dimF do 
-            crearUnDetalle(v[i],'det'+IntToStr(i)+'.txt','detalle'+IntToStr(i));
-    end;
+    vecDetalles = array [1..dimF] of Detalle;
+    vecRegistros = array [1..dimF] of casos_municipio;
 
-    procedure crearMaestro(var mae: ArchivoMaestro);
+    Procedure cargarMaestro(var mae:Maestro);
     var
-        txt: text;
-        c: casos_minis;
+        txt:text;
+        regMae:casos_ministerio;
     begin
-        assign(txt, 'maestro.txt');
+        Assign(txt,'maestro.txt');
+        Assign(mae,'archivoMinisterio.dat');
         reset(txt);
-        assign(mae, 'Archivo_casos_ministerio');
         rewrite(mae);
-        while(not eof(txt)) do
+        while(not eof(txt))do
+        begin
+            with regMae do
             begin
-                with c do
-                    begin
-                        readln(txt, cod_loc, cod_cepa, activos, nuevos, recuperados, fallecidos, nom_cepa);
-                        readln(txt, nom_loc);
-                        write(mae, c);
-                    end;
+                Readln(txt,cod_loc,cod_cepa,activos,nuevos,recuperados,fallecidos,nom_cepa);
+                Readln(txt,nom_loc);
             end;
-        writeln('Archivo binario "Archivo_casos_ministerio" creado con exito!');
+            Write(mae,regMae);
+        end;
+        writeln('Archivo "archivoMinisterio.dat" creado con exito!');
         close(txt);
         close(mae);
     end;
 
-    procedure leer(var det: ArchivoDetalle; var reg: casos_mun);
-    begin
-        if(not eof(det)) then
-            read(det, reg)
-        else
-            reg.cod_loc := valoralto;
-    end;
-
-    procedure minimo(var v: vecDetalles; var vecReg: vecRegistros; var min: casos_mun);
+    Procedure imprimirMaestro(var mae:Maestro);
     var
-        i, pos: subrango;
-    begin
-        min.cod_loc:= valoralto;
-        for i:= 1 to dimF do
-        begin
-            if (vecReg[i].cod_loc < min.cod_loc) or ((vecReg[i].cod_loc = min.cod_loc) and (vecReg[i].cod_cepa < min.cod_cepa)) then
-            begin
-                min:= vecReg[i];
-                pos:= i;
-            end;
-        end;
-        if(min.cod_loc <> valoralto) then
-            leer(v[pos], vecReg[pos]);
-    end;
-
-    procedure actualizarMaestro(var mae: ArchivoMaestro; var v: vecDetalles);
-    var
-        min:casos_mun;
-        reg_mae: casos_minis;
-        vecReg: vecRegistros;
-        i: subrango;
-        cant_casos,cant_loc:integer;
+        regMae:casos_ministerio;
     begin
         reset(mae);
-        for i:= 1 to dimF do
-            begin
-                reset(v[i]);
-                leer(v[i], vecReg[i]);
-            end;
-        minimo(v, vecReg, min);
-        cant_loc:=0;
-        if(not eof(mae))then 
-            Read(mae,reg_mae);
-        while(min.cod_loc <> valoralto)do
+        while(not eof(mae))do
         begin
-            cant_casos:=0;
-            //mientras no encuentre la localidad 
-            while(reg_mae.cod_loc <> min.cod_loc)and(not eof(mae))do 
-                Read(mae,reg_mae);
-            //mientras estoy en la misma localidad 
-            while(reg_mae.cod_loc = min.cod_loc)do
+            Read(mae,regMae);
+            with regMae do
             begin
-                //mientras no encuantre la sepa 
-                while(reg_mae.cod_cepa <> min.cod_cepa)and(not eof(mae))do 
-                    Read(mae,reg_mae);
-                while(reg_mae.cod_loc = min.cod_loc)and(reg_mae.cod_cepa = min.cod_cepa)do
-                begin
-                    writeln('holaaaaa');
-                    reg_mae.fallecidos:= reg_mae.fallecidos + min.fallecidos;
-
-                    reg_mae.recuperados:= reg_mae.recuperados + min.recuperados;
-
-                    cant_casos:= cant_casos + min.activos;
-
-                    reg_mae.activos:= min.activos;
-
-                    reg_mae.nuevos:= min.nuevos;
-
-                    minimo(v, vecReg, min);
-                    writeln('sigooo');
-                end;
-                writeln('cantidad de casos en la localidad: ',cant_casos);
-                seek(mae,filepos(mae)-1);
-                write(mae, reg_mae);
+                writeln('CODIGO DE LOCALIDAD: ', cod_loc, ', NOMBRE DE LOCALIDAD: ', nom_loc,
+                 ', CODIGO DE CEPA: ', cod_cepa, ', NOMBRE DE CEPA: ', nom_cepa, ', ACTIVOS: ',
+                  activos, ', NUEVOS: ', nuevos, ', RECUPERADOS: ', recuperados, ', FALLECIDOS: ',
+                   fallecidos);
             end;
-            if(cant_casos>50)then cant_loc:=cant_loc+1;
         end;
         close(mae);
-        for i:= 1 to dimF do
-            close(v[i]);
-        writeln('la cantidad de localidades con mas de 50 casos activos es ',cant_loc);
     end;
 
-    Procedure imprimirArchivo(var arch:ArchivoMaestro);
-	var
-		reg:casos_minis;
-	begin
-		reset(arch);
-        writeln('ARCHIVO MAESTRO');
-		while(not eof(arch))do
-		begin
-			Read(arch,reg);
-			writeln('CODLOC:',reg.cod_loc,', CODCEPA:',reg.cod_cepa,', LOC:',reg.nom_loc,', CEPA:',reg.nom_cepa,
-                    ', ACTIVOS:',reg.activos,', NUEVOS:',reg.nuevos,', RECUPERADOS:',reg.recuperados,', FALLECIDOS:',reg.fallecidos);
-		end;
-		close(arch);
-	end;
+    Procedure cargarUnDetalle(var det:Detalle;nombre:string);
+    var
+        txt:text;
+        regDet:casos_municipio;
+    begin
+        Assign(txt,nombre+'.txt');
+        Assign(det,nombre+'.dat');
+        reset(txt);
+        rewrite(det);
+        while(not eof(txt))do
+        begin
+            with regDet do
+            begin
+                Readln(txt,cod_loc,cod_cepa,activos,nuevos,recuperados,fallecidos);
+            end;
+            Write(det,regDet);
+        end;
+        writeln('Archivo "',nombre,'.dat " creado con exito!');
+        close(txt);
+        close(det);
+    end;
 
-    Procedure imprimirUnArchivoDetalle(var arch:ArchivoDetalle);
-	var
-		reg:casos_mun;
-	begin
-		reset(arch);
-		while(not eof(arch))do
-		begin
-			Read(arch,reg);
-			writeln('CODLOC:',reg.cod_loc,', CODCEPA:',reg.cod_cepa,', ACTIVOS:',reg.activos,', NUEVOS:',reg.nuevos,', RECUPERADOS:',reg.recuperados,', FALLECIDOS:',reg.fallecidos);
-		end;
-		close(arch);
-	end;
-
-    Procedure imprimirDetalles(var v:vecDetalles);
+    Procedure cargarDetalles(var vec:vecDetalles);
     var
         i:integer;
     begin
-        for i:=1 to dimF do
+        for i:= 1 to dimF do
         begin
-            writeln('DETALLE ', i);
-            imprimirUnArchivoDetalle(v[i]);
+            cargarUnDetalle(vec[i],'det'+IntToStr(i));
         end;
     end;
 
+    Procedure imprimirDetalles(var vec:vecDetalles);
+    var
+        i:integer;
+        regDet:casos_municipio;
+    begin
+        for i:= 1 to dimF do
+        begin
+            writeln('***ARCHIVO DETALLE ',i,'***');
+            reset(vec[i]);
+            while(not eof(vec[i]))do
+            begin
+                Read(vec[i],regDet);
+                with regDet do
+                begin
+                    writeln('CODIGO DE LOCALIDAD: ', cod_loc, ', CODIGO DE CEPA: ', cod_cepa,
+                     ', ACTIVOS: ', activos, ', NUEVOS: ', nuevos, ', RECUPERADOS: ', recuperados,
+                      ', FALLECIDOS: ', fallecidos);
+                end;
+            end;
+            close(vec[i]);
+            writeln('----------------------------');
+        end;
+    end;
+
+    Procedure leerDet(var det:Detalle;var regDet:casos_municipio);
+    begin
+        if(not eof(det))then
+            read(det,regDet)
+        else
+            regDet.cod_loc:=valoralto;
+    end;
+
+    Procedure leerMae(var mae:Maestro;var regMae:casos_ministerio);
+    begin
+        if(not eof(mae))then
+            read(mae,regMae)
+        else
+            regMae.cod_loc:=valoralto;
+    end;
+
+    Procedure minimo(var vd:vecDetalles;var vr:vecRegistros;var min:casos_municipio);
+    var 
+        i,pos:integer;
+    begin
+        min.cod_loc:=valoralto;
+        for i:= 1 to dimF do
+        begin
+            //si encunetro una localidad con menor codigo o si tienen el mismo codigo pero la cepa es menor
+            if(vr[i].cod_loc < min.cod_loc)or((min.cod_loc = min.cod_loc)and(vr[i].cod_cepa < min.cod_cepa))then
+            begin
+                //actualizo el minimo
+                min:=vr[i];
+                //me guardo la posicion del minimo
+                pos:=i;
+            end;
+        end;
+        //si el minimo no es valoralto
+        if(min.cod_loc <> valoralto)then
+            //actualizo el vector de registros con el siguiente registro del archivo detalle
+            leerDet(vd[pos],vr[pos]);
+    end;
+
+    Procedure actualizarMaestro(var mae:Maestro;var vd:vecDetalles);
+    var
+        regMae:casos_ministerio;
+        vr:vecRegistros;
+        min:casos_municipio;
+        i,cant_localidades,total_casos_localidad:integer;
+    begin
+        for i:= 1 to dimF do
+        begin
+            reset(vd[i]);
+            leerDet(vd[i],vr[i]);
+        end;
+        reset(mae);
+        minimo(vd,vr,min);
+        leerMae(mae,regMae);
+        cant_localidades:=0;
+        //mientras no se termine el detalle
+        while(min.cod_loc <> valoralto)do
+        begin
+            //mientras no encuentre la misma localidad
+            while(regMae.cod_loc <> min.cod_loc)do
+                leerMae(mae,regMae);
+            //mientras este en la misma localidad
+            while (regMae.cod_loc = min.cod_loc)do
+            begin
+                total_casos_localidad := regMae.activos;
+                //mientras no encuentre la misma cepa
+                while(regMae.cod_cepa <> min.cod_cepa)do
+                    leerMae(mae,regMae);
+                //mientras este en la misma localidad y en la misma cepa
+                while(regMae.cod_loc = min.cod_loc)and(regMae.cod_cepa = min.cod_cepa)do
+                begin
+                    regMae.fallecidos:= regMae.fallecidos + min.fallecidos;
+                    regMae.recuperados:= regMae.recuperados + min.recuperados;
+                    regMae.activos:= min.activos;
+                    regMae.nuevos:= min.nuevos;
+                    minimo(vd,vr,min);
+                    total_casos_localidad:= total_casos_localidad + min.activos - (min.fallecidos + min.recuperados);
+                    writeln('es en el tercer while');
+                end;
+                seek(mae,(filepos(mae))-1);
+                Write(mae,regMae);
+                writeln('es en el segundo while');
+            end;
+            writeln('es en el primer while');
+            if(total_casos_localidad > 50)then
+                cant_localidades:= cant_localidades + 1;
+        end;
+        writeln('La cantidad de localidades con mas de 50 casos activos es: ',cant_localidades);
+    end;
+
 var
-    maestro:ArchivoMaestro;
-    detalles:vecDetalles;
-BEGIN
-    crearMaestro(maestro);
-    crearDetalles(detalles);
-    imprimirDetalles(detalles);
-    actualizarMaestro(maestro,detalles);
-    imprimirArchivo(maestro);
-END.
+    mae:Maestro;
+    vd:vecDetalles;
+begin
+    cargarMaestro(mae);
+    //imprimirMaestro(mae);
+    cargarDetalles(vd);
+    //imprimirDetalles(vd);
+    actualizarMaestro(mae,vd);
+end.
+
+

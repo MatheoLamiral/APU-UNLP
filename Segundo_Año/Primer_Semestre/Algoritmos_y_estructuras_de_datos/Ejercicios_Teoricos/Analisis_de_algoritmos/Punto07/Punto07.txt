@@ -1,0 +1,13 @@
+i) se reemplaza como T(n/3/3) + c
+
+ii) Desarrollo de T(n):
+
+Paso 1 = T(n/3) + c
+
+Paso 2 = [T(n/3/3) + C] + C
+         T(n/3^2) + 2C
+
+Paso 3 = [T(n/3^2/3) + C] + 2C
+         T(n/3^3) + 3C
+
+Paso i = T(n/3^i) + iC

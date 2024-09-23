@@ -1,0 +1,2 @@
+La opcion a es correcta ya que O(n^2) es la cota superior mas cercana a n^2.
+Las demas opciones tambien son cota superior de n^2 pero, buscamos la cota superior mínima. 

@@ -1,0 +1,12 @@
+A- Falso, ya que la funcion 3^n crece más rapido que 2 n, y el orden debería ser una cota superior
+
+B- Falso, ya que O(n) es de menor cota que n+log_2(n)
+
+C- Falso, ya que n^(1/2) siempre va a ser menor que n(1/2)+10^20, dado que no existe
+n tal que n^(1/2) >= n^(1/2)+10^20
+
+D- Falso, ya que si bien la función es lineal, cuando n es <100, deja de serlo cuando x>=100
+
+E- Falso, ya que p(n) tiene mayor orden eu n^5
+
+F- Falso, idem anterior  

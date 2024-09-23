@@ -1,0 +1,16 @@
+1234 35 Juan
+Pérez
+Calle Falsa 123 Madrid
+1988-02-15
+8765 29 María
+López
+Avenida Siempre Viva 742 Barcelona
+1994-07-22
+1122 42 Carlos
+García
+Calle del Sol 45 Valencia
+1981-01-10
+2233 37 Ana
+Rodríguez
+Plaza Mayor 7 Sevilla
+1986-03-18
