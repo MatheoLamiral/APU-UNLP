@@ -1,0 +1,2 @@
+- `break [n]` corta la ejecución de n niveles de loops.  
+- `continue [n]` salta a la siguiente iteración del enésimo loop que contiene esta instrucción.
