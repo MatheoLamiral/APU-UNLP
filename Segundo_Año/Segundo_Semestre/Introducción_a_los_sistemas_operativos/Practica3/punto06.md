@@ -1,0 +1,21 @@
+- Evaluación de archivos  
+    - `test -e archivo o [ -e archivo ]`: Verifica si el archivo existe.  
+    - `test -f archivo o [ -f archivo ]`: Verifica si el archivo existe y es un archivo regular.  
+    - `test -d directorio o [ -d directorio ]`: Verifica si el directorio existe.  
+    - `test -s archivo o [ -s archivo ]`: Verifica si el archivo existe y no está vacío.  
+    - `test -r archivo o [ -r archivo ]`: Verifica si el archivo es legible.  
+    - `test -w archivo o [ -w archivo ]`: Verifica si el archivo es escribible.  
+    - `test -x archivo o [ -x archivo ]`: Verifica si el archivo es ejecutable.  
+- Evaluación de cadenas de caracteres  
+    - `test "cadena1" = "cadena2" o [ "cadena1" = "cadena2" ]`: Verifica si las cadenas son iguales.  
+    - `test "cadena1" != "cadena2" o [ "cadena1" != "cadena2" ]`: Verifica si las cadenas son diferentes.  
+    - `test -z "cadena" o [ -z "cadena" ]`: Verifica si la cadena tiene longitud cero (está vacía).  
+    - `test -n "cadena" o [ -n "cadena" ]`: Verifica si la cadena no está vacía.  
+- Evaluaciones numéricas  
+    - `test num1 -eq num2 o [ num1 -eq num2 ]`: Verifica si los números son iguales.  
+    - `test num1 -ne num2 o [ num1 -ne num2 ]`: Verifica si los números son diferentes.  
+    - `test num1 -lt num2 o [ num1 -lt num2 ]`: Verifica si num1 es menor que num2.  
+    - `test num1 -le num2 o [ num1 -le num2 ]`: Verifica si num1 es menor o igual que num2.  
+    - `test num1 -gt num2 o [ num1 -gt num2 ]`: Verifica si num1 es mayor que num2.  
+    - `test num1 -ge num2 o [ num1 -ge num2 ]`: Verifica si num1 es mayor o igual que num2.  
+
