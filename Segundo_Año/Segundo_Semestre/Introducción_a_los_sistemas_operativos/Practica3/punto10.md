@@ -1,0 +1,39 @@
+- bash soporta strings y arrays  
+- Los nombres son case sensitive   
+- Para crear una variable:  
+    - `NOMBRE="pepe" # SIN espacios alrededor del =`  
+    - los nombres de las variables no pueden empezar con número  
+- Para accederla se usa `$`: `echo $NOMBRE`  
+- Para evitar ambiguedades se pueden usar llaves:  
+    - `# Esto no accede a $NOMBRE`
+    - `echo $NOMBREesto_no_es_parte_de_la_variable`  
+    - `# Esto sı`  
+    - `echo ${NOMBRE}esto_no_es_parte_de_la_variable`
+- Arreglos
+    - Creación: 
+        - `arreglo_a=() # Se crea vacio `  
+        - `arreglo_b=(1 2 3 5 8 13 21) # Inicializado`  
+    - Asignacion de un valor en una posición concreta:  
+        - `arreglo_b[2]=spam`  
+    - Acceso a un valor del arreglo (En este caso las llaves no son opcionales):  
+        - `echo ${arreglo_b[2]} copia=${arreglo_b[2]}`  
+    - Acceso a todos los valores del arreglo:   
+        - `echo ${arreglo[@]} # o bien ${arreglo[*]}`  
+    - Tamaño del arreglo:   
+        - `${#arreglo[@]} # o bien ${#arreglo[*]}`  
+    - Borrado de un elemento (reduce el tamaño del arreglo pero no elimina la posición, solamente la deja vacía):   
+        - `unset arreglo[2]`  
+    - Los índices en los arreglos comienzan en 0   
+- Comillas  
+    -  No hacen falta, a menos que:   
+        - el string tenga espacios.   
+        - que sea una variable cuyo contenido pueda tener espacios.  
+        - son importantes en las condiciones de los `if`, `while`, etc...   
+        - Tipos de comillas   
+            - “Comillas dobles”:   
+                - `var='variables'`  
+                - `echo "Permiten usar $var`  
+                - `echo "Y resultados de comandos $(ls)"`  
+            - ‘Comillas simples’:  
+                - `echo 'No permiten usar $var'`  
+                - `echo 'Tampoco resultados de comandos $(ls)'`  
