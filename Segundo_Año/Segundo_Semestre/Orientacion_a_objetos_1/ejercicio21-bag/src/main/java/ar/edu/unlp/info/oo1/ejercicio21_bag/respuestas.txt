@@ -1,0 +1,17 @@
+b- containsKey(Object key) -> devuelve true si el mapa contiene una asignación para la clave especificada 
+c- get(Object key) -> Devuelve el valor al que está asignada la clave especificada, o null si el mapa no contiene ninguna asignación 
+				      para la clave
+d- put​(K key, V value) -> Asocia el valor especificado con la clave especificada en este mapa, si la clave ya se encontraba en el mapa
+						  el valor anterior se REEMPLAZA por el valor especificado
+e- remove​(Object key) -> Elimina la asignación de una clave de este mapa si está presente	
+   remove​(Object key, Object value)	-> Elimina la entrada de la clave especificada solo si está asignada actualmente al valor especificado.
+f- replace​(K key, V value) -> Reemplaza la entrada de la clave especificada solo si actualmente está asignada a algún valor.
+g- el metodo keySet() de vuelve un Set de las claves contenidas en el mapa, el método values() devuelve una collection de los valores 
+   contenidos en el mapa y el método entrySet() devuelve un set de las asignaciones contenidas en el mapa.
+   las formas de iterar un mapa son:
+   keySet(), itera sobre las claves
+   values(), itera sobre los valores
+   entrySet(), itera sobre pares clave-valor
+   iterador()
+   forEach()
+   Streams()
