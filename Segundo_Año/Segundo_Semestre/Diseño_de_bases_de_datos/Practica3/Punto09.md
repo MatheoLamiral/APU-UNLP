@@ -1,0 +1,21 @@
+1. Listar nombre, fecha de nacimiento y dirección de entrenadores que hayan entrenado en la canchas denominadas “Cancha 1” y “Cancha 2” del complejo con nombre “Norte” del club “Deportivo La Plata”.
+   - Cancha1 ⇐ <i>π<sub>nombreEntrenador, fechaNacimiento, dirección</sub>(<i>σ<sub>(Cancha.nombre = 'Cancha 1')^(Complejo.nombre = 'Norte')^(Club.nombre = 'Deportivo La Plata')^(Entrenador.idEntrenador = Entrenamiento.idEntrenador)^(Entrenamiento.idCancha = Cancha.idCancha)^(Cancha.idComplejo = Complejo.idComplejo)^(Complejo.idClub = Club.idClub)</sub>(Entrenador x Entrenamiento x Cancha x Complejo x Club)</i>)</i>
+   - Cancha 2 ⇐ <i>π<sub>nombreEntrenador, fechaNacimiento, dirección</sub>(<i>σ<sub>(Cancha.nombre = 'Cancha 2')^(Complejo.nombre = 'Norte')^(Club.nombre 'Deportivo La Plata')^(Entrenador.idEntrenador = Entrenamiento.idEntrenador)^(Entrenamiento.idCancha = Cancha.idCancha)^(Cancha.idComplejo = Complejo.idComplejo)^(Complejo.idClub = Club.idClub)</sub>(Entrenador x Entrenamiento x Cancha x Complejo x Club)</i>)</i>
+   - Cancha1 ∩ Cancha2
+2. Listar nombre y ciudad de todos los clubes en los que entrena el entrenador “Marcos Perez”.
+     - <i>π<sub>Club.nombre, Club.ciudad</sub>(<i>σ<sub>(Entrenador.nombre = 'Marcos Perez')^(Entrenador.idEntrenador = Entrenamiento.idEntrenador)^(Entrenamiento.idCancha = Cancha.idCancha)^(Cancha.idComplejo = Complejo.idComplejo)^(Complejo.idClub = Club.idClub)</sub>(Entrenador x Entrenamiento x Cancha x Complejo x Club)</i>)</i>
+3. Eliminar los entrenamientos del entrenador ‘Juan Perez’.
+   - Entrenamiento ⇐ Entrenamiento - (<i>π<sub>IdEntrenamiento, fecha, IdEntrenador, IdCancha</sub>(<i>σ<sub>(nombreEntrenador = 'Juan Perez')^(Entrenador.idEntrenador = Entrenamiento.idEntrenador)</sub>(Entrenamiento x Entrenador)</i>)</i>)
+4. Listar los nombres de los clubes que se ubican en la misma ciudad que el club con nombre “Crucero del Sur”.
+   - CiudadDeCruceroDelSur ⇐ <i>σ<sub>(nombre = 'Crucero del Sur')</sub>(Club)</i>
+   - <i>π<sub>Club.nombre</sub>(<i>σ<sub>(Club.ciudad = CiudadDeCruceroDelSur.ciudad)^(Club.nombre <> 'Crucero del sur')</sub>(Club x CiudadDeCruceroDelSur)</i>)</i>
+5. Listar nombre y fecha de nacimiento de los entrenadores que hayan realizado en una misma fecha entrenamientos en todas las canchas del complejo con nombre “Centro” del club “Centro Fomento LH’.
+   - ComplejoBuscado ⇐ <i>σ<sub>(Club.nombre = 'Centro Fomento LH')^(Complejo.nombre = 'centro')^(Complejo.idClub = Club.idClub)</sub>(Club x Complejo)</i>
+   - IdCanchas ⇐ <i>π<sub>Cancha.idCancha</sub>(<i>σ<sub>(Cancha.idComplejo = ComplejoBuscado.idComplejo)</sub></i>Cancha x ComplejoBuscado)</i>
+   - <i>π<sub>fecha,idEntrenador,idCancha</sub>(Entrenamiento) % IdCanchas</i>
+6. Listar nombre, fecha de nacimiento y dirección de aquellos entrenadores que entrenan clubes de la ciudad “La Plata” pero que no entrenan clubes de la ciudad “Berisso”
+   - EntrenanBerisso ⇐ <i>σ<sub>(Club.ciudad = 'Berisso')^(Entrenador.idEntrenador = Entrenamiento.idEntrenador)^(Entrenamiento.idCancha = Cancha.idCancha)^(Cancha.idComplejo = Complejo.idComplejo)^(Complejo.idClub = Club.idClub)</sub>(Entrenador x Entrenamiento x Cancha x Complejo x Club)</i></i>
+   - EntrenanLaPlata ⇐ <i>σ<sub>(Club.ciudad = 'La Plata')^(Entrenador.idEntrenador = Entrenamiento.idEntrenador)^(Entrenamiento.idCancha = Cancha.idCancha)^(Cancha.idComplejo = Complejo.idComplejo)^(Complejo.idClub = Club.idClub)</sub>(Entrenador x Entrenamiento x Cancha x Complejo x Club)</i></i>
+   - EntrenanLaPlataYNoBerisso ⇐ <i>π<sub>nombreEntrenador, fechaNacimiento</sub>(EntrenanLaPlata - EntrenanBerisso)</i>
+7. Listar la información de las canchas que disponen los clubes de la ciudad “La Plata”. Por cada resultado, se debe informar el nombre del club, el nombre del complejo y el nombre de la cancha.
+   - <i>π<sub>Club.nombre, Complejo.nombre, Cancha.nombre</sub>(<i>σ<sub>(Cancha.idComplejo = Complejo.idComplejo)^(Complejo.idClub = Club.idClub)^(Club.ciudad = 'La Plata')</sub>(Club x Complejo x Cancha)</i>)</i> 

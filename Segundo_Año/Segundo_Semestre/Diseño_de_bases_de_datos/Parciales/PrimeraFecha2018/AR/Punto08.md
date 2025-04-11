@@ -1,0 +1,1 @@
+<i>π<sub>Jugador.dni, Jugador.nombre, Jugador.apellido</sub>(<i>σ<sub>(Jugador.dni = ClubJugador.dni)^(Club.codigoClub = ClubJugador.codigoClub)^(Club.nombre = 'Gimnasia y Esgrima La Plata')</sub>(Jugador x ClubJugador x Club)</i>)</i>

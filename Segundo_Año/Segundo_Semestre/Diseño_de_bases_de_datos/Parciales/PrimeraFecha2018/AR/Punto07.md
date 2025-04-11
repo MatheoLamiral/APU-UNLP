@@ -1,0 +1,2 @@
+ClubesConJugadoresDeBerisso ⇐ <i>π<sub>Club.CodigoClub, Club.nombre, Club.anioFundacion, Club.codigoCiudad</sub></i>(<i>σ<sub>(Ciudad.nombre = 'Berisso')^(Jugador.dni = ClubJugador.dni)^(Club.codigoClub = ClubJugador.codigoClub)^(jugador.CodigoCiudad = Ciudad.CodigoCiudad)</sub>(Jugador x Ciudad x ClubJugador x Club))</i></i>  
+<i>π<sub>Club.nombre</sub>(Club - ClubesConJugadoresDeBerisso)</i>

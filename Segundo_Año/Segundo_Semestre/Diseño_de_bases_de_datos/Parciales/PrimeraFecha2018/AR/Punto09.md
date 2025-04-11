@@ -1,0 +1,1 @@
+Club ⇐ Club ∪ {(1234,"Estrella de Berisso",1921,<i>π<sub>Ciudad.codigoCiudad</sub>(<i>σ<sub>(Ciudad.nombre = 'Berisso')</sub>(Ciudad)</i>)</i>)}
