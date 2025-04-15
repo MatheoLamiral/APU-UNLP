@@ -1,0 +1,34 @@
+@startuml
+abstract class FormaDePago{
++ calcularExtra(costo : Real) : Real
+}
+class Efectivo{
++ calcularExtra(costo : Real) : Real
+}
+class SeisCuotas{
++ calcularExtra(costo : Real) : Real
+}
+class DoceCuotas{
++ calcularExtra(costo : Real) : Real
+}
+class Pedido{
++ <<create>> Pedido(cliente : Cliente, productos : Producto[*], formaDePago : FormaDePago) : Pedido
++ getCostoTotal() : Real
+# calcularDescuentoAntiguedad(): Real
+}
+class Producto{
+- precio : Real
++ getPrecio() : Real
+}
+class Cliente{
++ fechaAlta : Date
++ getAntiguedad() : Integer
++ getFechaAlta() : Integer
+}
+Pedido --> "1..*" Producto
+FormaDePago <- Pedido : - formaDePago
+FormaDePago <|-- DoceCuotas 
+FormaDePago <|-- SeisCuotas 
+FormaDePago <|-- Efectivo
+Pedido -> Cliente : - cliente
+@enduml
