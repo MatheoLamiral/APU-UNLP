@@ -1,0 +1,4 @@
+# Ejercicio
+
+## Hisroria de Java (breve)
+Java es un lenguaje de programación desarrollado por Sun Microsystems (ahora parte de Oracle) y lanzado en 1995. Fue creado por un equipo liderado por James Gosling con el objetivo de ser un lenguaje portátil, robusto y fácil de usar. Su diseño se inspiró en C y C++, pero eliminó características complicadas como la gestión manual de memoria, introduciendo en su lugar un recolector de basura automático. Una de las claves de su éxito es la Máquina Virtual de Java (JVM), que permite que el código compilado (bytecode) se ejecute en cualquier dispositivo con la JVM instalada, bajo el lema "escribe una vez, ejecuta en cualquier lugar". Inicialmente pensado para dispositivos electrónicos, Java ganó popularidad en aplicaciones empresariales, desarrollo web (con applets) y, más tarde, en móviles con Android. Hoy es uno de los lenguajes más utilizados globalmente gracias a su versatilidad y comunidad activa.
