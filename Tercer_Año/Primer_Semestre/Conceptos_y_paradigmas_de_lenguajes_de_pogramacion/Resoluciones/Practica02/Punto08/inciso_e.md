@@ -1,0 +1,1 @@
+Las gramáticas definidas no permiten representar más de una palabra, solo palabras individuales. Se podría agregar en una gramática de palabras que contenga " " (espacio en blanco) y utilizarlo para separar palabras
