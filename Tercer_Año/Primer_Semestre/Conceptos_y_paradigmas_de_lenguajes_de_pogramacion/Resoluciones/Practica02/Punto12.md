@@ -3,13 +3,14 @@
 ## Gramática para la definición de un tag div en HTML 5 (EBNF)
 ```BNF
     G = (N, T, S, P) 
-    N = { <div>, <inner_html>, <etiqueta>, <etiqueta_cierre>, <palabra>}
-    T = {a, A, …, z, Z, <, >, /}
+    N = { <div>,<atributos>,<atributo>,<nombre>,<valor>,<contenido>,<elemento_html>,<letra>,<digito>,<caracter>}
+    T = {a, A, …, z, Z, 0, ..., 9, "&", "@", ..., "$"}
     S = {<div>}
     P = { <div>::= "<div" [<atributos>] ">" {<contenido>}* "</div>",
           <atributos>::= <atributo> {" " <atributo>}*,
-          <artibuto>::= <cadena> "=" '"'<cadena>'"',
-          <cadena>::= {(<letra> | <digito> | <caracter>)}+,
+          <artibuto>::= <nombre> "=" '"'<valor>'"',
+          <nombre>::= {(letra | caracter)}+ {(<letra> | <digito> | <caracter>)}*
+          <valor>::= {(<letra> | <digito> | <caracter>)}+,
           <contenido>::= (<elemento_html> | <cadena>),
           <elemento_html>::= "<"<cadena> ">" {<contenido>}* "</" <cadena> ">",
           <letra>::= "a" | "A" | ... | "z" | "Z", 
