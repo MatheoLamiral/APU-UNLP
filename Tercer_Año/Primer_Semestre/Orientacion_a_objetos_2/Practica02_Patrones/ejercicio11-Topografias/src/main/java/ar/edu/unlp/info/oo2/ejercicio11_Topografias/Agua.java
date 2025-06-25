@@ -2,7 +2,7 @@ package ar.edu.unlp.info.oo2.ejercicio11_Topografias;
 
 import java.util.List;
 
-public class Agua extends Topografia {
+public class Agua implements Topografia {
 
 	@Override
 	public double calcularProporcion() {
@@ -22,6 +22,11 @@ public class Agua extends Topografia {
 	
 	@Override
 	public boolean esIgualTierra() {
+		return false;
+	}
+
+	@Override
+	public boolean esIgualPantano() {
 		return false;
 	}
 

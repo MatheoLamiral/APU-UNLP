@@ -3,7 +3,7 @@ package ar.edu.unlp.info.oo2.ejercicio11_Topografias;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Mixta extends Topografia {
+public class Mixta implements Topografia {
 	private List<Topografia> topografias;
 	
 	public Mixta(List<Topografia> topografias) {
@@ -40,7 +40,12 @@ public class Mixta extends Topografia {
 	public boolean esIgualTierra() {
 		return false;
 	}
-	
+
+	@Override
+	public boolean esIgualPantano() {
+		return false;
+	}
+
 	private List<Topografia> getTopografias() {
 		return this.topografias;
 	}
