@@ -31,7 +31,4 @@ public abstract class FileDecorator implements FileComponent {
 	public String getPermisos() {
 		return this.component.getPermisos();
 	}
-	protected FileComponent getComponent() {
-		return this.component;
-	}
 }

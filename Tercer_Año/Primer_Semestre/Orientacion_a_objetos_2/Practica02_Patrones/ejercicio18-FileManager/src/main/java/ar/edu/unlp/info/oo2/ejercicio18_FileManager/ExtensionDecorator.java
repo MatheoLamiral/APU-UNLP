@@ -8,6 +8,6 @@ public class ExtensionDecorator extends FileDecorator {
 	}
 
 	public String prettyPrint() {
-		return this.getComponent().prettyPrint() + " - " + this.getExtension();
+		return super.prettyPrint() + " - " + this.getExtension();
 	}
 }

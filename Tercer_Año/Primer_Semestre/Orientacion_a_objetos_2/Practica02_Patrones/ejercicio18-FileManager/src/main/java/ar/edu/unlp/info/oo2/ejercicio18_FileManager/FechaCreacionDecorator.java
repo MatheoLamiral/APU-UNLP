@@ -8,7 +8,7 @@ public class FechaCreacionDecorator extends FileDecorator {
 	}
 	
 	public String prettyPrint() {
-		return this.getComponent().prettyPrint() + " - " + this.getFechaCreacion().toString();
+		return super.prettyPrint() + " - " + this.getFechaCreacion().toString();
 	}
 
 }

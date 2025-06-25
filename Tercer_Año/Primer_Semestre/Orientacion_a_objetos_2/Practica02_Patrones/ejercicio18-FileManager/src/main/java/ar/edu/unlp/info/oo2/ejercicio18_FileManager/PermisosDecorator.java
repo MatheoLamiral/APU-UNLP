@@ -8,6 +8,6 @@ public class PermisosDecorator extends FileDecorator {
 	}
 
 	public String prettyPrint() {
-		return this.getComponent().prettyPrint() + " - " + this.getPermisos();
+		return super.prettyPrint() + " - " + this.getPermisos();
 	}
 }

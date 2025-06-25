@@ -8,6 +8,6 @@ public class FechaModificacionDecorator extends FileDecorator {
 	}
 
 	public String prettyPrint() {
-		return this.getComponent().prettyPrint() + " - " + this.getFechaModificacion().toString();
+		return super.prettyPrint() + " - " + this.getFechaModificacion().toString();
 	}
 }

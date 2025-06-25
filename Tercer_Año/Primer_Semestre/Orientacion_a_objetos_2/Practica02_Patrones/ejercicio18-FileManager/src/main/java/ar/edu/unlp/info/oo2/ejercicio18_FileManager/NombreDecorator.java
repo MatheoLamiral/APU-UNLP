@@ -8,7 +8,6 @@ public class NombreDecorator extends FileDecorator {
 	}
 
 	public String prettyPrint() {
-		//return this.getComponent().prettyPrint() + " - " + this.getNombre();
 		return super.prettyPrint();
 	}
 }

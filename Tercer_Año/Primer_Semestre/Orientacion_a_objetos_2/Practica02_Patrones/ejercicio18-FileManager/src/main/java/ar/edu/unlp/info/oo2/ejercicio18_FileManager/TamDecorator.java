@@ -8,6 +8,6 @@ public class TamDecorator extends FileDecorator {
 	}
 
 	public String prettyPrint() {
-		return this.getComponent().prettyPrint() + " - " + this.getTam();
+		return super.prettyPrint() + " - " + this.getTam();
 	}
 }
