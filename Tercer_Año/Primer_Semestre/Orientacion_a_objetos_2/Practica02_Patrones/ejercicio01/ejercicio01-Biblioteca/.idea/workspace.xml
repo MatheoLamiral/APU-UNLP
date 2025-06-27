@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="881f9b25-55ab-4ea9-aeb2-d84231300974" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../../../Parciales/2022/PrimeraFecha/Patrones/parcial2022-TerceraFecha/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Parciales/2022/PrimeraFecha/Patrones/parcial2022-TerceraFecha/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Parciales/2022/PrimeraFecha/Patrones/parcial2022-TerceraFecha/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Parciales/2022/PrimeraFecha/Patrones/parcial2022-TerceraFecha/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Parciales/2022/PrimeraFecha/Patrones/parcial2022-TerceraFecha/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../Parciales/2022/PrimeraFecha/Patrones/parcial2022-TerceraFecha/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Parciales/2025/parcial2025-PrimeraFecha/src/main/java/org/example/Decorator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Parciales/2025/parcial2025-PrimeraFecha/src/main/java/org/example/EntregaExpressDecorator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Parciales/2025/parcial2025-PrimeraFecha/src/main/java/org/example/FragilDecorator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Parciales/2025/parcial2025-PrimeraFecha/src/main/java/org/example/InterfacePaquete.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Parciales/2025/parcial2025-PrimeraFecha/src/main/java/org/example/Paquete.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Parciales/2025/parcial2025-PrimeraFecha/src/main/java/org/example/SeguimientoDecorator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Parciales/2025/parcial2025-PrimeraFecha/src/main/java/org/example/SeguroDecorator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Parciales/2025/parcial2025-PrimeraFecha/src/test/java/org/example/PaqueteTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Parciales/2025/parcial2025-PrimeraFecha/src/test/java/org/example/PaqueteTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Practica01_Refactoring/Punto01/Punto01-1.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Practica01_Refactoring/Punto01/Punto01-1.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Practica01_Refactoring/Punto01/Punto01-3.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Practica01_Refactoring/Punto01/Punto01-3.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Practica01_Refactoring/Punto02/Punto02-1.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Practica01_Refactoring/Punto02/Punto02-1.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../../../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2z69ywYnTU8q2HNASrEyRRltd2C" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.BibliotecaTest.testExportar.executor": "Run",
+    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="BibliotecaTest.testExportar" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ejercicio01-Biblioteca" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example" />
+      <option name="MAIN_CLASS_NAME" value="org.example.BibliotecaTest" />
+      <option name="METHOD_NAME" value="testExportar" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.BibliotecaTest.testExportar" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-fbdcb00ec9e3-intellij.indexing.shared.core-IU-251.26094.121" />
+        <option value="bundled-js-predefined-d6986cc7102b-b26f3e71634d-JavaScript-IU-251.26094.121" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="881f9b25-55ab-4ea9-aeb2-d84231300974" name="Changes" comment="" />
+      <created>1751040917921</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1751040917921</updated>
+      <workItem from="1751040918811" duration="288000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
