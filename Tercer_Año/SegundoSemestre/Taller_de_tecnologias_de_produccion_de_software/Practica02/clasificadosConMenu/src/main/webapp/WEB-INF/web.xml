@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+        <context-param>
+            <param-name>nombre</param-name>
+            <param-value>Pepe</param-value>
+        </context-param>
+        <context-param>
+            <param-name>email</param-name>
+            <param-value>pepeJavaDeveloper@gmail.com</param-value>
+        </context-param>
+        <context-param>
+            <param-name>telefono</param-name>
+            <param-value>221-123-4567</param-value>
+        </context-param>
+
+        <listener>
+            <listener-class>org.example.clasificadosconmenu.ContextListener</listener-class>
+        </listener>
+</web-app>
