@@ -1,0 +1,114 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(135deg, #4b0000, #800000, #b30000);
+    color:  #f8f1e7;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 900px;
+    margin: 24px auto;
+    padding: 0 16px;
+}
+
+h1 {
+    font-size: 26px;
+    text-align: center;
+    margin: 8px 0 16px;
+    color: #ffd700;
+    text-shadow: 2px 2px 6px #000;
+}
+
+.card {
+    background: rgba(20, 0, 0, 0.9);
+    border: 2px solid #d4af37;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.hint {
+    color: #566;
+    font-size: 14px;
+}
+
+a.btn {
+    display: inline-block;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #d4af37;
+    background: linear-gradient(145deg, #660000, #990000);
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+a.btn:hover {
+    background: linear-gradient(145deg, #990000, #cc0000);
+    color: #fff4c2;
+}
+
+.table-wrap {
+    overflow: auto;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 420px;
+    background: rgba(30, 0, 0, 0.9);
+    color: #f8f1e7;
+}
+
+th, td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #d4af37;
+    text-align: left;
+}
+
+thead th {
+    background: linear-gradient(90deg, #800000, #b22222);
+    color: #ffd700;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px #000;
+}
+
+tbody tr:hover {
+    background: linear-gradient(90deg, #800000, #b22222);
+    color: #ffd700;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px #000;
+}
+
+.empty {
+    text-align: center;
+    color: #ffd700;
+    font-style: italic;
+}
+
+.pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: #e6f4ea;
+    color: #136f3f;
+    font-weight: 700;
+    font-size: 12px;
+}

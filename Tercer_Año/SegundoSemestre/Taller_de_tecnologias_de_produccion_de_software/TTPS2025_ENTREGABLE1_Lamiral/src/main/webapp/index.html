@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Compra de Entradas</title>
+    <link rel="stylesheet" href="styles/index.css">
+</head>
+<body>
+<h1>Compra de Entradas</h1>
+<div class="container">
+    <form action="ServletImprimeEntrada" method="post">
+        <label for="nombres">Nombres:</label><br>
+        <input type="text" id="nombres" name="nombres" required><br><br>
+
+        <label for="apellido">Apellido:</label><br>
+        <input type="text" id="apellido" name="apellido" required><br><br>
+
+        <label for="email">E-mail:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <label for="dni">DNI:</label><br>
+        <input type="text" id="dni" name="dni" required><br><br>
+
+        <label for="pelicula">Película:</label><br>
+        <select id="pelicula" name="pelicula" required>
+            <option value="lilo_stich">LILO & STICH</option>
+            <option value="la_mujer_de_la_fila">LA MUJER DE LA FILA</option>
+            <option value="demon_slayer">DEMON SLAYER</option>
+            <option value="la_luz_que_imaginamos">LA LUZ QUE IMAGINAMOS</option>
+        </select><br><br>
+
+        <label for="cantidad">Cantidad de Entradas:</label><br>
+        <input type="number" id="cantidad" name="cantidad" min="1" required><br><br>
+
+        <button type="submit">Comprar</button>
+    </form>
+    <div class="actions">
+        <a href="ServletVisualizarEstadisticas">Ver Estadísticas</a>
+    </div>
+</div>
+</body>
+</html>

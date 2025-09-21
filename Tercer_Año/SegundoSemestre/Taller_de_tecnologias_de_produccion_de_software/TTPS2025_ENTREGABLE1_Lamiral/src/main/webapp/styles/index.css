@@ -1,0 +1,88 @@
+/* src/main/webapp/styles/index.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #4b0000, #800000, #b30000);
+    color: #f8f1e7;
+}
+
+h1 {
+    text-align: center;
+    color: #ffd700; /* Dorado brillante */
+    margin-top: 20px;
+    font-size: 28px;
+    text-shadow: 2px 2px 6px #000;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(20, 0, 0, 0.9);
+    border-radius: 12px;
+    border: 2px solid #d4af37; /* Dorado */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #ffd700;
+}
+
+input, select, button {
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #d4af37;
+    border-radius: 6px;
+    background: rgba(30, 0, 0, 0.85);
+    color: #f8f1e7;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: #ffd700;
+    box-shadow: 0 0 6px #ffd700;
+}
+
+button {
+    background: linear-gradient(145deg, #660000, #990000);
+    color: #ffd700;
+    font-weight: bold;
+    border: 1px solid #d4af37;
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 12px;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+}
+
+button:hover {
+    background: linear-gradient(145deg, #990000, #cc0000);
+    color: #fff4c2;
+}
+
+.actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.actions a {
+    color: #ffd700;
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s;
+}
+
+.actions a:hover {
+    border-color: #ffd700;
+}
