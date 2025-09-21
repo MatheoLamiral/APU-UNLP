@@ -1,0 +1,36 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Maven
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# VS Code
+.vscode/
+
+# Windows / macOS
+Thumbs.db
+.DS_Store
+
+# Build artifacts
+*.war
+*.ear
+/build/
+
+# Tomcat logs/temp/work (opcional)
+logs/
+temp/
+work/
+webapps/*/logs/
+webapps/*/temp/
+webapps/*/work/
+
+# Local sensitive config
+*.properties.local
+*.xml.local
