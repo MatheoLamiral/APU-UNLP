@@ -1,0 +1,61 @@
+# Ejercicio 6
+
+## Inciso 1
+Tipo abstracto de dato (TAD) es el que satisface: 
+- Encapsulamiento: 
+  - La representación del tipo y las operaciones permitidas para los objetos del tipo se describen en una única unidad sintáctica.  
+  - Refleja las abstracciones descubiertas en el diseño
+- Ocultamiento de la información: 
+  - la representación de los objetos y la implementación del tipo permanecen ocultos.  
+  - Refleja los niveles de abstracción. Modificabilidad
+
+## Inciso 2
+- Python
+  - Lista
+  - Diccionario
+  - Conjunto
+  - Cola 
+  - Pila
+- ADA
+  - Pilas
+  - Colas
+  - Listas enlazadas
+  - Árboles binarios
+  - Conjuntos (implementados mediante paquetes personalizados)
+- Java
+  - ArrayList (lista dinámica)
+  - LinkedList (lista enlazada)
+  - Stack (pila)
+  - Queue (cola)
+  - HashMap (diccionario/tablas hash)
+  - TreeSet (conjunto ordenado)
+- JavaScript
+  - Array (lista)
+  - Object (diccionario básico)
+  - Map (diccionario más formal)
+  - Set (conjunto)
+  - Queue y Stack (implementados con Arrays)
+- C++
+  - std::vector (lista dinámica)
+  - std::stack (pila)
+  - std::queue (cola)
+  - std::map (diccionario)
+  - std::set (conjunto)
+  - std::list (lista doblemente enlazada)
+- C
+  - Lista enlazada (usando struct)
+  - Pila (con arreglos o punteros)
+  - Cola
+  - Árbol binario
+  - Tabla hash (implementada manualmente)
+- Ruby
+  - Array (lista)
+  - Hash (diccionario)
+  - Set (conjunto)
+  - Queue y Stack (usando arrays o Queue del módulo thread)
+- Pascal
+  - Pila (array o punteros)
+  - Cola
+  - Lista enlazada
+  - Árbol binario
+  - Registro (estructura similar a structs)

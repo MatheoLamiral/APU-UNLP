@@ -1,0 +1,3 @@
+# Ejercicio 1
+
+Una expeción es una condición inesperada o inusual, que ocurre durante la ejecución del programa y no  puede ser manejada en el contexto local. Denota un comportamiento anómalo e indeseable que supuestamente ocurre raramente, pero es necesario controlarlo. Pero, suelen ocurrir con frecuencia. La excepción interrumpe el flujo normal de ejecución y ejecuta un controlador de excepciones registrado previamente.

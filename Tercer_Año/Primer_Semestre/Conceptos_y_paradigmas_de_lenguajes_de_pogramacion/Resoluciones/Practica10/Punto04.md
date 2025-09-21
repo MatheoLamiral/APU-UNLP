@@ -1,0 +1,3 @@
+# Ejercicio 4
+
+- La expresión es la noción central de la programación Funcional. La característica más importante es que **una expresión es su VALOR**. El valor de una expresión depende ÚNICAMENTE de los valores de las sub expresiones que la componen. Las expresiones también pueden contener VARIABLES, (valores desconocidos). Las expresiones cumplen con la propiedad de **TRANSPARENCIA REFERENCIAL**, significa que dos expresiones sintácticamente iguales darán el mismo valor, no existen EFECTOS LATERALES

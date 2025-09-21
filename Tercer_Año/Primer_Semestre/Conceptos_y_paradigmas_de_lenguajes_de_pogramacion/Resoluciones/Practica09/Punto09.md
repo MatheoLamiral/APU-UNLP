@@ -1,0 +1,6 @@
+# Ejercicio 9
+
+## Diferencias y similitudes entre Python y Java respecto al manejo de Excepciones 
+
+Ambos lenguajes utilizan el modelo por terminación, es decir que la unidad que generó la excepción busca manejar la excepción y termina la ejecución. En ambos casos, el lenguaje provee una serie de excepciones predefinidas, y permite al programador definir las propias. Tambien en ambos casos primero se buscará resolver la excepcion en los manejadores siguientes, y en caso de no encontrar el manejador, se propagará dinámicamente la excepción. Otra similitud es que como en Java las excepciones poseen su método `stackTrace`, en Python existe `sys.exc_info()`.
+Las diferencias se encuentran en la sintaxis, ya que Java maneja bloques `try`/`catch` y Python maneja bloques `try`/`except` ademas de que las excepciones se levantan explicitamente con `throw` en Java y con `rise`. Además otra diferencia, es que Python permite la cláusula `else` que toma el caso en que no se ejecute ninguna de las cláusulas `except` anteriores.
