@@ -23,16 +23,15 @@
 ### Smell: Consultas por null en las implementaciones de los métodos `recorrido()` de las subclases
 1. Aplico **Introduce Null Object**
    1. Creo la clase `ArbolNulo` que extiende de `ArbolBinario`
-   2. Creo un nuevo constructor de `ArbolBinario` que no recibe ningún valor y setea el valor a -1
-   3. Creo el constructor de `ArbolNulo` vacío que no recibe ningún valor
-   4. Reemplazo en el constructor de `ArbolBinario` la inicialización de los hijos por `new ArbolNulo()`
-   5. Implemento el método `recorrido()` en `ArbolNulo` para que retorne una cadena vacía
-   6. Sobreescribo el método `setValor()` para que sea un método vacío 
-   7. Sobreescribo el método `getHijoIzquierdo()` para que retorne `this`
-   8. Sobreescribo el método `getHijoDerecho()` para que retorne `this`
-   9. Sobreescribo el método `setHijoIzquierdo()` para que sea un método vacio
-   10. Sobreescribo el método `setHijoDerecho()` para que sea un método vacio
-   11. Elimino las consultas por null en los métodos `recorrido()` de las subclases
+      1. Creo el constructor de `ArbolNulo` vacío que no recibe ningún valor y setea `valor` en -1
+      2. Implemento el método `recorrido()` en `ArbolNulo` para que retorne una cadena vacía
+      3. Sobreescribo el método `setValor()` para que sea un método vacío 
+      4. Sobreescribo el método `getHijoIzquierdo()` para que retorne `this`
+      5. Sobreescribo el método `getHijoDerecho()` para que retorne `this`
+      6. Sobreescribo el método `setHijoIzquierdo()` para que sea un método vacio
+      7. Sobreescribo el método `setHijoDerecho()` para que sea un método vacio
+   2. Elimino las consultas por null en los métodos `recorrido()` de las subclases
+   3. Reemplazo en el constructor de `ArbolBinario` la inicialización de los hijos por `new ArbolNulo()`
 
 # Refactoring ArbolBinarioTest
 ### En testUnSoloNodo

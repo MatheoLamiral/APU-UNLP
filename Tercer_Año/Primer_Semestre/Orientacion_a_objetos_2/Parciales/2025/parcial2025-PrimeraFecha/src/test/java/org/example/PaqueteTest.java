@@ -1,5 +1,9 @@
 package org.example;
 
+import org.example.patrones.Decorator;
+import org.example.patrones.EntregaExpressDecorator;
+import org.example.patrones.Paquete;
+import org.example.patrones.SeguroDecorator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,7 +20,7 @@ class PaqueteTest {
 
     @Test
     void testPaqueteDescripcion() {
-        assertEquals("caja de libros con seguro entrega express ", this.paqueteDecorado.getDescripcion());
+        assertEquals("caja de libros con seguro entrega express", this.paqueteDecorado.getDescripcion());
     }
 
     @Test
