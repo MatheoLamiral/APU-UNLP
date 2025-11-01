@@ -3,7 +3,7 @@
 ### Ejercicio 1
 
 - Inciso a
-```
+```kotlin
     chan colaBanco(int);
     chan avisoTurno[1..N](text);
     chan avisoFin[1..N](text);
@@ -25,7 +25,7 @@
     }
 ```
 - Inciso b
-```
+```kotlin
     chan colaBanco(int);
     chan avisoTurno[1..N](text);
     chan avisoFin[1..N](text);
@@ -47,7 +47,7 @@
     }
 ```
 - Inciso c
-```
+```kotlin
     chan colaBanco(int);
     chan avisoTurno[1..N](text);
     chan avisoFin(text);
@@ -148,7 +148,7 @@
 
 ### Ejercicio 3
 
-```
+```kotlin
     chan ordenes(text, int);
     chan esperaPedido[1..C](plato);
     chan avisoVendedor(int);
@@ -206,7 +206,7 @@
 ### Ejercicio 4
 
 - Inciso a
-```
+```kotlin
     chan colaLlegada(int);
     chan espera[1..N](int);
     chan usoCabina[1..10](audio);
@@ -255,7 +255,7 @@
     }
 ```
 - Inciso b
-```
+```kotlin
     chan colaLlegada(int);
     chan espera[1..N](int);
     chan usoCabina[1..10](audio);
@@ -306,7 +306,7 @@
 
 ### Ejercicio 5
 - Inciso a
-    ```
+    ```kotlin
         chan pilaPedidos(text);
 
         Process Impresora [id: 1..3]{
@@ -330,7 +330,7 @@
     ```
 
 - Incsiso b
-    ```
+    ```kotlin
         chan pilaPedidosUrgentes(text);
         chan pilaPedidosNormales(text);
         chan aviso(int);
@@ -373,7 +373,7 @@
     ```
 
 - Inciso c
-    ```
+    ```kotlin
         chan pilaPedidos(text);
         chan pilaCoordinador(text, boolean)
 
@@ -412,7 +412,7 @@
         }
     ```
 - Inciso d
-    ```
+    ```kotlin
         chan pilaPedidosUrgentes(text, int);
         chan pilaPedidosNormales(text, int);
         chan pilaCoordinadorUrgentes(text, int);
