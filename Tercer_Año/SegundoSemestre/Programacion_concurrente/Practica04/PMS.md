@@ -3,7 +3,7 @@
 ### Ejercicio 1
 
 - Inciso a y b
-```
+```kotlin
     Process Examinador [id: 1..R]{
         text dirSitio;
         while (true){
@@ -37,7 +37,7 @@
 
 ### Ejercicio 2
 
-```
+```kotlin
     Process EmpleadoMuestras{
         Muestra muestra;
         while (true){
@@ -84,7 +84,7 @@
 ### Ejercicio 3
 
 - Inciso a
-```
+```kotlin
     Process Alumno [id: 1..N]{
         examen examen;
         int nota;
@@ -120,7 +120,7 @@
     }
 ```
 - Inciso b 
-```
+```kotlin
     Process Alumno [id: 1..N]{
         examen examen;
         int nota;
@@ -163,7 +163,7 @@
     }
 ```
 - Inciso c
-```
+```kotlin
     Process Alumno [id: 1..N]{
         examen examen;
         int nota;
