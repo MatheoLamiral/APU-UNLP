@@ -63,9 +63,9 @@ DF5: `#siniestro -> fecha_denuncia, estado_siniestro`
 
 ## Dependencias multivaluadas válidas en P6
 
-DM1: `#poliza ->> #cuota`
-DM2: `#siniestro ->> #perito`
-DM3: `#siniestro, #poliza ->> detalle_reparacion`
+DM1: `#poliza ->> #cuota`  
+DM2: `#siniestro ->> #perito`  
+DM3: `#siniestro, #poliza ->> detalle_reparacion`  
 
 ## Análisis de 4NF
 
