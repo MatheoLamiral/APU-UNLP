@@ -3,7 +3,7 @@
 ### Ejercicio 1
 
 - Inciso a y b 
-```
+```kotlin
     sem libre = 1;
 
     Process chequeo [id = 1 .. N]
@@ -14,7 +14,7 @@
     }
 ```
 - Inciso c
-```
+```kotlin
     sem libre = 3;
     sem mutex = 1;
 
@@ -29,7 +29,7 @@
     }
 ```
 - Inciso d
-```
+```kotlin
     sem libre = 3;  
     sem mutex = 1;
 
@@ -51,7 +51,7 @@
 ### Ejercicio 2
 
 - Inciso a
-```
+```kotlin
     int vecGravedad ([3]0);
     fallos historial [N]; //asumo N par
     int procesos = 4;
@@ -79,7 +79,7 @@
     }
 ```
 - Inciso b
-```
+```kotlin
     int vecGravedad ([3]0);
     fallos historial [N]; //asumo N par
     int procesos = 4;
@@ -106,7 +106,7 @@
 ```
 
 - Inciso c
-```
+```kotlin
     int vecGravedad ([3]0);
     fallos historial [N]; //asumo N par
     int procesos = 4;
@@ -123,7 +123,7 @@
 ```
 
 ### Ejercicio 3
-```
+```kotlin
     colaRecursos [4];
     procesos = N;
     sem libre = 1;
@@ -147,7 +147,7 @@
 
 La solución presentada no es la adecuada, ya que en el caso de que lleguen, por ejemplo, 6 Usuarios de alta seguidos, 2 quedarán sin poder entrar, pero al chequear primero el semáforo de total, lo decrementarán de todas formas, dejando las dos posiciones libres bloqueadas para un usuario de baja, en el caso de que llegase uno, Generando demora innecesaria.  
 Esto se soluciona invirtiendo el órden de los semáforos:
-```
+```kotlin
     total: sem := 6;
     alta: sem := 4;
     baja: sem := 5;
@@ -172,7 +172,7 @@ Esto se soluciona invirtiendo el órden de los semáforos:
 ### Ejercicio 5
 
 - Inciso a
-```
+```kotlin
     vac contenedores[N];
     int pri_vacia = 0;
     int pri_ocupada = 0;
@@ -204,7 +204,7 @@ Esto se soluciona invirtiendo el órden de los semáforos:
 ```
 
 - Inciso b
-```
+```kotlin
     vac contenedores[N];
     int pri_vacia = 0;
     int pri_ocupada = 0;
@@ -239,7 +239,7 @@ Esto se soluciona invirtiendo el órden de los semáforos:
 ```
 
 - Inciso c
-```
+```kotlin
     vac contenedores[N];
     int pri_vacia = 0;
     int pri_ocupada = 0;
@@ -274,7 +274,7 @@ Esto se soluciona invirtiendo el órden de los semáforos:
 ```
 
 - Inciso d
-```
+```kotlin
     vac contenedores[N];
     int pri_vacia = 0;
     int pri_ocupada = 0;
@@ -313,7 +313,7 @@ Esto se soluciona invirtiendo el órden de los semáforos:
 ### Ejercicio 6
 
 - Inciso a
-```
+```kotlin
 sem libre = 1;
 
 Process usarImpresora [id : 1..N]
@@ -325,7 +325,7 @@ Process usarImpresora [id : 1..N]
 ```
 
 - Inciso b
-```
+```kotlin
 cola c;
 boolean Libre = true;
 sem mutex = 1;
@@ -355,7 +355,7 @@ Process usarImpresoraEnOrden [id: 1..N]
 }
 ```
 - Inciso c
-```
+```kotlin
 boolean Libre = true;
 sem mutex = 1;
 sem espera([N]0);
@@ -370,7 +370,7 @@ Process usarImpresoraEnOrden [id: 1..N]
 }
 ```
 - Inciso d
-```
+```kotlin
 cola c;
 sem mutex = 1;
 sem espera([N]0);
@@ -400,7 +400,7 @@ Process Coordinador
 }
 ```
 - Inciso e
-```
+```kotlin
 cola c;
 sem mutex = 1;
 sem espera([N]0);
@@ -440,7 +440,7 @@ Process Coordinador
 
 ### Ejercicio 7
 
-```
+```kotlin
     sem terminados ([10] 0);
     vec grupos ([10] 0);
     vec res ([10] 0);
@@ -494,7 +494,7 @@ Process Coordinador
 ### Ejercicio 8
 
 - Inciso a
-```
+```kotlin
     sem mutex = 1;
     sem mutex2 = 1;
     sem mutex = 3;
@@ -539,13 +539,13 @@ Process Coordinador
 
 - Inciso b 
 
-```
+```kotlin
     Idem Inciso a
 ```
 
 ### Ejercicio 9
 
-```
+```kotlin
     vec depositoMarco [30];
     int priVaciaMarco = 0;
     int priOcupadaMarco = 0;
@@ -603,7 +603,7 @@ Process Coordinador
 ### Ejercicio 10
 
 - Inciso a 
-```
+```kotlin
     cola Camion llegada;
     sem vacio = 0;
     sem disponibleDescarga = 7;
@@ -659,7 +659,7 @@ Process Coordinador
     }
 ```
 - Inciso b
-```
+```kotlin
     sem disponibleDescarga = 7;
     sem trigo = 5;
     sem maiz = 5;
@@ -688,7 +688,7 @@ Este caso es un claro ejemplo de que en ocasiones el uso de coordinadores, dismi
 
 ### Ejercicio 11
 
-```
+```kotlin
     sem mutex = 1;
     sem mutex2 = 1;
     cola c;
@@ -730,7 +730,7 @@ Este caso es un claro ejemplo de que en ocasiones el uso de coordinadores, dismi
 ### Ejercicio 12
 
 - Inciso a
-```
+```kotlin
     cola colas[3];
     sem esperaPasajeros([150] 0);
     sem vacioLlegada = 0;
@@ -782,7 +782,7 @@ Este caso es un claro ejemplo de que en ocasiones el uso de coordinadores, dismi
 ```
 
 - Inciso b 
-```
+```kotlin
     cola colas[3];
     sem esperaPasajeros([150] 0);
     sem vacioEnfermeras([3] 0);

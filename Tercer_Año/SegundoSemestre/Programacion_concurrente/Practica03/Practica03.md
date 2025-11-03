@@ -6,7 +6,7 @@
   - El código funciona correctamente
 - Inciso b
   - El código se podría simplificar, ya que no se nos dice en el enunciado que se requiera orden para entrar al puente, por ende podríamos usar un solo Procedure y quitar la cola 
-    ```
+    ```kotlin
         Monitor Puente
         {
             Procedure pasarPuente();
@@ -22,7 +22,7 @@
   - La solución original no respeta el orden de llegada, ya que cuando un auto sale del puente cualquiera que gane la competencia podría pasar. En el código modificado tampoco se respeta, por la misma razón 
 
 ### Ejercicio 2
-```
+```kotlin
     Monitor Administrador
     {
         cond cola;
@@ -54,7 +54,7 @@
 ### Ejercicio 3
 
 - Inciso a
-```
+```kotlin
     Monitor Administrador
     {
 
@@ -70,7 +70,7 @@
 ```
 
 - Inciso b
-```
+```kotlin
     Monitor Administrador
     {
         cond cola;
@@ -108,7 +108,7 @@
     }
 ```
 - Inciso c
-```
+```kotlin
     Monitor Administrador
     {
         cond espera[N];
@@ -152,7 +152,7 @@
 ```
 - Inciso d
 
-```
+```kotlin
     Monitor Administrador
     {
         cond espera[N];
@@ -193,7 +193,7 @@
         Administrador.salirFotocopiadora();
     }
 ```
-```
+```kotlin
     Monitor Administrador
     {
         cond espera[N];
@@ -222,7 +222,7 @@
 ```
 - Inciso e
   
-```
+```kotlin
     Monitor Administrador
     {
         cond colaE;
@@ -268,7 +268,7 @@
 
 - Inciso f
   
-```
+```kotlin
     Monitor Administrador
     {
         cond colaE;
@@ -329,7 +329,7 @@
 
 ### Ejercicio 4
 
-```
+```kotlin
     Process Vehiculo[id: 1..N]
     {
         int peso = ..;
@@ -366,7 +366,7 @@
 ### Ejercicio 5
 
 - Inciso a
-    ```
+    ```kotlin
         Monitor Corralon 
         {   
             cola empleado;
@@ -449,7 +449,7 @@
         }
     ```
 - Inciso b
-    ```
+    ```kotlin
         Monitor Corralon 
         {   
             cola empleadosLibres;
@@ -531,7 +531,7 @@
         }
     ```
 - Inciso C
-    ```
+    ```kotlin
         Monitor Corralon 
         {   
             cola empleadosLibres;
@@ -639,7 +639,7 @@
 
 ### Ejercicio 6
 
-```
+```kotlin
     Monitor comision
     {
         cond colaJ;
@@ -733,7 +733,7 @@
 
 ### Ejercicio 7
 
-```
+```kotlin
     Process Corredor [id: 1..C]
     {
         LineaSalida.llegar();
@@ -822,7 +822,7 @@
 
 ### Ejercicio 8
 
-```
+```kotlin
     Process Jugador [id: 1..20]
     {
         nroEquipo = //darEquipo();
@@ -885,7 +885,7 @@
 
 ### Ejercicio 9
 
-```
+```kotlin
     Process Alumno [id: 1..45]
     {
         Examen examen;
@@ -971,7 +971,7 @@
 
 ### Ejercicio 10
 
-```
+```kotlin
     Process Persona [id: 1..N]
     {
         Fila.llegar();

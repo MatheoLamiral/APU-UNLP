@@ -10,7 +10,7 @@
 
 ### Ejercicio 2
 Asumo que tengo un vector de rengo 30, y busco repeticiones del número 10
-```
+```kotlin
     int rango := 30
     int n := 10
     int procesos := 3
@@ -35,7 +35,7 @@ Asumo que tengo un vector de rengo 30, y busco repeticiones del número 10
 ### Ejercicio 3
 - **A)** El código no funciona, ya que podría ejecutarse la instrucción `elemento = buffer[pri_ocupada];` antes de ejecutar `buffer[pri_vacia] = elemento;`, generando la posibilidad de que el consumidor consuma antes de que el productor porduzca, o `<await (cant > 0); cant-- >` y luego `<await (cant < N); cant++>; buffer[pri_vacia] = elemento;`, generando la posibilidad de que el productor produzca antes de que el consumidor libere el buffer
   - Código modificado: 
-    ```
+    ```kotlin
         int cant = 0; 
         int pri_ocupada = 0; 
         int pri_vacia = 0; 
@@ -58,7 +58,7 @@ Asumo que tengo un vector de rengo 30, y busco repeticiones del número 10
         }
     ```
 - **B)** Código para que funcione para C consumidores y P productores: 
-    ```
+    ```kotlin
         int cant = 0; 
         int pri_ocupada = 0; 
         int pri_vacia = 0; 
@@ -85,7 +85,7 @@ Asumo que tengo un vector de rengo 30, y busco repeticiones del número 10
 
 ### Ejercicio 4
 
-```
+```kotlin
     recurso cola [5];
     recurso rec;
     const int N=;
@@ -101,14 +101,14 @@ Asumo que tengo un vector de rengo 30, y busco repeticiones del número 10
 
 ### Ejercicio 5
 - Inciso a 
-    ```
+    ```kotlin
         Process Persona [id: 1..N]
         {
             <imprimir(documento)>
         }
     ```
 - Inciso b
-    ```
+    ```kotlin
         cola c;
         int siguiente = -1;
 
@@ -126,7 +126,7 @@ Asumo que tengo un vector de rengo 30, y busco repeticiones del número 10
         }
     ```
 - Inciso c 
-    ```
+    ```kotlin
         colaOrdenada c;
 
         Process Persona [id: 1..N]
@@ -143,7 +143,7 @@ Asumo que tengo un vector de rengo 30, y busco repeticiones del número 10
         }
     ```
 - Inciso d 
-    ```
+    ```kotlin
         cola c;
         int siguiente = -1;
         boolean termino = false;
@@ -165,7 +165,7 @@ No cumple con la propiedad de **ausencia de demora innecesaria**, ya que puede p
 
 ### Ejercicio 7
 
-```
+```kotlin
     int arribo([n-1] 0), continuar([n]-1 0);
 
     process Worker[i=1 to n]

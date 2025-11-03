@@ -5,7 +5,7 @@
 ### Ejercicio 1
 
 - Inciso a
-  ```
+  ```kotlin
     sem mutexFila = 1;
     cola fila;
     sem espera([P] 0);
@@ -37,7 +37,7 @@
     }
   ```
 - Inciso b
-  ```
+  ```kotlin
     sem mutexFila = 1;
     sem mutexTerminales = 1;
     cola fila;
@@ -78,7 +78,7 @@
 
 ### Ejercicio 2
 
-```
+```kotlin
   cola transacciones; // asumo que viene cargada con 10000 transacciones
   sem mutexTransaccion;
   int terminaron = 0;
@@ -114,7 +114,7 @@
 ```
 
 ### Ejercicio 3
-```
+```kotlin
   cola fila;
   sem mutexFila = 1;
   sem espera ([U] 0);
@@ -167,7 +167,7 @@
 ## Monitores
 
 ### Ejercicio 1
-```
+```kotlin
   Process Persona [id: 1..N]
   {
     boolean anciano = //soyAnciano();
@@ -251,7 +251,7 @@
 ```
 
 ### Ejercicio 2
-```
+```kotlin
   Process Vendedor[id:1..20]
   {
     nroEquipo = //obtenerNroEquipo();
@@ -302,7 +302,7 @@
 
 ### Ejercicio 3
 
-```
+```kotlin
   Process Escalador[id: 1..30]
   {
     //Escalar();
