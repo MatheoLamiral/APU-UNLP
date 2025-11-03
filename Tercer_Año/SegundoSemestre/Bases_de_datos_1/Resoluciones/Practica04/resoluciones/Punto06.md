@@ -19,6 +19,11 @@
 
         declare continue handler for not found set fin = 1;
 
+        declare exit handler for sqlexception
+        begin
+            rollback;
+        end;
+
         start transaction;
 
         open patient_cursor;

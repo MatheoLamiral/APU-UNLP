@@ -3,23 +3,29 @@
 ```sql
     DELIMITER //
 
-    CREATE PROCEDURE create_appointment(patient_id INT, doctor_id INT, appointment_duration INT, contact_phone VARCHAR(45), observations VARCHAR(150), medication_name VARCHAR(100))
-    BEGIN
-        DECLARE actual_date DATETIME;
-        START TRANSACTION;
-        
-        SET actual_date = NOW();
-        INSERT INTO appointment (patient_id, appointment_date, appointment_duration, contact_phone, observations)
-        VALUES (patient_id, actual_date, appointment_duration, contact_phone, observations);
+    create procedure create_appointment(patient_id in integer, doctor_id in integer, appointment_duration in integer, contact_phone in varchar(45), observations in varchar(150), medication_name in varchar(100))
+    begin 
+        declare actual_date datetime;
 
-        INSERT INTO medical_review (patient_id, appointment_date, doctor_id)
-        VALUES (patient_id, actual_date, doctor_id);
+        declare continue handler for sqlexception
+        begin
+            rollback;
+        end;
 
-        INSERT INTO prescribed_medication (patient_id, appointment_date, medication_name)
-        VALUES (patient_id, actual_date, medication_name);
+        start transaction;
 
-        COMMIT;
-    END;//
+        set actual_date = now();
+        insert into appointment (patient_id, appointment_date, appointment_duration, contact_phone, observations)
+        values (patient_id, actual_date, appointment_duration, contact_phone, observations);
+
+        insert into medical_review (patient_id, appointment_date, doctor_id)
+        values (patient_id, actual_date, doctor_id);
+
+        insert into prescribed_medication (patient_id, appointment_date, medication_name)
+        values (patient_id, actual_date, medication_name);
+
+        commit;
+    end//
 
     DELIMITER ;
 ```
