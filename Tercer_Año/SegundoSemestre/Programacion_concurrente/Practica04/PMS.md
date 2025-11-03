@@ -15,18 +15,16 @@
     Process Admin {
         cola sitiosSospechosos;
         text dirSitio;
-        while (true){
-            do Examinador[*]?(dirSitio) -> 
-                sitiosSospechosos.push(dirSitio);
-            [] sitiosSospechosos.notEmpty(), Analizador!pedido() ->
-                Analizador!sitio(sitiosSospechosos.pop());
-        }
+        do Examinador[*]?(dirSitio) -> 
+            sitiosSospechosos.push(dirSitio);
+        [] sitiosSospechosos.notEmpty(), Analizador?pedido() ->
+            Analizador!sitio(sitiosSospechosos.pop());
     }
 
     Process Analizador {
         text dirSitio;
         while(){
-            Admin?pedido();
+            Admin!pedido();
             Admin?sitio(dirSitio);
             //analizarSitio(dirSitio);
         }
@@ -49,12 +47,10 @@
     Process ManejoMuestras{
         cola muestrasParaAnalisis;
         Muestra muestra;
-        while (true){
-            do EmpleadoMuestras?(muestra) ->
-                muestrasParaAnalisis.push(muestra);
-            [] muestrasParaAnalisis.notEmpty(), EmpleadoSetAnalisis?pedido() ->
-                EmpleadoSetAnalisis!muestra(muestrasParaAnalisis.pop());
-        }
+        do EmpleadoMuestras?(muestra) ->
+            muestrasParaAnalisis.push(muestra);
+        [] muestrasParaAnalisis.notEmpty(), EmpleadoSetAnalisis?pedido() ->
+            EmpleadoSetAnalisis!muestra(muestrasParaAnalisis.pop());
     }
 
     Process EmpleadoSetAnalisis{
@@ -98,13 +94,12 @@
         examen examen;
         int idAlumno;
         int faltanCorregir = N;
-        while (while faltanCorregir > 0){
-            do Alumno[*]?(examen, idAlumno) ->
-                examenesPendientes.push(examen);
-            [] examenesPendientes.isNotEmpty(), Profesor?pedido() ->
-                Profesor!examen(examenesPendientes.pop(), idAlumno);
-                faltanCorregir--;
-        }
+        do (faltanCorregir > 0); Alumno[*]?(examen, idAlumno) ->
+            examenesPendientes.push(examen);
+        [] examenesPendientes.isNotEmpty(); Profesor?pedido() ->
+            Profesor!examen(examenesPendientes.pop(), idAlumno);
+            faltanCorregir--;
+
     }
 
     Process Profesor{
@@ -135,13 +130,11 @@
         int idAlumno;
         int idProfesor;
         int faltanCorregir = N;
-        while (while faltanCorregir > 0){
-            do Alumno[*]?(examen, idAlumno) ->
-                examenesPendientes.push(examen);
-            [] examenesPendientes.isNotEmpty(), Profesor[*]?pedido(idProfesor) ->
-                Profesor[idProfesor]!examen(examenesPendientes.pop(), idAlumno);
-                faltanCorregir--;
-        }
+        do (faltanCorregir > 0); Alumno[*]?(examen, idAlumno) ->
+            examenesPendientes.push(examen);
+        [] examenesPendientes.isNotEmpty(); Profesor[*]?pedido(idProfesor) ->
+            Profesor[idProfesor]!examen(examenesPendientes.pop(), idAlumno);
+            faltanCorregir--;
         for i: 1..P {
             Profesor[i]!examen(examen, -1);
         }
@@ -186,13 +179,11 @@
         for i: 1..N {
             Alumno[i]?arrancar() ->
         }
-        while (while faltanCorregir > 0){
-            do Alumno[*]?(examen, idAlumno) ->
-                examenesPendientes.push(examen);
-            [] examenesPendientes.isNotEmpty(), Profesor[*]?pedido(idProfesor) ->
-                Profesor[idProfesor]!examen(examenesPendientes.pop(), idAlumno);
-                faltanCorregir--;
-        }
+        do (faltanCorregir > 0); Alumno[*]?(examen, idAlumno) ->
+            examenesPendientes.push(examen);
+        [] examenesPendientes.isNotEmpty(); Profesor[*]?pedido(idProfesor) ->
+            Profesor[idProfesor]!examen(examenesPendientes.pop(), idAlumno);
+            faltanCorregir--;
         for i: 1..P {
             Profesor[i]!examen(examen, -1);
         }
@@ -216,4 +207,107 @@
 
 ### Ejercicio 4
 
+- Inciso a
+```kotlin
+    Process Persona [id: 1..P]{
+        Empleado!llegada(id);
+        Empleado?turno();
+        //usarSimulador();
+        Empleado!salida();
+    }
+
+    Process Empleado{
+        int idPersona;
+        for i: 1..P {
+            Persona[*]?llegada(idPersona);
+            Persona[idPersona]!turno();
+            Persona?salida();
+        }
+    }
+```
+
+- Inciso b
+```kotlin
+    Process Persona [id: 1..P]{
+        Empleado!llegada();
+        Empleado?turno();
+        //usarSimulador();
+        Empleado!salida();
+    }
+
+    Process Empleado{
+        for i: 1..P {
+            Persona[i]?llegada();
+            Persona[i]!turno();
+            Persona?salida();
+        }
+    }
+```
+
+- Inciso c
+```kotlin
+    Process Persona [id: 1..P]{
+        Buffer!llegada(id);
+        Empleado?turno();
+        //usarSimulador();
+        Empleado!salida();
+    }
+
+    Process Buffer{
+        cola fila;
+        int idPersona();
+        int faltan = P;
+        do (faltan > 0); Persona[*]?llegada(idPersona) ->
+            fila.push(idPersona);
+        [] fila.isNotEmpty(); Empleado?libre() ->
+            Empleado!persona(fila.pop());
+            faltan --;
+        Empleado!turno(-1);
+    }
+
+    Process Empleado{
+        int idPersona;
+        while(true){
+            Buffer!libre();
+            Buffer?persona(idPersona);
+            if(idPersona = -1){
+                break;
+            }
+            Persona[idPersona]!turno();
+            Persona?salida();
+        }
+    }
+```
+
 ### Ejercicio 5
+
+```kotlin
+    Process Espectador [id: 1..E]{
+        Fila!llegada(id);
+        Fila?turno();
+        //usarMaquina();
+        Fila!salida();
+    }
+
+    Process Fila{
+        cola espectadores;
+        int idEspectador;
+        int faltan = E;
+        bool libre = true;
+        while (faltan > 0){
+            if (libre); Espectador?llegada(idEspectador) ->
+                libre = false;
+                Espectador[idEspectador]!turno();
+                faltan--;
+            [] (!libre); Espectador?llegada(idEspectador) ->
+                espectadores.push(idEspectador);
+            [] Espectador?salida(); ->
+                if(espectadores.isNotEmpty()){
+                    Espectador[espectadores.pop()]!turno();
+                    faltan--;
+                }else{
+                    libre = true;
+                }
+        }
+    }
+```
