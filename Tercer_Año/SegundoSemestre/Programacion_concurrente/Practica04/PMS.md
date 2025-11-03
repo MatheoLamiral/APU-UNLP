@@ -262,17 +262,13 @@
         [] fila.isNotEmpty(); Empleado?libre() ->
             Empleado!persona(fila.pop());
             faltan --;
-        Empleado!turno(-1);
     }
 
     Process Empleado{
         int idPersona;
-        while(true){
+        for i: 1..P {
             Buffer!libre();
             Buffer?persona(idPersona);
-            if(idPersona = -1){
-                break;
-            }
             Persona[idPersona]!turno();
             Persona?salida();
         }
