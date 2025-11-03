@@ -7,7 +7,7 @@
     begin 
         declare actual_date datetime;
 
-        declare continue handler for sqlexception
+        declare exit handler for sqlexception
         begin
             rollback;
         end;
