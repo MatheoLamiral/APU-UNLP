@@ -318,5 +318,42 @@ Los comandos `traceroute` (Linux) y `tracert` (Windows) se utilizan para **descu
 
 #### Inciso d
 
+- Obtengo los NS de unlp.edu.ar con `dig unlp.edu.ar ns`
+  ```bash
+    ...
+    ;; ANSWER SECTION:
+    unlp.edu.ar.            7200    IN      NS      anubis.unlp.edu.ar.
+    unlp.edu.ar.            7200    IN      NS      hostex.unlp.edu.ar.
+    unlp.edu.ar.            7200    IN      NS      ns1.riu.edu.ar.
+    unlp.edu.ar.            7200    IN      NS      unlp.unlp.edu.ar.
+    ...
+  ```
+- Ahora luego de un `traceroute` a cada uno de ellos se determina que:
+  - Al realizar traceroute a los cuatro servidores de nombre del dominio `unlp.edu.ar`, se observa que tres de ellos (`anubis.unlp.edu.ar`, `hostex.unlp.edu.ar` y `unlp.unlp.edu.ar`) siguen rutas muy similares, salen por la red del proveedor local (Telecom) y luego acceden a redes académicas argentinas antes de llegar a la UNLP. En cambio, `ns1.riu.edu.ar` toma un camino diferente, después de los primeros hops dentro de Telecom, ingresa directamente a la red de la RIU (Red Interuniversitaria) a través del host `rgda2-dc-sol.riu.edu.ar`, sin pasar por las mismas redes académicas intermedias que los otros servidores. Por lo tanto, el único servidor que toma un camino distinto es `ns1.riu.edu.ar`.
+
+### Ejercicio 20
+
+El bloque `127.0.0.0/8` está clasificado como una dirección IP especial que se utiliza para la función de **loopback** (bucle de retorno) y es unicast. El propósito de este bloque es que las direcciones dirijan el tráfico hacia el propio host local. Se utiliza para probar la pila de protocolos de red sin necesidad de salir a la red física.
+
+#### Inciso a y b
+
+El comando ping se utiliza para probar la conectividad IP entre dos hosts. Cuando un host recibe un mensaje ICMP de Solicitud de eco (Echo Request), debe responder copiando el contenido con un mensaje de Respuesta de eco (Echo Reply). Dado que las direcciones en el bloque 127.0.0.0/8 son direcciones de loopback, el tráfico dirigido a ellas nunca sale de la máquina local que ejecuta el comando.
+- En el caso de `ping 127.0.0.1` la PC que ejecuta el comando es quien responde. 127.0.0.1 es la dirección más utilizada dentro del rango de loopback, lo que permite que el host se envíe un paquete a sí mismo para verificar su configuración de red interna (la pila de protocolos).
+- En el caso de `ping 127.0.54.43` la PC que ejecuta el comando también es quien responde. Dado que cualquier dirección en el rango 127.x.x.x es una dirección de loopback, el tráfico dirigido a 127.0.54.43 es manejado internamente por el sistema operativo de la máquina de origen, respondiendo el host a su propia solicitud.
+
+En resumen, no importan los números siguientes a 127.*, siempre responderá la máquina local y nunca se envían paquetes a la red real.
+
+### Ejercicio 21
+
+#### Comandos `ifconfig` y `route`
+
+- El comando `ifconfig` (Interface Configuration) se utiliza para configurar interfaces de red, permitiendo asignar direcciones IP, activar o desactivar interfaces y ver estadísticas de red.
+- El comando `route` se emplea para manipular la tabla de ruteo del host o router. La función principal del ruteo es seleccionar la interfaz de salida y el próximo salto para un paquete.
+- Estos comandos se encuentran actualmente obsoletos y pueden reemplazarse por:
+  - `ip addr` en lugar de `ifconfig`
+  - `ip route` en lugar de `route`
+
+#### Topología con CORE
+
 
   
