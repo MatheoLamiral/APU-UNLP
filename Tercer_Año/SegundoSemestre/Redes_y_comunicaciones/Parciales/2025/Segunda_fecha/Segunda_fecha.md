@@ -112,7 +112,7 @@ La dirección de red `185.100.60.0/23` es de clase B, ya que su primer octeto (1
 |0.0.0.0|/0|10.0.0.3|eth1|
 
 >[!tip] Nota
-> La aignación de direcciones a los dispositivos de la topología para poder resolver la tabla de ruteo está en el archivo [asignacion_direcciones.pdf](Asignacion_direcciones.pdf)
+> La asignación de direcciones a los dispositivos de la topología para poder resolver la tabla de ruteo está en el archivo [asignacion_direcciones.pdf](Asignacion_direcciones.pdf)
 
 ### Ejercicio 5
 
