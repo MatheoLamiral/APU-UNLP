@@ -5,11 +5,11 @@
 ## Dependencias funcionales
 
 DF1: `#suscripcion -> email, #plan`  
-DF2: `#suscripcion, email_adicional -> fecha_adicional`
-DF3: `#plan -> nombre_plan, texto_condiciones, precio`
-DF4: `#contenido -> titulo, sinopsis, duracion`
-DF5: `email -> nombre_usuario`
-DF6: `email_adicional -> nombre_adicional`
+DF2: `#suscripcion, email_adicional -> fecha_adicional`   
+DF3: `#plan -> nombre_plan, texto_condiciones, precio`  
+DF4: `#contenido -> titulo, sinopsis, duracion`  
+DF5: `email -> nombre_usuario`  
+DF6: `email_adicional -> nombre_adicional`  
 
 **CC:{#suscripcion, email_adicional, #contenido}**
 
