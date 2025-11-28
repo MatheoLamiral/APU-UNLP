@@ -1,1 +1,0 @@
-`#pedido ->> #cliente, fecha_pedido, valor_total_pedido, #plan_envio` 
