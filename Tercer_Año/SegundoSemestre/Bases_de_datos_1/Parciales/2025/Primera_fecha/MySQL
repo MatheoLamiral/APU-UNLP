@@ -1,0 +1,12 @@
+```sql
+DELIMITER //
+CREATE TRIGGER nueva_factura
+AFTER UPDATE ON Viaje
+BEGIN
+    IF(OLD.finalizado = FALSE AND NEW.finalizado = TRUE) THEN
+        INSERT INTO Factura (id_viaje, monto, fecha_emision)
+        VALUES (NEW.id_viaje, NEW.costo_total, CURDATE());
+    END IF;
+END//
+DELIMITER ;
+```

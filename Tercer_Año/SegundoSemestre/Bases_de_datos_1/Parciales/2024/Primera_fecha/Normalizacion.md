@@ -27,14 +27,13 @@ DF5: `#siniestro -> fecha_denuncia, estado_siniestro`
 - **P2** no está en BCNF ya que existe al menos una DF no trivial, por ejemplo DF3, cuyo determinante (#cliente) no es superclave del esquema.
 
 - Por lo tanto particiono P2 teniendo en cuenta DF3:
-  - **P3)** (**#cliente**, nombre, direccion, telefono, cuil)
+  - **P3)** (**#cliente**, nombre, direccion, telefono, **"cuil"**)
   - **P4)** (**#poliza**, #cliente, tipo_seguro, fecha_inicio, fecha_fin, **#siniestro**, **#perito**, **#cuota**, **detalle_reparacion**)
 - Análisis de pérdida de información y DFs:
   - No se pierde información ya que P3 ∩ P4 = {#cliente} que es superclave de P3.
-  - No se pierden DFs ya que, por validación simple, DF3 y DF4 valen en P3 y DF1 vale en P4. Además DF2 tampoco se pierde por más que ya no tengamos cuil en P4, ya que es posible acceder a cuil indirectamente a través de #cliente:
+  - No se pierden DFs ya que, por validación simple, DF3 y DF4 valen en P3 ya que son equivalentes (esto significa, producen el mismo conjunto de atributos), y DF1 vale en P4. ¿Se pierde DF2? No se pierde, por más que ya no tengamos cuil en P4, es posible acceder a cuil indirectamente a través de #cliente :
     - tipo_seguro, fecha_inicio y fecha_fin pueden accederse directamente ya que están en P4.
     - cuil no está en P4, sin embargo la dependencia funcinal no se pierde ya que existe una relación indirecta a través de la DF1 donde a partir de #poliza se puede acceder a #cliente y la DF3 donde a partir de #cliente se puede acceder a cuil.
-    - DF2 no quedó valida pero no se pierde
 
 - **P3** está en BCNF ya que solo valen DF3 y DF4, donde sus determinantes (#cliente y cuil respectivamente) son superclaves del esquema.
 - **P4** no está en BCNF ya que existe al menos una DF no trivial, por ejemplo DF1, cuyo determinante (#poliza) no es superclave del esquema.
@@ -44,11 +43,7 @@ DF5: `#siniestro -> fecha_denuncia, estado_siniestro`
   - **P6)** (**#poliza**, **#siniestro**, **#perito**, **#cuota**, **detalle_reparacion**)
 - Análisis de pérdida de información y DFs:
   - No se pierde información ya que P5 ∩ P6 = {#poliza} que es superclave de P5.
-  - No se pierden DFs ya que, por validación simple, DF1 vale en P5. Además DF2 tampoco se pierde por más que ya no tengamos cuil en P5, ya que es posible acceder a cuil indirectamente a través de #cliente:
-    - tipo_seguro, fecha_inicio y fecha_fin pueden accederse directamente ya que están en P5.
-    - cuil no está en P5, sin embargo la dependencia funcinal no se pierde ya que existe una relación indirecta a través de la DF1 donde a partir de #poliza se puede acceder a #cliente y la DF3 donde a partir de #cliente se puede acceder a cuil.
-    - DF2 no quedó valida pero no se pierde
-
+  - No se pierden DFs ya que, por validación simple, DF1 vale en P5. 
 - **P5** está en BCNF ya que solo vale DF1, donde su determinante (#poliza) es superclave del esquema.
 - **P6** está en BCNF ya que todos los atributos que lo componen son iguales a la CC, por lo que cualquier DF que pueda hallarse va a ser trivial
 
