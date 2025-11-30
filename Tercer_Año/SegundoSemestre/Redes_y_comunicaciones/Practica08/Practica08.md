@@ -90,6 +90,9 @@ Si, una maquina conectada a una red, pero no a internet, sigue necesitando una t
 |205.10.0.128|/25|10.0.0.1|eth5|
 |205.20.0.192|/26|10.0.0.5|eth0|
 |205.20.0.128|/26|10.0.0.5|eth0|
+|120.0.0.0|/30|10.0.0.1|eth5|
+|130.0.10.0|/30|10.0.0.10|eth3|
+|0.0.0.0|/0|10.0.0.10|eth3|
 
 #### Inciso b
 
@@ -288,6 +291,12 @@ La diferencia entre ambas ocurre porque el router utiliza NAT para permitir que 
 
 ### Ejercicio 11
 
+PC-A (ss)  
+Local Address:Port Peer Address:Port  
+192.168.1.2:49273  <u>190.50.10.63:25</u>  
+<u>192.168.1.2:49273</u>  190.50.10.63:25  
+192.168.1.2:<u>50000</u> 190.50.10.81:8080  
+
 ### Ejercicio 12
 
 - **Direcciones privadas**
@@ -366,7 +375,8 @@ La diferencia entre ambas ocurre porque el router utiliza NAT para permitir que 
   - Como el único bloque público que tenemos es `200.30.55.64/26` y tanto RED C como RED D deben ser públicas, subneteamos el mismo, quedando `200.30.55.96/28` para RED C y `200.30.55.64/27` para RED D
   - Despues, solo nos quedan por asignar dos redes, a RED (RouterA - RouterB - RouterE), como necesita mínimo un /29 y debe ser privada subneteamos el bloque `10.10.10.0/27`, quedando `10.10.10.16/29`. Luego para RED (RouterC - RouterD), como necesita un /30 y debe ser privada, subneteamos la red que nos quedo `10.10.10.16/29`, quedano `10.10.10.24/30`
 
-**NOTA**: el desarrollo del ejercicio y la asignación se encuentra en el archivo [Punto12.pdf](Punto12.pdf)
+>[!note]NOTA
+> el desarrollo del ejercicio y la asignación se encuentra en el archivo [Punto12.pdf](Punto12.pdf)
 
 ### Ejercicio 13
 
