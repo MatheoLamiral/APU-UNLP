@@ -5,6 +5,7 @@
 ### Ejercicio 1
 
 La función principal de la capa de red es el transporte de paquetes desde un host emisor a un host receptor. Un protocolo de la capa de red proporciona una comunicación lógica entre hosts.
+
 #### Los servicios que presta son:
 - **Enrutamiento (Routing)**: Determina la ruta o camino que deben seguir los paquetes a medida que fluyen de un emisor a un receptor. Los algoritmos de enrutamiento calculan las tablas de reenvío que se utilizan para transmitir los paquetes a través de la red.
 - **Reenvío (Forwarding)**: Cuando un paquete llega a un enlace de entrada de un router, este debe pasarlo al enlace de salida apropiado. El reenvío implica la transferencia de un paquete desde un enlace de entrada a un enlace de salida dentro de un mismo router. Los routers llevan a cabo el reenvío examinando el valor de un campo en la cabecera del paquete entrante y utilizándolo para indexar su tabla de reenvío.
@@ -32,7 +33,7 @@ Se considera a **IP** un protocolo de mejor esfuerzo (Best Effort) porque, aunqu
 
 ### Ejercicio 4
 
-Una subred se define como una red interconectada que une interfaces de host y de router que comparten el mismo prefijo de dirección IP. Por ejemplo, si tres hosts y una interfaz de router están interconectados y todos tienen direcciones IP con el formato `223.1.1.xxx`, donde los 24 bits más a la izquierda son iguales, esa red forma una subred, y su dirección de subred sería `223.1.1.0/24`. Es fundamental especificar siempre la máscara de subred asociada (o la longitud del prefijo) porque esta información define explícitamente qué parte de la dirección IP corresponde a la red y qué parte corresponde al host. La notación `/x`, que a veces se denomina máscara de subred, indica que los `x` bits más a la izquierda de la dirección IP definen la dirección de subred o el prefijo de red. Sin esta especificación, un dispositivo no podría saber cuántos bits utilizar para identificar la red. Por ejemplo, en el caso de `223.1.1.0/24`, el `/24` indica que los primeros 24 bits (223.1.1) identifican la subred.
+Una subred se define como una **red interconectada que une interfaces de host y de router que comparten el mismo prefijo de dirección IP**. Por ejemplo, si tres hosts y una interfaz de router están interconectados y todos tienen direcciones IP con el formato `223.1.1.xxx`, donde los 24 bits más a la izquierda son iguales, esa red forma una subred, y su dirección de subred sería `223.1.1.0/24`. Es **fundamental especificar siempre la máscara de subred** asociada (o la longitud del prefijo) porque esta **información define explícitamente qué parte de la dirección IP corresponde a la red y qué parte corresponde al host**. La notación `/x`, que a veces se denomina máscara de subred, indica que los `x` bits más a la izquierda de la dirección IP definen la dirección de subred o el prefijo de red. Sin esta especificación, un dispositivo no podría saber cuántos bits utilizar para identificar la red. Por ejemplo, en el caso de `223.1.1.0/24`, el `/24` indica que los primeros 24 bits (223.1.1) identifican la subred.
 El prefijo de red que la máscara de subred define es crucial para el reenvío de paquetes por parte de los routers. Los routers externos a una organización solo necesitan considerar estos x primeros bits del prefijo para reenviar un datagrama hacia el destino dentro de esa organización. Esto permite que **una única entrada en la tabla de reenvío sea suficiente para dirigir paquetes a cualquier destino dentro de esa organización**, reduciendo considerablemente el tamaño de las tablas de reenvío. Además, cuando una dirección de destino coincide con varias entradas en la tabla de reenvío, el router aplica la regla de **coincidencia con el prefijo más largo** (Longest Prefix Match). La máscara de subred (/x) es **esencial para determinar la longitud exacta del prefijo con el que se está buscando la coincidencia**.
 
 ### Ejercicio 5
@@ -49,7 +50,7 @@ El campo Protocolo en la cabecera IP desempeña un papel similar al del campo qu
   - **Dirección de la subred**: 
     - Como es /26 aplicamos la máscara de subred con los primeros 26 bits de la dirección IP en 1 y el resto en 0:
     - 10101100.00010000.00111010.11011111 AND 11111111.11111111.11111111.11000000 = 1010110.00010000.00111010.11000000 = `172.16.58.192/26` 
-  - **Cantidad máxima de hosts**: La cantidad máxima de hosts que se pueden representar son 2^(32-26) = 64 hosts, 62 si descontamos la dirección de red y la de broadcast.
+  - **Cantidad máxima de hosts**: La cantidad máxima de hosts que se pueden representar son 2^(32-26) - 2 = 62 hosts, se restan 2 por la dirección de red y la de broadcast.
   - **Dirección de broadcast**: La dirección de broadcast es `172.16.58.255`, ya que es la última dirección de la subred.
   - **Rango de direcciones IP válidas dentro de la subred**: El rango de direcciones IP válidas dentro de la subred es `172.16.58.193` a `172.16.58.254`.
 - `163.10.5.49/27`  
@@ -57,7 +58,7 @@ El campo Protocolo en la cabecera IP desempeña un papel similar al del campo qu
   - **Dirección de la subred**: 
     - Como es /27 aplicamos la máscara de subred con los primeros 27 bits de la dirección IP en 1 y el resto en 0:
     - 10100011.00001010.00000101.00110001 AND 11111111.11111111.11111111.11100000 = 10100011.00001010.00000101.00100000 = `163.10.5.32/27`
-  - **Cantidad máxima de hosts**: La cantidad máxima de hosts que se pueden representar son 2^(32-27) = 32 hosts, 30 si descontamos la dirección de red y la de broadcast 
+  - **Cantidad máxima de hosts**: La cantidad máxima de hosts que se pueden representar son 2^(32-27) - 2 = 30 hosts, se restan 2 por la dirección de red y la de broadcast 
   - **Dirección de broadcast**: La ddirección de broadcast es `163.10.5.255`, ya que es la última dirección de la subred.
   - **Rango de direcciones IP válidas dentro de la subred**: El rango de direcciones IP válidas dentro de la subred es `163.10.5.33` a `163.10.5.254`
 - `128.10.1.0/23`
@@ -65,7 +66,7 @@ El campo Protocolo en la cabecera IP desempeña un papel similar al del campo qu
   - **Dirección de la subred**: 
     - Como es /23 aplicamos la máscara de sbred con los primeros 23 bits de la ddirección IP en 1 y el resto en 0:
     - 10000000.00001010.00000001.00000000 AND 11111111.11111111.11111110.00000000 = 10000000.00001010.00000000.00000000 = `128.10.0.0/23`
-  - **Cantidad máxima de hosts**: La cantidad máxima de hosts que se pueden representar son 2^(32-23) = 512 hosts, 510 si descontamos la dirección de red y la de broadcast
+  - **Cantidad máxima de hosts**: La cantidad máxima de hosts que se pueden representar son 2^(32-23) - 2 = 510 hosts, se restan 2 por la dirección de red y la de broadcast
   - **Dirección de broadcast**: La dirección de broadcast es `128.10.0.255`, ya que es la última dirección de la subred
   - **Rango de direcciones IP válidas dentro de la subred**: El rango de direcciones IP válidas dentro de la subred es `128.10.0.1` a `128.10.0.254` 
 - `10.1.0.0/24`
@@ -73,7 +74,7 @@ El campo Protocolo en la cabecera IP desempeña un papel similar al del campo qu
   - **Dirección de la subred**: 
     - Como es /24 aplicamos la máscara de subred con los primeros 24 bits de la dirección IP en 1 y el resto en 0:
     - 00001010.00000001.00000000.00000000 AND 11111111.11111111.11111111.00000000 = 00001010.00000001.00000000.00000000 = `10.1.0.0/24`
-  - **Cantidad máxima de hosts**: La cantidad máxima de hosts que se pueden representar son 2^(32-24) = 256 hosts, 254 si descontamos la dirección de red y la de broadcast.
+  - **Cantidad máxima de hosts**: La cantidad máxima de hosts que se pueden representar son 2^(32-24) - 2 = 254 hosts, se restan 2 por la dirección de red y la de broadcast.
   - **Dirección de broadcast**: La dirección de broadcast es `10.1.0.255`, ya que es la última dirección de la subred.
   - **Rango de direcciones IP válidas dentro de la subred**: El rango de direcciones IP válidas dentro de la subred es `10.1.0.1` a `10.1.0.254`.
 - `8.40.11.179/12`
@@ -81,7 +82,7 @@ El campo Protocolo en la cabecera IP desempeña un papel similar al del campo qu
   - **Dirección de la subred**: 
     - Como es /12 aplicamos la máscara de subred con los primeros 12 bits de la dirección IP en 1 y el resto en 0:
     - 00001000.00101000.00001011.10110011 AND 11111111.11110000.00000000.00000000 = 00001000.00100000.00000000.00000000 = `8.32.0.0/12`
-  - **Cantidad máxima de hosts**: La cantidad máxima de hosts que se pueden representar son 2^(32-12) = 1048576 hosts, 1048574 si descontamos la dirección de red y la de broadcast.
+  - **Cantidad máxima de hosts**: La cantidad máxima de hosts que se pueden representar son 2^(32-12) - 2 = 1048574 hosts, se restan 2 por la dirección de red y la de broadcast.
   - **Dirección de broadcast**: La dirección de broadcast es `8.32.0.255`, ya que es la última dirección de la subred.
   - **Rango de direcciones IP válidas dentro de la subred**: El rango de direcciones IP válidas dentro de la subred es `8.32.0.1` a `8.47.0.254`.
 
@@ -104,12 +105,12 @@ El campo Protocolo en la cabecera IP desempeña un papel similar al del campo qu
   - **Cantidad de redes asignables**:
     - Podemos representar 2^10 = 1024 subredes.
   - **Cantidad de hosts por subred**:
-    - La cantidad máxima de hosts que se pueden representar por subred son 2^(32-26) = 64 hosts, 62 si descontamos la dirección de red y la de broadcast.
+    - La cantidad máxima de hosts que se pueden representar por subred son 2^(32-26) -2 = 62 hosts, se restan 2 por la dirección de red y la de broadcast.
   - **Dirección de la subred 710**:
     - Primero convertimoos 710 a binario de 10 bits: `1011000110`.
-    - sabemos que por `/16` los primeros 2 octetos (16 bits) son de red, por lo que los 10 bits de la subred se encuentran en el tercer octeto y parte del cuarto.
-      - `128.50.10110001.10000000` sería la dirección de la subred 710 en binario.
-      - En decimal sería `128.50.177.128`
+    - Ahora aplicamos un OR entre la dirección IP inicial y la representación binaria de la subred 710, teniendo en cuenta que los primeros 16 bits son de red y los siguientes 10 bits son de subred:
+      - `128.50.[00001010.00000000] OR [1011000110.000000] = 128.50.10110001.00000000`
+      - En decimal sería `128.50.177.0`
   - **Dirección de broadcast de la subred 710**:
     - La dirección de broadcast se obtiene poniendo todos los bits de host a 1.
     - Como la máscara es `/26`, los primeros 26 bits son de red y los últimos 6 bits son de host.
@@ -117,6 +118,8 @@ El campo Protocolo en la cabecera IP desempeña un papel similar al del campo qu
       - En decimal sería `128.50.177.191`
 
 ### Ejercicio 8
+
+#### Inciso a
 
 - Dada la dirección IP `195.200.45.0/24`
   - **Máscara para definir al menos 9 subredes**
@@ -128,7 +131,53 @@ El campo Protocolo en la cabecera IP desempeña un papel similar al del campo qu
   - **Dirección de subred de las primeras 9 subredes**
   - **Dirección de broadcast y rango de direcciones asignables de una de las 9 subredes**
 
+#### Inciso b
+
+- Dirección  de subred de las primeras 9 subredes
+  - `[195.200.45.0000]0000/28` = `195.200.45.0/28`
+  - `[195.200.45.0001]0000/28` = `195.200.45.16/28`
+  - `[195.200.45.0010]0000/28` = `195.200.45.32/28`
+  - `[195.200.45.0011]0000/28` = `195.200.45.48/28`
+  - `[195.200.45.0100]0000/28` = `195.200.45.64/28`
+  - `[195.200.45.0101]0000/28` = `195.200.45.80/28`
+  - `[195.200.45.0110]0000/28` = `195.200.45.96/28`
+  - `[195.200.45.0111]0000/28` = `195.200.45.112/28`
+  - `[195.200.45.1000]0000/28` = `195.200.45.128/28`
+
+#### Inciso c
+
+- si seleccionamos por ejemplo la subred `195.200.45.0/28`
+  - **Dirección de broadcast**: se obtiene con todos los bit de host en 1
+    - `195.200.45.00001111` = `195.200.45.15`
+  - **Rango de direcciones asignables**: son las direcciones entre la dirección de subred y la dirección de broadcast
+    - desde `195.200.45.1` hasta `195.200.45.14`
+
 ### Ejercicio 9
+
+#### Inciso a
+
+- `191.26.145.1/24`: Correcta
+- `191.26.145.20/24`: Correcta
+- `172.26.22.1/30`: Correcta
+- `172.26.22.3/30`: Correcta
+- `172.17.10.14/28`: Correcta
+- `172.17.10.17/28`: Incorrecta, ya que en una subred /28 solo hay 16 direcciones (14 utilizables para hosts), por lo que la dirección 17 no pertenece a esa subred.
+  - Correxión: `172.17.10.1/28`
+- `192.168.5.1/24`: Correcta
+- `10.0.10.1/24`: Correcta
+
+#### Inciso b
+
+En la red 10.0.10.0/24, se tomaron para hacer subredes 16 bits. Al ser una IP de clase A, la máscara por defecto es /8 y como ahora es una /24, se tomaron 16 bits de la parte de host para hacer subredes. Por lo tanto, el número de subredes que se pueden crear es 2^16 = 65536 subredes.
+
+#### Inciso c
+
+En cuanto a la privacidad de las redes:
+- `191.26.145.0/24`: Pública
+- `172.26.22.0/30`: Privada, ya que, las direcciones IP privadas en clase B van desde `172.16.0.0` hasta `172.31.255.255`
+- `172.17.10.0/28`: Privada, ya que, las direcciones IP privadas en clase B van desde `172.16.0.0` hasta `172.31.255.255`
+- `192.168.5.0/24`: Privada, ya que, las direcciones IP privadas en clase C van desde `192.168.0.0` hasta `192.168.255.255`
+- `10.0.10.0/24`: Privada, ya que, las direcciones IP privadas en clase A van desde `10.0.0.0` hasta `10.255.255.255`
 
 ## CIDR
 
@@ -169,12 +218,12 @@ CIDR es útil por varias razones:
     - el mínimo sera como está la red actualmente con los últimos 19 bits en 0 y el máximo con los últimos 19 bits en 1
     - por ende, el rango de redes involucradas va desde `195.24.0.0` hasta `195.31.255.255`
   - `195.24/13`
-    - en binario: 11000011.00011000.00000000.00000000
-    - los primeros 13 bits son de red, por lo que los últimos 19 bits son de host [11000011.00011]000.00000000.00000000
-    - el mínimo sera como está la red actualmente con los últimos 19 bits en 0 y el máximo con los últimos 19 bits en 1
-    - por ende, el rango de redes involucradas va desde `195.24.0.0` hasta `195.31.255.255`
+    - es lo mismo que el punto anterior, por lo que el rango de redes involucradas va desde `195.24.0.0` hasta `195.31.255.255`
 
 ### Ejercicio 13
+
+- El bloque CIDR `128.0.0.0/2` es exactamente lo mismo que listar todas las direcciones de red de clase B. El primer octeto de las redes de clase B comienza con los bits `10`. El bloque CIDR `128.0.0.0/2` indica que los primeros 2 bits son fijos. Al convertir 128 a binario (`10000000`), vemos que los dos primeros bits son precisamente `10`. Por lo tanto, este bloque abarca desde la dirección `128.0.0.0` hasta la `191.255.255.255`, cubriendo la totalidad del espacio de direcciones de la Clase B.
+- El bloque CIDR que agrupa todas las redes de clase A es `0.0.0.0/1`, ya que las direcciones de clase A comienzan con un bit `0`. Esto abarca desde `0.0.0.0` hasta `127.255.255.255`, cubriendo todas las direcciones de clase A.
 
 ## VSLM
 
@@ -185,57 +234,58 @@ VLSM (Variable Length Subnet Mask) significa **Máscara de Subred de Longitud Va
 ### Ejercicio 15
 
 - El proceso generalmente implica:
-  - **Calcular la máscara para la/s subred/es de mayor cantidad de hosts**
-  - **Escribir la subred asignada en binario**
-  - **Dibujar una línea vertical por el límite original de la subred**
-  - **Dibujar una línea vertical por el segundo límimte de subred**
-  - **Calcular las direcciones de subred usando los bits entre las dos líneas**
+  - Calcular la máscara para la/s subred/es de mayor cantidad de hosts
+  - Escribir la subred asignada en binario y marcar donde finaliza la máscara
+  - Desplazar el límite de subred hacia la derecha según la cantidad de bits necesarios para la siguiente subred
+  - Calcular las diferentes combinaciones posbiles de subredes en base a los bits que nos desplazamos hacia la derecha 
 
 ### Ejercicio 16
 
 #### Inciso a
 
-Si es posible asignar las subredes correspondientes a la topología utilizando subnetting sin VLSM.
-- La subred que más hosts necesita es la subred C con 1530 hosts. Por lo tanto, necesitamos una máscara que permita al menos 1530 hosts, lo que requiere 11 bits para los hosts (2^11 = 2048). 
-- La máscara necesaria sería /21 (32 - 11 = 21).
-- En cada caso se desperdiciarán:
-  - RED A: tiene 128 hosts, con /21 se desperdician 2048 - 128 = 1920 direcciones.
-  - RED B: tiene 20 hosts, con /21 se desperdician 2048 - 20 = 2028 direcciones.
-  - RED C: tiene 1530 hosts, con /21 se desperdician 2048 - 1530 = 518 direcciones.
-  - RED D: tiene 7 hosts, con /21 se desperdician 2048 - 7 = 2041 direcciones.
+No es posible asignar las subredes correspondientes a la topología utilizando subnetting sin VLSM. Debido a que la subred que más hosts necesita es la subred C con 1530 hosts. Por lo tanto, necesitamos una máscara que permita al menos 1530 hosts, lo que requiere 11 bits para los hosts (2^11 = 2048). La máscara necesaria sería /21 (32 - 11 = 21), lo que me permite definir 4 subredes con 2048 direcciones cada una (2046 utilizables para hosts), por lo cual no es posible asignar las 6 direcciones necesarias para cada red de la topología.
+- En cada caso, si se pudiese asignar la red en /21 se desperdiciarán (en cada caso no contamos la dirección de red y la de broadcast, nos quedan 2046 direcciones utilizables por subred):
+  - RED A: tiene 128 hosts, con /21 se desperdician 2046 - 128 = 1918 direcciones.
+  - RED B: tiene 20 hosts, con /21 se desperdician 2046 - 20 = 2026 direcciones.
+  - RED C: tiene 1530 hosts, con /21 se desperdician 2046 - 1530 = 516 direcciones.
+  - RED D: tiene 7 hosts, con /21 se desperdician 2046 - 7 = 2039 direcciones.
+  - RED R1 - R2: tiene 2 hosts (interfaces de los routers), con /21 se desperdician 2046 - 2 = 2044 direcciones.
+  - RED R2 - R3: tiene 2 hosts (interfaces de los routers), con /21 se desperdician 2046 - 2 = 2044 direcciones.
 
 #### Inciso b
 
 - Direcciones asignadas a las redes de la topología:
-  - RED A: `205.10.222.0/24`
-  - RED B: `205.10.223.192/27`
-  - RED C: `205.10.208.0/21`
-  - RED D: `205.10.223.224/28`
+  - RED A: `205.10.200.0/24`
+  - RED B: `205.10.201.0/27`
+  - RED C: `205.10.192.0/21`
+  - RED D: `205.10.201.32/28`
+  - RED (ROUTER 1 - ROUTER 2): `205.10.201.48/30`
+  - RED (ROUTER 2 - ROUTER 3): `205.10.201.52/30`
 
 #### Inciso c
 
 - Direcciones que quedaron libres:
-  - `205.10.192.0/20`
-  - `205.10.216.0/22`
-  - `205.10.220.0/23`
-  - `205.10.223.0/25`
-  - `205.10.223.128/26`
-  - `205.10.223.240/29`
+  - `205.10.208.0/20`
+  - `205.10.204.0/22`
+  - `205.10.202.0/23`
+  - `205.10.201.128/25`
+  - `205.10.201.64/26`
+  - `205.10.201.56/29`
 
 #### Inciso d
 
-- Direcciones de los routers:
-  - En los routers la máscara es de /30, ya que
-  - ROUTER 1: `205.10.223.248/30`
-  - ROUTER 2: `205.10.223.252/30`
-
 - Direcciones de las interfaces:
-  - ROUTER 1 - RED A: `205.10.222.1/24`
-  - ROUTER 1 - RED B: `205.10.223.193/27`
-  - ROUTER 1 - RED C: `205.10.208.1/21`
-  - ROUTER 2 - RED D: `205.10.223.225/28`
+  - ROUTER 1 - RED A: `205.10.200.1/24`
+  - ROUTER 1 - RED B: `205.10.201.1/27`
+  - ROUTER 1 - RED C: `205.10.192.1/21`
+  - ROUTER 1 - ROUTER 2: `205.10.201.49/30`
+  - ROUTER 2 - RED D: `205.10.201.33/28`
+  - ROUTER 2 - ROUTER 1: `205.10.201.50/30`
+  - ROUTER 2 - ROUTER 3: `205.10.201.53/30`
+  - ROUTER 3 - ROUTER 2: `205.10.201.54/30`
 
-**NOTA**: El proceso de obtención de las direcciones esta detallado en el archivo [Punto16.pdf](Punto16.pdf)
+>[!note]NOTA
+>El proceso de obtención de las direcciones esta detallado en el archivo [Punto16.pdf](Punto16.pdf)
 
 ### Ejercicio 17
 
@@ -338,10 +388,37 @@ El bloque `127.0.0.0/8` está clasificado como una dirección IP especial que se
 #### Inciso a y b
 
 El comando ping se utiliza para probar la conectividad IP entre dos hosts. Cuando un host recibe un mensaje ICMP de Solicitud de eco (Echo Request), debe responder copiando el contenido con un mensaje de Respuesta de eco (Echo Reply). Dado que las direcciones en el bloque 127.0.0.0/8 son direcciones de loopback, el tráfico dirigido a ellas nunca sale de la máquina local que ejecuta el comando.
-- En el caso de `ping 127.0.0.1` la PC que ejecuta el comando es quien responde. 127.0.0.1 es la dirección más utilizada dentro del rango de loopback, lo que permite que el host se envíe un paquete a sí mismo para verificar su configuración de red interna (la pila de protocolos).
-- En el caso de `ping 127.0.54.43` la PC que ejecuta el comando también es quien responde. Dado que cualquier dirección en el rango 127.x.x.x es una dirección de loopback, el tráfico dirigido a 127.0.54.43 es manejado internamente por el sistema operativo de la máquina de origen, respondiendo el host a su propia solicitud.
+- No importan los números siguientes a 127.*, siempre responderá la máquina local y nunca se envían paquetes a la red real.
+  ```bash
+  $ ping 127.0.0.1
 
-En resumen, no importan los números siguientes a 127.*, siempre responderá la máquina local y nunca se envían paquetes a la red real.
+  Haciendo ping a 127.0.0.1 con 32 bytes de datos:
+  Respuesta desde 127.0.0.1: bytes=32 tiempo<1m TTL=128
+  Respuesta desde 127.0.0.1: bytes=32 tiempo<1m TTL=128
+  Respuesta desde 127.0.0.1: bytes=32 tiempo<1m TTL=128
+  Respuesta desde 127.0.0.1: bytes=32 tiempo<1m TTL=128
+
+  Estadísticas de ping para 127.0.0.1:
+      Paquetes: enviados = 4, recibidos = 4, perdidos = 0
+      (0% perdidos),
+  Tiempos aproximados de ida y vuelta en milisegundos:
+      Mínimo = 0ms, Máximo = 0ms, Media = 0ms
+  ```
+  ```bash
+  $ ping 127.0.54.43
+
+  Haciendo ping a 127.0.54.43 con 32 bytes de datos:
+  Respuesta desde 127.0.54.43: bytes=32 tiempo<1m TTL=128
+  Respuesta desde 127.0.54.43: bytes=32 tiempo<1m TTL=128
+  Respuesta desde 127.0.54.43: bytes=32 tiempo<1m TTL=128
+  Respuesta desde 127.0.54.43: bytes=32 tiempo<1m TTL=128
+
+  Estadísticas de ping para 127.0.54.43:
+      Paquetes: enviados = 4, recibidos = 4, perdidos = 0
+      (0% perdidos),
+  Tiempos aproximados de ida y vuelta en milisegundos:
+      Mínimo = 0ms, Máximo = 0ms, Media = 0ms
+  ```
 
 ### Ejercicio 21
 
@@ -352,8 +429,6 @@ En resumen, no importan los números siguientes a 127.*, siempre responderá la 
 - Estos comandos se encuentran actualmente obsoletos y pueden reemplazarse por:
   - `ip addr` en lugar de `ifconfig`
   - `ip route` en lugar de `route`
-
-#### Topología con CORE
 
 
   
