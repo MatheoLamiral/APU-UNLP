@@ -291,39 +291,40 @@ No es posible asignar las subredes correspondientes a la topología utilizando s
 
 - Direcciones asignadas a las redes y hosts de la topología:
   - RED A: `200.100.8.0/24`
-    - n10: `200.100.8.1/24`
-  - RED B: `200.100.11.128/26`
-    - n14: `200.100.11.129/26`
-    - n15: `200.100.11.130/26`
-    - n16: `200.100.11.132/26`
+    - n10: `200.100.8.2/24`
+  - RED B: `200.100.10.0/26`
+    - n14: `200.100.10.2/26`
+    - n15: `200.100.10.3/26`
+    - n16: `200.100.10.4/26`
   - RED X: `200.100.9.0/25`
-    - n11: `200.100.9.1/25`
-    - n12: `200.100.9.2/25`
+    - n11: `200.100.9.2/25`
+    - n12: `200.100.9.3/25`
   - RED Y: `200.100.9.128/25`
-    - n13: `200.100.9.129/25`
-  - RED (ROUTER n1 - ROUTER n2): `200.100.11.236/30`
-  - RED (ROUTER n1 - ROUTER n3): `200.100.11.252/30`
-  - RED (ROUTER n1 - ROUTER n4): `200.100.11.240/30`
-  - RED (ROUTER n3 - ROUTER n4): `200.100.11.248/30`
-  - RED (ROUTER n2 - ROUTER n4): `200.100.11.244/30`
+    - n13: `200.100.9.130/25`
+  - RED (ROUTER n1 - ROUTER n2): `200.100.10.64/30`
+  - RED (ROUTER n1 - ROUTER n3): `200.100.10.76/30`
+  - RED (ROUTER n1 - ROUTER n4): `200.100.10.80/30`
+  - RED (ROUTER n3 - ROUTER n4): `200.100.10.72/30`
+  - RED (ROUTER n2 - ROUTER n4): `200.100.10.68/30`
 
 - Direccciones asignadas a las interfaces:
-  - ROUTER n1 <- RED A: `200.100.8.2/24`
-  - ROUTER n1 <- ROUTER n2: `200.100.11.237/30`
-  - ROUTER n1 <- ROUTER n3: `200.100.11.253/30`
-  - ROUTER n1 <- ROUTER n4: `200.100.11.241/30`
-  - ROUTER n2 <- RED X: `200.100.9.4/25`
-  - ROUTER n2 <- ROUTER n1: `200.100.11.238/30`
-  - ROUTER n2 <- ROUTER n4: `200.100.11.245/30`
-  - ROUTER n3 <- ROUTER n1: `200.100.11.254/30`
-  - ROUTER n3 <- ROUTER n4: `200.100.11.249/30`
-  - ROUTER n4 <- RED B: `200.100.11.136/26`
-  - ROUTER n4 <- RED Y: `200.100.9.130/25`
-  - ROUTER n4 <- ROUTER n1: `200.100.11.242/30`
-  - ROUTER n4 <- ROUTER n2: `200.100.11.246/30`
-  - ROUTER n4 <- ROUTER n3: `200.100.11.250/30`
+  - ROUTER n1 <- RED A: `200.100.8.1/24`
+  - ROUTER n1 <- ROUTER n2: `200.100.10.65/30`
+  - ROUTER n1 <- ROUTER n3: `200.100.10.77/30`
+  - ROUTER n1 <- ROUTER n4: `200.100.10.81/30`
+  - ROUTER n2 <- RED X: `200.100.9.1/25`
+  - ROUTER n2 <- ROUTER n1: `200.100.10.66/30`
+  - ROUTER n2 <- ROUTER n4: `200.100.10.69/30`
+  - ROUTER n3 <- ROUTER n1: `200.100.10.78/30`
+  - ROUTER n3 <- ROUTER n4: `200.100.10.73/30`
+  - ROUTER n4 <- RED B: `200.100.10.1/26`
+  - ROUTER n4 <- RED Y: `200.100.9.129/25`
+  - ROUTER n4 <- ROUTER n1: `200.100.10.82/30`
+  - ROUTER n4 <- ROUTER n2: `200.100.10.70/30`
+  - ROUTER n4 <- ROUTER n3: `200.100.10.74/30`
 
-**NOTA**: El proceso de obtención de las direcciones esta detallado en el archivo [Punto17.pdf](Punto17.pdf)
+>[!note]NOTA
+> El proceso de obtención de las direcciones esta detallado en el archivo [Punto17.pdf](Punto17.pdf)
 
 ### Ejercicio 18
 
