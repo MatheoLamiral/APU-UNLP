@@ -340,7 +340,7 @@ Sí, es posible que un Agente de Transporte de Correo (MTA) escuche en un puerto
 - `correo.redes2024.com.ar 86400 IN A 203.0.113.8`
 - `webmail.redes2024.com.ar 86400 IN CNAME correo.redes2024.com.ar`
 
->[!note]NOTA
+>[!note] NOTA
 >**SOA (Start Of Authority)**: es obligatorio para definir la zona de autoridad. Especifica el servidor de nombres primario (`ns1.redes2024.com.ar`), una dirección de correo para el administrador (en este caso `root.ns1.redes2024.com.ar`) y varios parámetros de temporización cruciales para la transferencia de zona y el caching (como el Número de Serie, Refresh, Retry y Expiry)  
 > **CNAME (Canonical Name)**: se utiliza para crear un alias más fácil de recordar para un nombre de host canónico (real). El usuario accederá al servicio de webmail a través de https://webmail.redes2024.com.ar. Por lo tanto, webmail actúa como un alias que apunta al nombre canónico del servidor web, que en este caso es `correo.redes2024.com.ar`
 
