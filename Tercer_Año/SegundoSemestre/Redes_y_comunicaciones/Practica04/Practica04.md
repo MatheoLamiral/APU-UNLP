@@ -340,7 +340,7 @@ Sí, es posible que un Agente de Transporte de Correo (MTA) escuche en un puerto
 - `correo.redes2024.com.ar 86400 IN A 203.0.113.8`
 - `webmail.redes2024.com.ar 86400 IN CNAME correo.redes2024.com.ar`
 
->[!note] NOTA
+>[!note]
 >**SOA (Start Of Authority)**: es obligatorio para definir la zona de autoridad. Especifica el servidor de nombres primario (`ns1.redes2024.com.ar`), una dirección de correo para el administrador (en este caso `root.ns1.redes2024.com.ar`) y varios parámetros de temporización cruciales para la transferencia de zona y el caching (como el Número de Serie, Refresh, Retry y Expiry)  
 > **CNAME (Canonical Name)**: se utiliza para crear un alias más fácil de recordar para un nombre de host canónico (real). El usuario accederá al servicio de webmail a través de https://webmail.redes2024.com.ar. Por lo tanto, webmail actúa como un alias que apunta al nombre canónico del servidor web, que en este caso es `correo.redes2024.com.ar`
 
@@ -395,7 +395,7 @@ Tener en cuenta que podría darse el caso de que el servidor DNS además de ser 
 - La forma de asegurar que cualquier MTA reconozca como válidos los correos electrónicos provenientes del dominio `redes2024.com.ar` únicamente si llegan desde la dirección `203.0.113.111 ` es mediante la implementación de un registro **SPF (Sender Policy Framework)** en el DNS. **SPF** es un mecanismo diseñado para **contrarrestar el correo basura** (spam) al permitir a los **propietarios de dominios especificar qué servidores de correo están autorizados para enviar mensajes en nombre de ese dominio**. La configuración de SPF se realiza **añadiendo** un **registro de recurso** (RR) de tipo **TXT** (Textual) a la zona redes2024.com.ar en su servidor DNS primario (`ns1 - 203.0.113.65`). Los registros TXT almacenan información descriptiva para el dominio. El contenido de este registro TXT debe declarar explícitamente que la única dirección IP autorizada para enviar correo para este dominio es la de su servidor de correo, 203.0.113.111, por ejemplo, `v=spf1 ip4:203.0.113.111 -all`. Cuando un servidor **MTA receptor** (el servidor de correo del destinatario) recibe un mensaje de correo electrónico que afirma ser de `usuario@redes2024.com.ar`, el servidor receptor (que actúa como servidor SMTP) **realiza una consulta DNS buscando el registro SPF (TXT) asociado con el dominio redes2024.com.ar**. Si la dirección IP de origen de la conexión SMTP coincide con la lista de direcciones autorizadas en el registro SPF, el MTA receptor considera el correo como legítimo, sino, el receptor determinará que el correo no es válido según su política de SPF.
 - El servidor de webmail no debería verse afectado por esta nueva configuración, siempre y cuando los correos enviados desde webmail pasen por el servidor de correo que tiene la IP autorizada (`203.0.113.111`)
 
->[!note]NOTA
+>[!note]
 > `v=spf1 ip4:203.0.113.111 -all`
 > - `v=spf1`: Indica la versión del SPF que se está utilizando, en este caso la versión 1
 > - `ip4:203.0.113.111`: Especifica que la dirección IPv4 203.0.113.111 está autorizada para enviar correos en nombre del dominio
