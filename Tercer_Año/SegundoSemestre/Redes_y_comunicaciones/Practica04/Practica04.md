@@ -13,8 +13,8 @@ El protocolo principal de la capa de aplicación utilizado para la transferencia
 
 ### Ejercicio 3
 
-- Inciso b
-  - i
+#### Inciso b
+  - **i**
     La captura muestra luego de ver el TCP stream:
     ```
       * 5 EXISTS
@@ -74,7 +74,7 @@ El protocolo principal de la capa de aplicación utilizado para la transferencia
       185 IDLE
       + idling
     ```
-  - ii
+  - **ii**
     - Ejemplo
     ```wireshark
       220 mail.redes.unlp.edu.ar ESMTP Postfix (Lihuen-4.01/GNU)
@@ -121,14 +121,17 @@ El protocolo principal de la capa de aplicación utilizado para la transferencia
     - Luego los datos 
     - El servidor dice que debe terminar con "."
     - El cliente cierra la conexión 
-- Inciso c
-  - Se utiliza para el envío de caracteres no imprimibles de un archivo binario como puede ser, por ejemplo, una imagen 
-  - luego de obtener el fuente mediante el TCP stream de la captura de wireshark, guardamos el fuente en un archivo `imagen.b64`, luego lo decodificamos i lo guardamos en un archivo `imagen.png` con el siguiente comando:
-    ```bash
-    base64 -d imagen.b64 > imagen.png
-    ```
+
+#### Inciso c
+
+- Se utiliza para el envío de caracteres no imprimibles de un archivo binario como puede ser, por ejemplo, una imagen 
+- luego de obtener el fuente mediante el TCP stream de la captura de wireshark, guardamos el fuente en un archivo `imagen.b64`, luego lo decodificamos i lo guardamos en un archivo `imagen.png` con el siguiente comando:
+  ```bash
+  base64 -d imagen.b64 > imagen.png
+  ```
 
 ### Ejercicio 4
+
 - El TCP stream de la primera captura fue:
   ```
     +OK Dovecot ready.
@@ -204,6 +207,7 @@ El protocolo principal de la capa de aplicación utilizado para la transferencia
   - Luego continua el intercambio de mensajes entre cliente y servidor (los comandos que ejecuta el cliente que no fueron listados en por el CAPA son parte del estándar POP3)
 
 ### Ejercicio 5
+
 - El TCP stream de la primera captura fue:
   ```
     * OK Still here
@@ -312,286 +316,318 @@ El Agente de Usuario de Correo (MUA) envía su mensaje a su servidor de correo, 
 
 ### Ejercicio 8
 
-Sí, es posible que el Agente de Envío de Correo (MSA) escuche en un puerto TCP diferente a los convencionales. De hecho, existe una recomendación específica de la IETF para esta función. El protocolo SMTP tradicionalmente utiliza el puerto servidor 25. Aunque el MSA habitualmente usaba el puerto 25, se recomienda usar el puerto 587 (submission), según el RFC-6409 (anteriormente RFC-4409). Si un desarrollador crea una nueva aplicación de red, debe asignarle un número de puerto. Es técnicamente posible usar un puerto no estándar (fuera del rango de puertos bien conocidos 0-1023), siempre que el lado del servidor de la aplicación y el lado del cliente usen el mismo número de puerto.
-- Implicancias de usar un puerto TCP diferente
-  - **Separación de Roles**: El MSA es el agente que pre-procesa el mensaje recibido desde el MUA. La distinción de puertos facilita la separación de roles, donde el puerto 25 es típicamente usado para la transferencia de MTA a MTA, mientras que puertos como el 465 y 587 (junto con el 25) se asocian con la comunicación MUA-MTA que requiere autenticación (auth)
-  - **Configuración del Cliente (MUA a MSA)**: La combinación de la dirección IP del host junto con el número de puerto de la aplicación identifica el proceso servidor. Si el MSA usa un puerto distinto, el cliente (MUA) debe configurarse para comunicarse con ese puerto específico
+Sí, es posible que el Agente de Envío de Correo (MSA) escuche en un puerto TCP diferente a los convencionales, pero esto implica que los  Agentes de Usuario de Correo (MUA) del dominio y la infraestructura de red (como firewalls y NAT) deberán configurarse correctamente para permitir el tráfico en ese puerto no estándar. Además, podría generar problemas de interoperabilidad y soporte ya que la mayoría de las aplicaciones y servicios están diseñados para operar en los puertos estándar de SMTP. 
 
 ### Ejercicio 9
 
-Sí, es posible que un Agente de Transporte de Correo (MTA) escuche en un puerto TCP diferente a los convencionales. El protocolo utilizado para esta transferencia de servidor a servidor es SMTP (Simple Mail Transfer Protocol), y el puerto convencional o estándar para el servicio SMTP es el puerto TCP 25. Es técnicamente posible configurar un MTA o cualquier servidor de aplicación para escuchar en un puerto TCP diferente al asignado.
-- Las implicancias de usar un puerto TCP no convencional son:
-  - **Interoperabilidad (MTA a MTA)**: Si un MTA se configura para usar un puerto distinto al 25 para la comunicación con otros servidores MTA, la transferencia de correo estándar fallará. Cuando un cliente SMTP (ejecutándose en el servidor de correo emisor) intenta enviar un mensaje, establece una conexión TCP con el puerto 25 del servidor SMTP de destino. Si el servidor de destino no está escuchando en el puerto 25, la conexión predeterminada fallará, ya que los servidores de correo intermedios normalmente no utilizan otros puertos para transferir correo. Cuando un cliente SMTP (ejecutándose en el servidor de correo emisor) intenta enviar un mensaje, establece una conexión TCP con el puerto 25 del servidor SMTP de destino. Si el servidor de destino no está escuchando en el puerto 25, la conexión predeterminada fallará, ya que los servidores de correo intermedios normalmente no utilizan otros puertos para transferir correo. Los protocolos definidos en un RFC (como SMTP) deben usar el número de puerto asociado a ese protocolo para garantizar la interoperabilidad. Si un desarrollador crea una aplicación de red propietaria (que no sigue un RFC), puede usar un número de puerto diferente, pero el código no interoperará con aplicaciones desarrolladas independientemente
+Sí, es posible que un Agente de Transporte de Correo (MTA) escuche en un puerto TCP diferente a los convencionales. Esto no es aconsejable debido a las implicaciones en la interoperabilidad, entrega de correos y la compatibilidad de otros servicios. EL puerto 25 es un estándar universal para la entrega de correos entre servidores, y cambiarlo puede romper la comunicació con otros MTAs, causando fallos en la entrega de correos a nivel global
 
 ### Ejercicio 10
 
-  - Inciso a 
-    - Hacer visible el dominio `redes2024.com.ar` en Internet significa que los servidores DNS de la jerarquía global, especialmente los servidores de Dominio de Nivel Superior (TLD, Top-Level Domain), deben saber qué servidores son los responsables de responder a las consultas para el dominio `redes2024.com.ar`
-      - La entidad registradora es la responsable de ingresar esta información en los servidores TLD correspondientes al dominio `.com.ar`
-      - La información que el registrador inserta en el sistema DNS global (los servidores TLD) consiste en dos tipos de registros de recursos (RR)
-        - **Registros NS**: indican cuales son los servidores de nombres autoritativos para el dominio. En este caso `(redes2024.com.ar, ns1.redes2024.com.ar, NS)` y `(redes2024.com.ar, ns2.redes2024.com.ar, NS)` 
-        - **Registros de tipo A**: proporcionan las direcciones IP correspondientes a los nombres de los servidores DNS. En este caso `(ns1.redes2024.com.ar, 203.0.113.65, A)` y `(ns2.redes2024.com.ar, 203.0.113.66, A)` 
-    - Una vez que estos registros son insertados en el sistema DNS, cuando un host en Internet intente resolver el nombre de cualquier servicio de su dominio, la consulta comenzará en los servidores raíz y será delegada a los servidores TLD, quienes finalmente dirigirán la consulta a sus servidores autoritativos (`ns1` o `ns2`) para obtener la dirección IP final
-  - Inciso b 
-    | Nombre del registro          | Tipo de registro | Prioridad | TTL    | Valor del registro                                                                                     |
-    |------------------------------|------------------|-----------|--------|--------------------------------------------------------------------------------------------------------|
-    | @ o redes2024.com.ar         | SOA              | --        | 604800 | ns1.redes2024.com.ar root.ns1.redes2024.com.ar (Serial, Refresh, Retry, Expiry, Neg Cache TTL)        |
-    | @ o redes2024.com.ar         | NS               | --        | 604800 | ns1.redes2024.com.ar                                                                                  |
-    | @ o redes2024.com.ar         | NS               | --        | 604800 | ns2.redes2024.com.ar                                                                                  |
-    | ns1.redes2024.com.ar                          | A                | --        | 604800 | 203.0.113.65                                                                                          |
-    | ns2.redes2024.com.ar                          | A                | --        | 604800 | 203.0.113.66                                                                                          |
-    | mail.redes2024.com.ar                         | A                | --        | 604800 | 203.0.113.111                                                                                         |
-    | correo.redes2024.com.ar                       | A                | --        | 604800 | 203.0.113.8                                                                                           |
-    | @ o redes2024.com.ar         | MX               | 10        | 604800 | mail.redes2024.com.ar                                                                                 |
-    | webmail.redes2024.com.ar                      | CNAME            | --        | 604800 | correo.redes2024.com.ar                                                                               |
+#### Inciso a 
 
-    - **SOA (Start Of Authority)**: es obligatorio para definir la zona de autoridad. Especifica el servidor de nombres primario (ns1.redes2024.com.ar), una dirección de correo para el administrador (aquí representada como root.ns1.redes2024.com.ar) y varios parámetros de temporización cruciales para la transferencia de zona y el caching (como el Número de Serie, Refresh, Retry, Expiry y TTL de caché negativa)
-    - **NS (Name Server)**: indican qué servidores son los autoritativos para la zona `redes2024.com.ar.` Estos son los servidores que contienen la base de datos completa de la zona. Se requiere un registro NS para el servidor primario (`ns1`) y otro para el servidor secundario (`ns2`)
-    - **A (Adress)**: proporcionan la correspondencia estándar de nombre de host a dirección IP (IPv4). Es crucial tener registros A para:
-      - Servidores DNS (ns1, ns2): Es la información que permite a otros servidores encontrar sus servidores autoritativos. Cuando un servidor DNS no es autoritativo para un nombre de host, contendrá un registro A que proporciona la dirección IP del servidor DNS referenciado en el registro NS
-      - Servidor de Correo (mail): Necesario para que el registro MX pueda apuntar a una dirección IP real
-      - Servidor Web/Webmail (correo): Necesario para que la entrada webmail (CNAME) resuelva finalmente a una dirección IP
-    - **MX (Mail Exchanger)**: es fundamental para el servicio de correo, ya que especifica qué host (servidor de correo) es responsable de aceptar mensajes para el dominio. Se aplica al dominio base (redes2024.com.ar). El campo de Prioridad (o preferencia) es un número entero. Si existieran múltiples servidores de correo, el MTA de envío intentaría contactar primero al servidor con el valor de prioridad más bajo (más preferido). En este caso usamos la prioridad de 10 ya que es una elección convencional utilizada para indicar que este es el principal y único destino del correo para el dominio `redes2024.com.ar.`. El valor de un registro MX debe ser el nombre canónico (el nombre de host) del servidor de correo, no la dirección IP directamente
-    - **CNAME (Canonical Name)**: se utiliza para crear un alias más fácil de recordar para un nombre de host canónico (real). El usuario accederá al servicio de webmail a través de https://webmail.redes2024.com.ar. Por lo tanto, webmail actúa como un alias que apunta al nombre canónico del servidor web, que en este caso es correo.redes2024.com.ar
-    - **NOTA**: `@` es una abreviatura o convención que representa el nombre del dominio de origen o la raíz de la zona que se está configurando
-- Inciso c
-  - No es necesario que el servidor DNS acepte consultas recursivas. Cuando el servidor autoritativo (`ns1` o `ns2`) recibe una consulta (que es una consulta iterativa proveniente de un servidor DNS local externo), simplemente devuelve la respuesta que ya posee en su base de datos de Registros de Recursos (RR). Por lo tanto, el servidor autoritativo no necesita realizar el trabajo de recursión. De hecho, los servidores fundamentales de la jerarquía (como los servidores DNS raíz) no deberían permitir consultas recursivas para prevenir implicancias en la seguridad y el rendimiento
-- Inciso d
-  - **Servidor DNS primario (ns1) y secundario (ns2)**: para atender consultas de resolución de nombres (iterativas) para el dominio `redes2024.com.ar`. El servidor secundario `ns2` debe sincronizarse periódicamente con el primario (`ns1`) para obtener actualizaciónes de la zona (Transferencia de zona)
-  - **Servidor de correo electrónico**
-    - **SMTP**: para recepción de correo (MTA a MTA) de otros servidores de Internet
-    - **SMTP/ESMTP**: para envío de correo (MUA a MTA/MSA), recibiendo mensajes de usuarios internos para su envío (rol del MSA normalmente incorporado en el MTA)
-    - **POP3**: pera permitir a los usuarios descargar mensajes de su buzón
-    - **IMAP**: para brindar una alternativa a POP3, permitiendo a los usuarios gestionar carpetas y manipular mensajes en el servidor
-  - **Servidor WEB**: para proporcionar acceso al webmail a través de la URL https://webmail.redes2024.com.ar.
-    - **HTTPs**: combinación de HTTP y SSL/TLS, para permitir la transferencia segura de documentos web para que los usuarios puedan gestionar sus correos de forma segura
-- Inciso e  
-  | Servidor                     | Protocolo de Transporte | Número de Puerto |
-  |------------------------------|--------------------------|------------------|
-  | **DNS Primario (ns1)**       | UDP/TCP                      | 53(DNS)               | 
-  | **DNS Secundario (ns2)**     | UDP/TCP                      | 53(DNS)               | 
-  | **Servidor de Correo (mail)**| TCP                      | 25(SMTP)               | 
-  | **Servidor de Correo (mail)**| TCP                      | 110(POP3)              | 
-  | **Servidor de Correo (mail)**| TCP                      | 143(IMAP)              | 
-  | **Servidor WEB/Webmail (correo)** | TCP                 | 80(HTTP)               | 
-  | **Servidor WEB/Webmail (correo)** | TCP                 | 443(HTTPS)             |
-- Inciso f
-  - El webmail, en este escenario, actúa como el Agente de Usuario de Correo (MUA, Mail User Agent) o cliente, que se comunica con el servidor de correo para dos funciones principales: 
-    - Recibir o acceder al correo
-      - **IMAP**: permite que webmail lea, gestione y manipule los correos en el servidor
-      - **POP3**: permite que webmail recupere (descargue) los mensjaes del buzón del usuario
-      - Para un servicio de webmail moderno, se utilizaría IMAP debido a su mayor flexibilidad para gestionar correos remotamente, carpetas y estados, lo cual es fundamental para una interfaz web
-    - Enviar correos
-      - **SMTP**: permite que **webmail** (cliente) inserte (push) el mensaje en el servidor de correo, en este caso **mail**, que funciona como un MSA/MTA
-  - Dado que el acceso de los usuarios al webmail se realiza a través de HTTPS (https://webmail.redes2024.com.ar), es una práctica estándar que la conexión interna entre el servidor web (webmail) y el servidor de correo también utilice SSL/TLS para cifrar datos.
-  - En resumen, la conexión se realizaría a través de una conexión TCP subyacente, utilizando los protocolos de la capa de aplicación IMAP/POP3 (para acceder al buzón) y SMTP (para enviar mensajes), y podrían estar asegurados mediante SSL/TLS
-- Inciso g
-  - La forma de asegurar que cualquier MTA reconozca como válidos los correos electrónicos provenientes del dominio `redes2024.com.ar` únicamente si llegan desde la dirección `203.0.113.111 ` es mediante la implementación de un registro **SPF (Sender Policy Framework)** en el DNS. **SPF** es un mecanismo diseñado para contrarrestar el correo basura (spam) al permitir a los propietarios de dominios especificar qué servidores de correo están autorizados para enviar mensajes en nombre de ese dominio. La configuración de SPF se realiza añadiendo un registro de recurso (RR) de tipo TXT (Textual) a la zona redes2024.com.ar en su servidor DNS primario (`ns1 - 203.0.113.65`). Los registros TXT almacenan información descriptiva para el dominio. El contenido de este registro TXT debe declarar explícitamente que la única dirección IP autorizada para enviar correo para este dominio es la de su servidor de correo, 203.0.113.111, por ejemplo, `v=spf1 ip4:203.0.113.111 -all` (donde -all indica que cualquier correo proveniente de una IP diferente debe ser rechazado). Cuando un servidor MTA receptor (el servidor de correo del destinatario) recibe un mensaje de correo electrónico que afirma ser de usuario@redes2024.com.ar, el servidor receptor (que actúa como servidor SMTP) realiza una consulta DNS buscando el registro SPF (TXT) asociado con el dominio redes2024.com.ar. Si la dirección IP de origen de la conexión SMTP coincide con la lista de direcciones autorizadas en el registro SPF, el MTA receptor considera el correo como legítimo, sino, el receptor determinará que el correo no es válido según su política de SPF.
-  - Esto garantizaría la autenticidad de los correos enviados desde webmail. El servidor de webmail funciona como una MUA, cuando el usuario envía un correo a través de webmail, el MUA establece una conexión y utiliza el protocolo SMTP para enviar el mensaje a su propio servidor de correo, que en este caso es mail (203.0.113.111), y este es el que toma el menssaje y, actuando como cliente SMTP, se encarga dde transferír el correo al servidor del destinatario (MTA-MTA). Y dado que el MTA saliente es el servidor de correo 203.0.113.111, esta es la dirección IP de origen que cualquier MTA externo verá cuando reciba el mensaje. Como la validación SPF se hace sobre la IP del servidor que esta realizando la inyección de los mensajes en la red, los mensajes enviados desde webmail serán considerados válidos y auténticos por los servidores receptores. La IP interna de webmail, no es visible para la verificación SPF de los MTAs externos
-- Inciso h
-  - La característica **SMTP**, que indirectamente afecta el manejo de mensajes por parte de **IMAP** y **POP**, es su restricción de diseño a utilizar únicamente caracteres **ASCII de 7 bits** para la transferencia de mensajes. Esta característica es la que obliga a codificar datos binarios (como imágenes, ejecutables, o archivos multimedia) en un formato que cumpla con los estándares ASCII de 7 bits, utilizando métodos como **Base64**
-- Inciso i
-  - Si, Este acto se conoce como suplantación de identidad (spoofing) y es una indicación de una estafa o un ataque malicioso
-  - La posibilidad de enviar un correo con una dirección de remitente falsa se debe al diseño de SMTP, que históricamente no exigía una autenticación estricta de la identidad del remitente durante la fase de transporte. El protocolo de correo define dos niveles de identificación para el remitente: el Envelope (envoltorio) y el Header (encabezado). El protocolo SMTP permite que un cliente especifique la dirección de correo electrónico del emisor (la persona que generó el mensaje) a través del comando MAIL FROM:. El encabezado del mensaje también debe contener una línea From:. Estas líneas de encabezado son diferentes de los comandos SMTP utilizados en la negociación del protocolo. Debido a que el sistema no realiza una verificación rigurosa de que la entidad que envía el mensaje es realmente la propietaria de la dirección que declara, es posible declarar una dirección falsa en la línea From: del encabezado que ve el destinatario. Esta capacidad de suplantación puede ser utilizada por atacantes para llevar a cabo un ataque con el fin de obtener información, distribuír software mailicoso, o realizar estafas. Para prevenir estas estafas aparecen mecanismos de seguridad robustos como SSL/TLS para la autenticación de los datos.
-- Inciso j
-  - Sí, esta manipulación del destinatario visible en el cliente de correo es posible debido a cómo está estructurado el protocolo SMTP y su distinción entre la información de transporte y la de visualización. La arquitectura del correo electrónico utiliza dos tipos principales de información de direccionamiento que se manejan por separado durante el proceso de envío
-    - **Sobre (Envelope)**: Esta información es utilizada por los Agentes de Transporte de Correo (MTA) para determinar la ruta y el buzón final donde se debe depositar el mensaje. Los comandos SMTP que gestionan el sobre son `MAIL FROM:` (remitente de la ruta) y `RCPT TO:` (destinatario de la ruta)
-    - **Encabezado (Header):** Esta es la meta-información del mensaje que el usuario final ve en su cliente de correo (Agente de Usuario de Correo o MUA). Incluye campos como `From:`, `Subject:`, y `To:`
-  - El correo podría no llegar a la ruta que dice en el `To:` del **encabezado (Header)** ya que el enrutamiento y la entrega final son determinados por la dirección especificada en el `RCPT TO:` del **sobre (Envelope)**. Los Agentes de Transporte de Correo (MTA) que mueven el mensaje a través de Internet (MTA-MTA) y el Agente de Entrega de Correo (MDA) que lo deposita en el buzón, solo utilizan el **sobre (Envelope)** para guiar el datagrama. El campo `To:` dentro del **encabezado (Header)** es simplemente meta-información leída por el agente de usuario del receptor, y es ignorada por la infraestructura de enrutamiento del correo. Esta capacidad de suplantación puede violar principios fundamentales como la integridad de los mensajes o la autenticación del punto terminal ( receptor no puede verificar la legitimidad completa del mensaje o del remitente).
-  - Un atacante puede usar la suplantación de la identidad del destinatario para confundir al receptor, hacerle creer que el mensaje era confidencial y fue mal dirigido, o iniciar un ataque de interposición (man-in-the-middle) o de reproducción. Tales vulnerabilidades son comunes en Internet y los atacantes las aprovechan para propagar software malicioso (malware) o realizar estafas.
-- Inciso k
-  - El MUA usará el protocolo SMTP para enviar un correo con remitente redes@info.unlp.edu.ar, conectándose con su propio servidor de correo local MSA/MTA para introducir el mensaje de correo en el servidor.
-  - Para que el MUA envíe el correo, necesita la siguiente información:
-    - **Identidad del servidor de correo local**: El MUA necesita conocer el nombre del servidor MSA/MTA local al que debe enviar el mensaje.
-    - **Información del servidor de correo (Dirección IP)**: El MUA utiliza DNS para traducir el nombre del host del servidor de correo en su dirección IP correspondiente. Esto implica:
-      - El MUA invoca a sui cliente DNS, pasándole el nombre de host del servidor
-      - El cliente DNS envía una consulta a su servidor DNS local
-      - El cliente DNS recibe una respuesta que incluye la dirección IP del servidor
-      - El MUA debe autenticarse ante su servidor de correo (generalmente usuario y contraseña)
-      - Durante la fase de negociación el MUA debe especificar la dirección de correo del emisor (en este caso redes@info.unlp.edu.ar) mediante el comando `MAIL FROM:` y la direción del destinatario mediante `RCPT TO:`
-      - El MUA agrega los campos del encabezado (`Message-ID`, `To:`, `From:`, `Date:`, `Subject:`, etc.) y el cuerpo del mensaje
-- Inciso l
-  - Cuando un servidor de correo electrónico externo intenta entregar un mensaje destinado a un buzón en `redes2024.com.ar`, intentará establecer una conexión TCP con su servidor de correo. Si el servidor mail está en proceso de reinicio o está inoperativo, el cliente SMTP (el servidor emisor) determinará que el servidor de destino "no está operativo". Si el servidor de destino (su servidor mail) está fuera de servicio, el servidor de correo emisor retendrá el mensaje y lo conservará en una cola de mensajes salientes (Mail Queue). El mensaje no se deja en un servidor de correo intermedio, sino que es el servidor del emisor quien lo conserva. El servidor emisor intentará enviar el mensaje más tarde. Típicamente, estos reintentos de envío se realizan de forma periódica cada un cierto lapso de tiempo. Si, después de varios días, el servidor de destino sigue sin estar disponible y no se ha podido entregar el mensaje, el servidor emisor finalmente eliminará el mensaje de su cola y notificará al emisor (el usuario original) mediante un correo electrónico que la entrega falló
-- Inciso m
-  - Agregamos un registro MX correspondiente al servidor de mail de la nube. Al agregar este nuevo registro, tenemos que configurar su prioridad. Así, cuando un MTA externo desee enviar un correo, primero intentará establecer una conexión TCP con el servidor de prioridad mas alta (valor más bajo) y si este no está operativo, intentará con el siguiente más prioritario, y así sucesivamente, proporcionando tolerancia a fallos.
+- Hacer visible el dominio `redes2024.com.ar` en Internet significa que los servidores DNS de la jerarquía global, especialmente los servidores de Dominio de Nivel Superior (TLD, Top-Level Domain), deben saber qué servidores son los responsables de responder a las consultas para el dominio `redes2024.com.ar`. Por ende, deberíamos agregar los dos registros NS correspondientes a los servidores autoritativos `ns1.redes2024.com.ar` y `ns2.redes2024.com.ar` y el A correspondiente a cada uno de los dos `203.0.113.65` y `203.0.113.66` respectivamente.
+
+#### Inciso b 
+
+- `redes2024.com.ar IN SOA ns1.redes2024.com.ar. root.ns1.redes2024.com.ar. ( 2024101001 ; Serial 7200 ; Refresh 3600 ; Retry 1209600 ; Expiry 604800)`
+- `redes2024.com.ar 86400 IN NS ns1.redes2024.com.ar.`
+- `redes2024.com.ar 86400 IN NS ns2.redes2024.com.ar.`
+- `ns1.redes2024.com.ar 86400 IN A 203.0.113.65`
+- `ns2.redes2024.com.ar 86400 IN A 203.0.113.66`
+- `redes2024.com.ar 86400 IN MX 10 mail.redes2024.com.ar.`
+- `mail.redes2024.com.ar 86400 IN A 203.0.113.111`
+- `correo.redes2024.com.ar 86400 IN A 203.0.113.8`
+- `webmail.redes2024.com.ar 86400 IN CNAME correo.redes2024.com.ar`
+
+>[!note]NOTA
+>**SOA (Start Of Authority)**: es obligatorio para definir la zona de autoridad. Especifica el servidor de nombres primario (`ns1.redes2024.com.ar`), una dirección de correo para el administrador (en este caso `root.ns1.redes2024.com.ar`) y varios parámetros de temporización cruciales para la transferencia de zona y el caching (como el Número de Serie, Refresh, Retry y Expiry)  
+> **CNAME (Canonical Name)**: se utiliza para crear un alias más fácil de recordar para un nombre de host canónico (real). El usuario accederá al servicio de webmail a través de https://webmail.redes2024.com.ar. Por lo tanto, webmail actúa como un alias que apunta al nombre canónico del servidor web, que en este caso es `correo.redes2024.com.ar`
+
+#### Inciso c
+
+- No es necesario que el servidor DNS acepte consultas recursivas. Cuando el servidor autoritativo (`ns1` o `ns2`) recibe una consulta (que es una consulta iterativa proveniente de un servidor DNS local externo), simplemente devuelve la respuesta que ya posee en su base de datos de Registros de Recursos (RR). Por lo tanto, el servidor autoritativo no necesita realizar el trabajo de recursión. De hecho, es recomendable que los servidores DNS autoritativos no permitan consultas recursivas por:
+- **Funcionalidad**
+  - La funcionalidad del servidor DNS autoritativo es responder con los registros DNS correspondientes al dominio del cuál es autoritativo cuando se le consulte directamente, no realizar consultas recursivas en nombre de otros clientes
+- **Rendimiento**
+  - Aceptar consultas recursivas consume más recursos del servidor DNS, ya que implica que este debe resolver dominios externos, lo que aumenta la carga de trabajo innecesariamente para un servidor cuya principal función es reesponder a consultas sobre su propia zona
+
+Tener en cuenta que podría darse el caso de que el servidor DNS además de ser autoritativo, sea el servidor DNS local de la zona, por lo que en ese caso si debería aceptar consultas recursivas para los clientes internos de la red (NO para los externos).
+
+>[!important]IMPORTANTE
+> Recordar que se puede configurar en un servidor DNS de quienes aceptar consultas recursivas y de quienes no, por ejemplo, permitir consultas recursivas solo para clientes internos de la red y no para clientes externos
+  
+#### Inciso d
+
+- **Servidor DNS primario (ns1) y secundario (ns2)**
+- **Servidor de correo electrónico**
+  - **SMTP**: para recepción y envío de correo (MTA a MTA) de otros servidores de Internet
+  - **IMAP**: para permitir a los usuarios gestionar carpetas, manipular mensajes en el servidor y mantener el estado en diferentes dispositivos 
+- **Servidor WEB**: para proporcionar acceso al webmail a través de la URL https://webmail.redes2024.com.ar.
+  - **HTTPs**: combinación de HTTP y SSL/TLS, para permitir la transferencia segura de documentos web para que los usuarios puedan gestionar sus correos de forma segura
+
+#### Inciso e  
+
+| Servidor                     | Protocolo de Transporte | Número de Puerto |
+|------------------------------|--------------------------|------------------|
+| **DNS Primario (ns1)**       | UDP/TCP                      | 53(DNS)               | 
+| **DNS Secundario (ns2)**     | UDP/TCP                      | 53(DNS)               | 
+| **Servidor de Correo (mail)**| TCP                      | 25(SMTP)               | 
+| **Servidor de Correo (mail)**| TCP                      | 110(POP3)              | 
+| **Servidor de Correo (mail)**| TCP                      | 143(IMAP)              | 
+| **Servidor WEB/Webmail (correo)** | TCP                 | 80(HTTP)               | 
+| **Servidor WEB/Webmail (correo)** | TCP                 | 443(HTTPS)             |
+
+#### Inciso f
+
+- El webmail, en este escenario, actúa como el Agente de Usuario de Correo (MUA, Mail User Agent) o cliente, que se comunica con el servidor de correo para dos funciones principales: 
+  - **Recibir o acceder al correo**
+    - **IMAP**: permite que webmail lea, gestione y manipule los correos en el servidor
+    - **POP3**: permite que webmail recupere (descargue) los mensjaes del buzón del usuario
+    - Para un servicio de webmail moderno, se utilizaría IMAP debido a su mayor flexibilidad para gestionar correos remotamente, carpetas y estados, lo cual es fundamental para una interfaz web
+  - **Enviar correos**
+    - **SMTP**: permite que **webmail** (cliente) inserte (push) el mensaje en el servidor de correo, en este caso **mail**, que funciona como un MSA/MTA
+- Dado que el acceso de los usuarios al webmail se realiza a través de HTTPS (https://webmail.redes2024.com.ar), es una práctica estándar que la conexión interna entre el servidor web (webmail) y el servidor de correo también utilice SSL/TLS para cifrar datos.
+- En resumen, la conexión se realizaría a través de una conexión TCP subyacente, utilizando los protocolos de la capa de aplicación IMAP/POP3 (para acceder al buzón) y SMTP (para enviar mensajes), y podrían estar asegurados mediante SSL/TLS
+
+#### Inciso g
+
+- La forma de asegurar que cualquier MTA reconozca como válidos los correos electrónicos provenientes del dominio `redes2024.com.ar` únicamente si llegan desde la dirección `203.0.113.111 ` es mediante la implementación de un registro **SPF (Sender Policy Framework)** en el DNS. **SPF** es un mecanismo diseñado para **contrarrestar el correo basura** (spam) al permitir a los **propietarios de dominios especificar qué servidores de correo están autorizados para enviar mensajes en nombre de ese dominio**. La configuración de SPF se realiza **añadiendo** un **registro de recurso** (RR) de tipo **TXT** (Textual) a la zona redes2024.com.ar en su servidor DNS primario (`ns1 - 203.0.113.65`). Los registros TXT almacenan información descriptiva para el dominio. El contenido de este registro TXT debe declarar explícitamente que la única dirección IP autorizada para enviar correo para este dominio es la de su servidor de correo, 203.0.113.111, por ejemplo, `v=spf1 ip4:203.0.113.111 -all`. Cuando un servidor **MTA receptor** (el servidor de correo del destinatario) recibe un mensaje de correo electrónico que afirma ser de `usuario@redes2024.com.ar`, el servidor receptor (que actúa como servidor SMTP) **realiza una consulta DNS buscando el registro SPF (TXT) asociado con el dominio redes2024.com.ar**. Si la dirección IP de origen de la conexión SMTP coincide con la lista de direcciones autorizadas en el registro SPF, el MTA receptor considera el correo como legítimo, sino, el receptor determinará que el correo no es válido según su política de SPF.
+- El servidor de webmail no debería verse afectado por esta nueva configuración, siempre y cuando los correos enviados desde webmail pasen por el servidor de correo que tiene la IP autorizada (`203.0.113.111`)
+
+>[!note]NOTA
+> `v=spf1 ip4:203.0.113.111 -all`
+> - `v=spf1`: Indica la versión del SPF que se está utilizando, en este caso la versión 1
+> - `ip4:203.0.113.111`: Especifica que la dirección IPv4 203.0.113.111 está autorizada para enviar correos en nombre del dominio
+> - `-all`: Indica que cualquier otro servidor no listado en el registro SPF no está autorizado para enviar correos en nombre del dominio. El prefijo "-" significa que los correos de servidores no autorizados deben ser rechazados
+
+#### Inciso h
+
+- La característica **SMTP**, que indirectamente afecta el manejo de mensajes por parte de **IMAP** y **POP**, es su restricción de diseño a utilizar únicamente caracteres **ASCII de 7 bits** para la **transferencia de mensajes**. Esta característica es la que **obliga a codificar datos binarios** (como imágenes, ejecutables, o archivos multimedia) en un formato que cumpla con los estándares ASCII de 7 bits, utilizando métodos como **Base64**
+
+#### Inciso i y j 
+
+- Sí, esta manipulación del destinatario y remitente visible en el cliente de correo es posible debido a cómo está estructurado el protocolo SMTP y su distinción entre la información de transporte y la de visualización. La arquitectura del correo electrónico utiliza dos tipos principales de información de direccionamiento que se manejan por separado durante el proceso de envío
+  - **Sobre (Envelope)**: Esta información es utilizada por los Agentes de Transporte de Correo (MTA) para determinar la ruta y el buzón final donde se debe depositar el mensaje. Los comandos SMTP que gestionan el sobre son `MAIL FROM:` (remitente de la ruta) y `RCPT TO:` (destinatario de la ruta)
+  - **Encabezado (Header):** Esta es la meta-información del mensaje que el usuario final ve en su cliente de correo (Agente de Usuario de Correo o MUA). Incluye campos como `From:`, `Subject:`, y `To:`
+- El correo podría no llegar a la ruta que dice en el `To:` del **encabezado (Header)** ya que el enrutamiento y la entrega final son determinados por la dirección especificada en el `RCPT TO:` del **sobre (Envelope)**, como también podría no provenir de la ruta que dice el `From:`, ya que la verdadera ruta se encuentra en el `MAIL FROM:`. Los Agentes de Transporte de Correo (MTA) que mueven el mensaje a través de Internet (MTA-MTA) y el Agente de Entrega de Correo (MDA) que lo deposita en el buzón, solo utilizan el **sobre (Envelope)** para guiar el datagrama. Los campos `To:` o `From:` dentro del **encabezado (Header)** son simplemente meta-información leída por el agente de usuario del receptor, y es ignorada por la infraestructura de enrutamiento del correo. 
+- Esta capacidad de suplantación del campo `To:` o `From:` es frecuentemente una indicación de estafa, como email spoofing o phishing, aunque en el caso del campo `To:` también puede deberse al uso legítimo de Copia Oculta (BCC), que permite enviar un mensaje a un destinatario sin que su dirección aparezca visible para los demás receptores del mensaje.
+
+#### Inciso k
+
+- Para enviar el correo con remitente `redes@info.unlp.edu.ar`, el MUA utilizará el protocolo SMTP con el fin de comunicarse con el MTA local del dominio `info.unlp.edu.ar`. Para lograr esta conexión, el cliente necesita conocer la dirección IP del servidor, información que obtiene realizando una consulta DNS para resolver el nombre de dominio del servidor SMTP a su correspondiente registro A (IPv4) o AAAA (IPv6). Cabe mencionar que si el acceso se realizara mediante una interfaz de Webmail, el usuario interactuaría inicialmente mediante HTTP/HTTPS, siendo luego el servidor web quien se encargue del envío vía SMTP.
+
+#### Inciso l
+
+- Los correos que intenten ingresar durante el reinicio **no se perderán**. El MTA del remitente detectará que el servidor de destino no responde y almacenará los mensajes en una **cola de reintentos**. El protocolo SMTP establece que el remitente debe volver a intentar el envío periódicamente. **Una vez que el servidor finalice el reinicio** y esté operativo, **recibirá los correos acumulados** en el siguiente intento de conexión de los remitentes.
+
+#### Inciso m
+
+- Agregamos un registro MX correspondiente al servidor de mail de la nube. Al agregar este nuevo registro, tenemos que configurar su prioridad. Así, cuando un MTA externo desee enviar un correo, primero intentará establecer una conexión TCP con el servidor de prioridad mas alta (valor más bajo) y si este no está operativo, intentará con el otro de menos prioridad. Seguiría asi sucesivamente a medida que se agreguen más servidores de correo.
 
 ### Ejercicio 11
-- Inciso a
-  - i
-    - La repsuesta a EHLO fue:
-      ```bash
-         -> EHLO debian
-         <-  250-mail.redes.unlp.edu.ar
-         <-  250-PIPELINING
-         <-  250-SIZE 10240000
-         <-  250-VRFY
-         <-  250-ETRN
-         <-  250-STARTTLS
-         <-  250-ENHANCEDSTATUSCODES
-         <-  250-8BITMIME
-         <-  250-DSN
-         <-  250 CHUNKING
-      ```
-    - Cada línea describe una capacidad (extensión ESMTP) del servidor de correo.
-    - `PIPELING`: Permite que el cliente envíe varios comandos SMTP seguidos sin esperar una respuesta inmediata por cada uno, reduciendo la latencia de la sesión. Mejora el rendimiento del envío de múltiples correos o adjuntos.
-    - `STARTRLS`: Indica que el servidor soporta cifrado TLS (Transport Layer Security). Permite que la comunicación SMTP pase de texto plano a una conexión segura (cifrada) después del comando STARTTLS. Se usa para proteger credenciales y el contenido del correo frente a escuchas en red.
-  - ii
-    - Las cabeceras de la salida fueron:
-      ```bash
-          -> Date: Fri, 10 Oct 2025 19:12:06 -0300
-          -> To: alumnoimap@redes.unlp.edu.ar
-          -> From: redesycomunicaciones@redes.unlp.edu.ar
-          -> Subject: SMTP-Practica4
-          -> Message-Id: <20251010191206.005029@debian>
-          -> X-Mailer: swaks v20201014.0 jetmore.org/john/code/swaks/
-          -> MIME-Version: 1.0
-          -> Content-Type: multipart/mixed; boundary="----=_MIME_BOUNDARY_000_5029"
-          -> 
-          -> ------=_MIME_BOUNDARY_000_5029
-          -> Content-Type: text/plain
-          -> 
-          -> Esto es una prueba del protocolo SMTP
-          -> ------=_MIME_BOUNDARY_000_5029
-          -> Content-Type: application/octet-stream; name="Practica4-Mail.pdf"
-          -> Content-Description: Practica4-Mail.pdf
-          -> Content-Disposition: attachment; filename="Practica4-Mail.pdf"
-          -> Content-Transfer-Encoding: BASE64
-      ```
-    - De ellas, Swaks agrega automáticamente
-      - `Date`: Fecha y hora en que se envió el correo
-      - `Message-ID`: Identificador único del mensaje
-      - `X-Mailer`: Información sobre la herramienta utilizada para enviar el correo (Swaks en este caso)
-      - `MIME-Version`: Versión del estándar MIME utilizado
-      - `Content-Type`: Tipo de contenido del mensaje (aquí multipart/mixed indicando que hay múltiples partes, como texto y adjuntos)
-      - `Content-Transfer-Encoding`: Método de codificación del contenido (aquí BASE64 para el adjunto)
-    - Las demás cabeceras (`To`, `From`, `Subject`) fueron especificadas manualmente en el comando Swaks (`--to`, `--from`, `--header`)
-  - iii
-    - EL message-id del correo es `<20251010191206.005029@debian>`. Este valor lo asigna el cliente de correo (Swaks en este caso) automáticamente al enviar el mensaje. Normalmente se construye combinando la fecha/hora + un número de proceso + el nombre del host local (@debian). El Message-ID es único para cada mensaje y sirve para identificarlo de manera inequívoca en las comunicaciones de correo electrónico.
-  - iv
-    - El software utilizado como servidor de correo electrónico es Postfix, un MTA de código abierto, incluído en muchas distribuciones Linux. Postfix es conocido por su seguridad, rendimiento y facilidad de configuración. En este caso, Postfix está configurado para aceptar conexiones SMTP en el puerto 25 y manejar el envío y recepción de correos electrónicos.
-  - v
-    - Salida del comando swaks
-      ```bash
-      === Trying mail.redes.unlp.edu.ar:25...
-      === Connected to mail.redes.unlp.edu.ar.
-      <-  220 mail.redes.unlp.edu.ar ESMTP Postfix (Lihuen-4.01/GNU)
-      -> EHLO debian
-      <-  250-mail.redes.unlp.edu.ar
-      <-  250-PIPELINING
-      <-  250-SIZE 10240000
-      <-  250-VRFY
-      <-  250-ETRN
-      <-  250-STARTTLS
-      <-  250-ENHANCEDSTATUSCODES
-      <-  250-8BITMIME
-      <-  250-DSN
-      <-  250 CHUNKING
-      -> MAIL FROM:<redesycomunicaciones@redes.unlp.edu.ar>
-      <-  250 2.1.0 Ok
-      -> RCPT TO:<alumnoimap@redes.unlp.edu.ar>
-      <-  250 2.1.5 Ok
-      -> DATA
-      <-  354 End data with <CR><LF>.<CR><LF>
-      -> Date: Fri, 10 Oct 2025 19:12:06 -0300
-      -> To: alumnoimap@redes.unlp.edu.ar
-      -> From: redesycomunicaciones@redes.unlp.edu.ar
-      -> Subject: SMTP-Practica4
-      -> Message-Id: <20251010191206.005029@debian>
-      -> X-Mailer: swaks v20201014.0 jetmore.org/john/code/swaks/
-      -> MIME-Version: 1.0
-      -> Content-Type: multipart/mixed; boundary="----=_MIME_BOUNDARY_000_5029"
-      -> 
-      -> ------=_MIME_BOUNDARY_000_5029
-      -> Content-Type: text/plain
-      -> 
-      -> Esto es una prueba del protocolo SMTP
-      -> ------=_MIME_BOUNDARY_000_5029
-      -> Content-Type: application/octet-stream; name="Practica4-Mail.pdf"
-      -> Content-Description: Practica4-Mail.pdf
-      -> Content-Disposition: attachment; filename="Practica4-Mail.pdf"
-      -> Content-Transfer-Encoding: BASE64
-      ->
-      ... (contenido del archivo PDF en base64) ...
-      ->
-      -> ------=_MIME_BOUNDARY_000_5029--
-      -> 
-      -> 
-      -> .
-      <-  250 2.0.0 Ok: queued as F32F3242356
-      -> QUIT
-      <-  221 2.0.0 Bye
-      === Connection closed with remote host.
-      ```
-    - Fuentes del correo
-      ```bash
-      Return-Path: <redesycomunicaciones@redes.unlp.edu.ar>
-      X-Original-To: alumnoimap@redes.unlp.edu.ar
-      Delivered-To: alumnoimap@redes.unlp.edu.ar
-      Received: from debian (unknown [172.28.0.1])
-        by mail.redes.unlp.edu.ar (Postfix) with ESMTP id F32F3242356
-        for <alumnoimap@redes.unlp.edu.ar>; Fri, 10 Oct 2025 22:12:11 +0000 (UTC)
-      Date: Fri, 10 Oct 2025 19:12:06 -0300
-      To: alumnoimap@redes.unlp.edu.ar
-      From: redesycomunicaciones@redes.unlp.edu.ar
-      Subject: SMTP-Practica4
-      Message-Id: <20251010191206.005029@debian>
-      X-Mailer: swaks v20201014.0 jetmore.org/john/code/swaks/
-      MIME-Version: 1.0
-      Content-Type: multipart/mixed; boundary="----=_MIME_BOUNDARY_000_5029"
 
-      ------=_MIME_BOUNDARY_000_5029
-      Content-Type: text/plain
+#### Inciso a
 
-      Esto es una prueba del protocolo SMTP
-      ------=_MIME_BOUNDARY_000_5029
-      Content-Type: application/octet-stream; name="Practica4-Mail.pdf"
-      Content-Description: Practica4-Mail.pdf
-      Content-Disposition: attachment; filename="Practica4-Mail.pdf"
-      Content-Transfer-Encoding: BASE64
+- **i**
+  - La respuesta a EHLO fue:
+    ```bash
+       -> EHLO debian
+       <-  250-mail.redes.unlp.edu.ar
+       <-  250-PIPELINING
+       <-  250-SIZE 10240000
+       <-  250-VRFY
+       <-  250-ETRN
+       <-  250-STARTTLS
+       <-  250-ENHANCEDSTATUSCODES
+       <-  250-8BITMIME
+       <-  250-DSN
+       <-  250 CHUNKING
+    ```
+  - Cada línea describe una capacidad (extensión ESMTP) del servidor de correo.
+  - `PIPELING`: Permite que el cliente envíe varios comandos SMTP seguidos sin esperar una respuesta inmediata por cada uno, reduciendo la latencia de la sesión. Mejora el rendimiento del envío de múltiples correos o adjuntos.
+  - `STARTRLS`: Indica que el servidor soporta cifrado TLS (Transport Layer Security). Permite que la comunicación SMTP pase de texto plano a una conexión segura (cifrada) después del comando STARTTLS. Se usa para proteger credenciales y el contenido del correo frente a escuchas en red.
+- **ii**
+  - Las cabeceras de la salida fueron:
+    ```bash
+        -> Date: Fri, 10 Oct 2025 19:12:06 -0300
+        -> To: alumnoimap@redes.unlp.edu.ar
+        -> From: redesycomunicaciones@redes.unlp.edu.ar
+        -> Subject: SMTP-Practica4
+        -> Message-Id: <20251010191206.005029@debian>
+        -> X-Mailer: swaks v20201014.0 jetmore.org/john/code/swaks/
+        -> MIME-Version: 1.0
+        -> Content-Type: multipart/mixed; boundary="----=_MIME_BOUNDARY_000_5029"
+        -> 
+        -> ------=_MIME_BOUNDARY_000_5029
+        -> Content-Type: text/plain
+        -> 
+        -> Esto es una prueba del protocolo SMTP
+        -> ------=_MIME_BOUNDARY_000_5029
+        -> Content-Type: application/octet-stream; name="Practica4-Mail.pdf"
+        -> Content-Description: Practica4-Mail.pdf
+        -> Content-Disposition: attachment; filename="Practica4-Mail.pdf"
+        -> Content-Transfer-Encoding: BASE64
+    ```
+  - De ellas, Swaks agrega automáticamente
+    - `Date`: Fecha y hora en que se envió el correo
+    - `Message-ID`: Identificador único del mensaje
+    - `X-Mailer`: Información sobre la herramienta utilizada para enviar el correo (Swaks en este caso)
+    - `MIME-Version`: Versión del estándar MIME utilizado
+    - `Content-Type`: Tipo de contenido del mensaje (aquí multipart/mixed indicando que hay múltiples partes, como texto y adjuntos)
+    - `Content-Transfer-Encoding`: Método de codificación del contenido (aquí BASE64 para el adjunto)
+  - Las demás cabeceras (`To`, `From`, `Subject`) fueron especificadas manualmente en el comando Swaks (`--to`, `--from`, `--header`)
+- **iii**
+  - EL message-id del correo es `<20251010191206.005029@debian>`. Este valor lo asigna el cliente de correo (Swaks en este caso) automáticamente al enviar el mensaje. Normalmente se construye combinando la fecha/hora + un número de proceso + el nombre del host local (@debian). El Message-ID es único para cada mensaje y sirve para identificarlo de manera inequívoca en las comunicaciones de correo electrónico.
+- **iv**
+  - El software utilizado como servidor de correo electrónico es Postfix, un MTA de código abierto, incluído en muchas distribuciones Linux. Postfix es conocido por su seguridad, rendimiento y facilidad de configuración. En este caso, Postfix está configurado para aceptar conexiones SMTP en el puerto 25 y manejar el envío y recepción de correos electrónicos.
+- **v**
+  - Salida del comando swaks
+    ```bash
+    === Trying mail.redes.unlp.edu.ar:25...
+    === Connected to mail.redes.unlp.edu.ar.
+    <-  220 mail.redes.unlp.edu.ar ESMTP Postfix (Lihuen-4.01/GNU)
+    -> EHLO debian
+    <-  250-mail.redes.unlp.edu.ar
+    <-  250-PIPELINING
+    <-  250-SIZE 10240000
+    <-  250-VRFY
+    <-  250-ETRN
+    <-  250-STARTTLS
+    <-  250-ENHANCEDSTATUSCODES
+    <-  250-8BITMIME
+    <-  250-DSN
+    <-  250 CHUNKING
+    -> MAIL FROM:<redesycomunicaciones@redes.unlp.edu.ar>
+    <-  250 2.1.0 Ok
+    -> RCPT TO:<alumnoimap@redes.unlp.edu.ar>
+    <-  250 2.1.5 Ok
+    -> DATA
+    <-  354 End data with <CR><LF>.<CR><LF>
+    -> Date: Fri, 10 Oct 2025 19:12:06 -0300
+    -> To: alumnoimap@redes.unlp.edu.ar
+    -> From: redesycomunicaciones@redes.unlp.edu.ar
+    -> Subject: SMTP-Practica4
+    -> Message-Id: <20251010191206.005029@debian>
+    -> X-Mailer: swaks v20201014.0 jetmore.org/john/code/swaks/
+    -> MIME-Version: 1.0
+    -> Content-Type: multipart/mixed; boundary="----=_MIME_BOUNDARY_000_5029"
+    -> 
+    -> ------=_MIME_BOUNDARY_000_5029
+    -> Content-Type: text/plain
+    -> 
+    -> Esto es una prueba del protocolo SMTP
+    -> ------=_MIME_BOUNDARY_000_5029
+    -> Content-Type: application/octet-stream; name="Practica4-Mail.pdf"
+    -> Content-Description: Practica4-Mail.pdf
+    -> Content-Disposition: attachment; filename="Practica4-Mail.pdf"
+    -> Content-Transfer-Encoding: BASE64
+    ->
+    ... (contenido del archivo PDF en base64) ...
+    ->
+    -> ------=_MIME_BOUNDARY_000_5029--
+    -> 
+    -> 
+    -> .
+    <-  250 2.0.0 Ok: queued as F32F3242356
+    -> QUIT
+    <-  221 2.0.0 Bye
+    === Connection closed with remote host.
+    ```
+  - Fuentes del correo
+    ```bash
+    Return-Path: <redesycomunicaciones@redes.unlp.edu.ar>
+    X-Original-To: alumnoimap@redes.unlp.edu.ar
+    Delivered-To: alumnoimap@redes.unlp.edu.ar
+    Received: from debian (unknown [172.28.0.1])
+      by mail.redes.unlp.edu.ar (Postfix) with ESMTP id F32F3242356
+      for <alumnoimap@redes.unlp.edu.ar>; Fri, 10 Oct 2025 22:12:11 +0000 (UTC)
+    Date: Fri, 10 Oct 2025 19:12:06 -0300
+    To: alumnoimap@redes.unlp.edu.ar
+    From: redesycomunicaciones@redes.unlp.edu.ar
+    Subject: SMTP-Practica4
+    Message-Id: <20251010191206.005029@debian>
+    X-Mailer: swaks v20201014.0 jetmore.org/john/code/swaks/
+    MIME-Version: 1.0
+    Content-Type: multipart/mixed; boundary="----=_MIME_BOUNDARY_000_5029"
 
-      ... (contenido del archivo PDF en base64) ...
+    ------=_MIME_BOUNDARY_000_5029
+    Content-Type: text/plain
 
-      ------=_MIME_BOUNDARY_000_5029--
-      ```
-- Inciso b
-  - El contenido del mail no puede leerse en la captura porque la sesión SMTP se negoció y se protegió con TLS, por lo que el cuerpo y el adjunto viajan cifrados. Además, el adjunto está codificado en Base64 dentro del MIME, así que incluso si la sesión no estuviera cifrada el adjunto no sería legible como texto plano.
-- Inciso c
-  - El registro SPF del dominio info.unlp.edu.ar especifica una gran cantidad de servidores autorizados para enviar correos en nombre del dominio. Esto ocurre porque la Universidad Nacional de La Plata utiliza una infraestructura de correo distribuida, con múltiples servidores y servicios especializados. Cada dependencia o sistema (por ejemplo, bibliotecas, cátedras, plataformas Moodle, listas de correo, o servidores de extensión) puede generar correos legítimos utilizando el dominio info.unlp.edu.ar. Por ese motivo, todos esos servidores se incluyen en el registro SPF, de modo que los mensajes enviados desde cualquiera de ellos no sean marcados como spam y puedan ser verificados como legítimos por los destinatarios.
-  - `v=spf1` indica la version del estándar SPF
-  - `mx` autoriza a los servidores definidos conmo MX del dominio
-  - `a:servidor.info.unlp.edu.ar` autoriza a ese servidor específico a enviar correos en nombre de `info.unlp.edu.ar`
-- Inciso d
-  - Los bloques de red autorizados para enviar mails del dominio `outlook.com` son:
-    - Directamente `157.55.9.128/25`
-      - el rango `/25` incluye las direcciones desde `157.55.9.128` hasta `157.55.9.255`
-    - Indirectamente 
-      - `spf-a.outlook.com`
-      - `spf-b.outlook.com`
-      - `spf2.outlook.com`
-      - `_spf-ssg-b.microsoft.com`
-      - `_spf-ssg-c.microsoft.com`
-  - `~all` marca como "no autorizados" (softail) a los servidores que no estén listados. los correos que no provienen de servidores autorizados no deben confiarse, pero tampoco rechazarse automáticamente. Sirve para detectar fuentes no autorizadas sin cortar el tráfico legítimo accidentalmente.
+    Esto es una prueba del protocolo SMTP
+    ------=_MIME_BOUNDARY_000_5029
+    Content-Type: application/octet-stream; name="Practica4-Mail.pdf"
+    Content-Description: Practica4-Mail.pdf
+    Content-Disposition: attachment; filename="Practica4-Mail.pdf"
+    Content-Transfer-Encoding: BASE64
+
+    ... (contenido del archivo PDF en base64) ...
+
+    ------=_MIME_BOUNDARY_000_5029--
+    ```
+
+#### Inciso b
+
+- El contenido del mail no puede leerse en la captura porque la sesión SMTP se negoció y se protegió con TLS, por lo que el cuerpo y el adjunto viajan cifrados. Además, el adjunto está codificado en Base64 dentro del MIME, así que incluso si la sesión no estuviera cifrada el adjunto no sería legible como texto plano.
+
+#### Inciso c
+
+- El registro SPF del dominio `info.unlp.edu.ar` especifica una gran cantidad de servidores autorizados para enviar correos en nombre del dominio. Esto ocurre porque la Universidad Nacional de La Plata utiliza una infraestructura de correo distribuida, con múltiples servidores y servicios especializados. Cada dependencia o sistema (por ejemplo, bibliotecas, cátedras, plataforma Moodle, listas de correo, o servidores de extensión) puede generar correos legítimos utilizando el dominio `info.unlp.edu.ar`. Por ese motivo, todos esos servidores se incluyen en el registro SPF, de modo que los mensajes enviados desde cualquiera de ellos no sean marcados como spam y puedan ser verificados como legítimos por los destinatarios.
+- `v=spf1` indica la version del estándar SPF, 1 en este caso
+- `mx` autoriza a los servidores definidos conmo MX del dominio
+- `a:servidor.info.unlp.edu.ar` autoriza a ese servidor específico a enviar correos en nombre de `info.unlp.edu.ar`
+
+#### Inciso d
+
+- Los bloques de red autorizados para enviar mails del dominio `outlook.com` son:
+  - Directamente `157.55.9.128/25`
+    - el rango `/25` incluye las direcciones desde `157.55.9.128` hasta `157.55.9.255`
+  - Indirectamente 
+    - `spf-a.outlook.com`
+    - `spf-b.outlook.com`
+    - `spf2.outlook.com`
+    - `_spf-ssg-b.microsoft.com`
+    - `_spf-ssg-c.microsoft.com`
+- `~all` marca como "no autorizados" (softail) a los servidores que no estén listados. los correos que no provienen de servidores autorizados no deben confiarse, pero tampoco rechazarse automáticamente. Sirve para detectar fuentes no autorizadas sin cortar el tráfico legítimo accidentalmente.
   
 ### Ejercicio 12
-- Inciso a
-  - Es posible, definiendo un puerto diferente para cada servicio, por ejemplo el mail, mail1 podría estar escuchando en el puerto 25(SMTP) y el web, www podría estar escuchando en el puerto 80(HTTP) o 443(HTTPS)
-- Inciso b
-  - El MUA consultará por el registro A de sus servidor de correo  
-- Inciso c
-  - Una vez que el mail fue recibido por smtp-5, este hará la consulta DNS recursiva para obtener el registro MX   y A de `example.com`, usando como servidor recursivo a `8.8.8.8`.
-- Inciso d
-  - Se requiere una consulta DNS adicional de tipo `A`(IPv4) o `AAAA`(IPv6) al servidor recursivo 8.8.8.8, para traducir el nombre del servidor de correo con mayor prioridad destino a su dirección IP antes de poder enviar el mail
-- Inciso e
-  - El servidor `ns1` no es recursivo, por lo tanto, no puede resolver la consulta de los MX de `example.com`
-- Inciso f
-  - F, cada protocolo se encarga de desencapsular su propia capa, hasta llegar a la aplicación destino
-  - F, cada capa procesa la información de su propia capa
-  - V
-  - F, cada protcolo define su propia froma de comunicarse y no conocen la del resto
-  - F, para eso estan los protocolos, para evitar esto  
-- Inciso g
-  - No es posible, ya que el servidor `ns1` no tiene habilitada la recursión
-- Inciso h
-  - Debera consultar por el registro A de su servidor de correo, es decir la IP de mail1
-- Inciso i
-  - Para el envío, el protocolo involucrados seran SMTP, en el puerto 25, y se utilizara TCP, ya que  queremos asegurarnos que la entrega del mensaje sea correcta. Para la recepción, el protocolo involucrado será POP3, en el puerto 110, o IMAP en el puerto 143, y también se utilizará TCP, ya que queremos asegurarnos que la descarga del mensaje sea correcta.
+
+#### Inciso a
+
+- Es posible, definiendo un puerto diferente para cada servicio, por ejemplo el servicio de mail, `mail1` podría estar escuchando en el puerto 25(SMTP) y el web, `www` podría estar escuchando en el puerto 80(HTTP) o 443(HTTPS)
+
+#### Inciso b
+
+- El MUA consultará por el registro A de su servidor de correo `smtp-5`
+
+#### Inciso c
+
+- Una vez que el mail fue recibido por smtp-5, este hará la consulta DNS recursiva para obtener el registro MX y A del dominio receptor `example.com`, usando como servidor recursivo a `8.8.8.8`.
+
+#### Inciso d
+
+- Se requiere una consulta DNS adicional de tipo `A` para resolver la IP del servidor de correo, que tenga mas prioridad de los devueltos en la primera consulta MX
+
+#### Inciso e
+
+- El servidor `ns1` no es recursivo, por lo tanto, no puede resolver la consulta de los MX de `example.com`
+
+#### Inciso f
+
+- **Falso**, cada protocolo se encarga de desencapsular su propia capa, hasta llegar a la aplicación destino. El MSA se tiene que encargar de analizar los datos de la cabecera para saber si hay algún dato faltante
+- **Falso**, cada capa es responsable de procesar y encapsular los datos antes de pasarlos a la capa inferior, por lo que no son analizados por las capas inferiores
+- **Verdadero**, en la capa de aplicación protocolos como HTTP, SMTP o FTP, agregan su propia cabecera con información relevante para ese protocolo en particular. Estas cabeceras contienen detalles como dirección de destino, tipo de contenido y otras informaciones especificas del protocolo que ayudan a la correcta interpretación y manejo de los datos por parte del receptor.
+- **Falso**, cada protocolo tiene su propia estructura de cabeceras y formato de datos, no necesariamente deberían estar diseñados para funcionar juntos de manera directa
+- **Falso**, el protocolo HTTP brinda la abstracción necesaria para que los clientes puedan acceder al servidor HTTP independientemente del sistema operativo subyacente
+ 
+#### Inciso g
+
+- No es posible, ya que el servidor `ns1` no tiene habilitada la recursión, por lo tanto, no podrá resolver consultas para dominios que no sean los que administra directamente
+
+#### Inciso h
+
+- Deberá consultar por el registro `A` de su servidor de correo `mail1`, para poder resolver la IP del servidor SMTP al cual conectarse
+
+#### Inciso i
+
+- Para el envío, el protocolo involucrados seran SMTP, en el puerto 25, y se utilizara TCP, ya que  queremos asegurarnos que la entrega del mensaje sea correcta. Para la recepción, el protocolo involucrado será POP3, en el puerto 110, o IMAP en el puerto 143, y también se utilizará TCP, ya que queremos asegurarnos que la descarga del mensaje sea correcta.
