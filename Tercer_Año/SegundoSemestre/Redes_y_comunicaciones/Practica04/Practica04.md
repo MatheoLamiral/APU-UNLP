@@ -354,7 +354,7 @@ Sí, es posible que un Agente de Transporte de Correo (MTA) escuche en un puerto
 
 Tener en cuenta que podría darse el caso de que el servidor DNS además de ser autoritativo, sea el servidor DNS local de la zona, por lo que en ese caso si debería aceptar consultas recursivas para los clientes internos de la red (NO para los externos).
 
->[!important]IMPORTANTE
+>[!important]
 > Recordar que se puede configurar en un servidor DNS de quienes aceptar consultas recursivas y de quienes no, por ejemplo, permitir consultas recursivas solo para clientes internos de la red y no para clientes externos
   
 #### Inciso d
