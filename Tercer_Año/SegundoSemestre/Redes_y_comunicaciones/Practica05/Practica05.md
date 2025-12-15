@@ -92,7 +92,7 @@ El **ISN (Initial Sequence Number)** es un número de 32 bits generado aleatoria
 ### Ejercicio 8
 
 El **MSS (Maximum Segment Size)** define la **máxima cantidad de datos** de la **capa de aplicación** que se **puede enviar en un segmento TCP**. Se refiere **solo a la carga útil de datos** (bytes de la aplicación) y **no incluye las cabeceras** del segmento TCP o del datagrama IP que lo transporta.
-La negociación del MSS entre el cliente y el servidor se lleva a cabo durante el establecimiento de la conexión TCP como parte del saludo de tres vías (three-way handshake), utilizando el campo de longitud variable `Options` dentro de la cabecera del segmento TCP. Cuando el cliente inicia la conexión enviando el segmento SYN, en este segmento, el cliente propone el valor del MSS que está dispuesto a aceptar para los segmentos que reciba del servidor. El servidor, al recibir el SYN, evalúa el MSS propuesto por el cliente y lo compara con el **MTU (Maximum Transmission Unit)** de la ruta disponible, y entonces responde con el segmento SYN-ACK, en el cual puede proponer su propio MSS para los segmentos que él enviará. El **valor final del MSS** utilizado para la conexión será el **mínimo acordado por ambas partes**, generalmente seleccionado para ser el MTU más pequeño de la ruta.
+La negociación del MSS entre el cliente y el servidor se lleva a cabo durante el establecimiento de la conexión TCP como parte del saludo de tres vías (three-way handshake), utilizando el campo de longitud variable `Options` dentro de la cabecera del segmento TCP. Cada extremo revisa el tamaño de frame que puede enviar (MTU), luego se lo comunica en el envío del SYN al otro host, y finalmente el **valor final del MSS** utilizado para la conexión será el **mínimo acordado por ambas partes**, generalmente seleccionado para ser el MTU más pequeño de la ruta.
 La importancia de acordar un MSS adecuado es evitar la fragmentación de datagramas, lo que contribuye a la transmisión de datos eficiente.
 
 >[!note]
@@ -251,7 +251,7 @@ La importancia de acordar un MSS adecuado es evitar la fragmentación de datagra
 
 ### Ejercicio 10
 
-Si un host recibe un segmento TCP cuyo número de puerto de destino **no se corresponde con ninguno de los sockets activos que están esperando una conexión**, o si **no hay un proceso en estado LISTEN en ese puerto**, el host de destino enviará un **segmento especial de reinicio**. Este segmento de reinicio tendrá el bit **indicador RST (Reset) puesto en 1**. Al enviar un segmento RST, el host está comunicando al emisor "No tengo un socket para ese segmento. Por favor, no reenvíes el segmento"
+Si un host recibe un segmento TCP cuyo número de puerto de destino **no se corresponde con ninguno de los sockets activos que están esperando una conexión**, o si **no hay un proceso en estado LISTEN en ese puerto**, el host de destino enviará un **segmento especial de reinicio**. Este segmento de reinicio tendrá el bit **indicador RST (Reset) puesto en 1**. Al enviar un segmento RST, el host está comunicando al emisor "No tengo un proceso escuchando en ese puerto, no puedo aceptar tu conexión".
 
 > [!note]
 > - `-S`: establece el bit SYN en el segmento TCP
@@ -293,7 +293,7 @@ Si un host recibe un segmento TCP cuyo número de puerto de destino **no se corr
 
 #### Inciso c
 
-- La diferencia radica en que en el primer caso, para el puerto 22, se retornan los flags **SA (SYN-ACK)** indicando que el **puerto está abierto y escuchando conexiones**, mientras que en el segundo caso, para el puerto 40, se retornan los flags **RA (RST-ACK)**, indicando que **no hay ningún proceso escuchando en ese puerto o que el puerto está cerrado**, por lo que **no se puede establecer una conexión**
+- La diferencia radica en que en el primer caso, para el puerto 22, se retornan los flags **SA (SYN-ACK)** indicando que el **puerto está abierto y escuchando conexiones**, mientras que en el segundo caso, para el puerto 40, se retornan los flags **RA (RST-ACK)**, indicando que **no hay ningún proceso escuchando en ese puerto**, por lo que **no se puede establecer una conexión**
 - Esto podemos verificarlo con `ss` y agregando el parámetro `-n` para que resuelva los puertos numéricos y no intente traducirlos a nombres de servicios
   ```bash
     redes@debian:~$ sudo ss -t -l -p -n
@@ -311,46 +311,51 @@ Si un host recibe un segmento TCP cuyo número de puerto de destino **no se corr
 ### Ejercicio 11
 
 Si un host recibe un **datagrama UDP** en un puerto de destino para el cual no hay un socket UDP activo, es decir, **no hay un proceso en estado de LISTEN**, el host no puede entregar el datagrama a la capa de aplicación. En esta situación, el **host envía un datagrama ICMP especial de vuelta al origen**. Este mensaje ICMP es de **"puerto de destino inalcanzable" (Destination Port Unreachable)**. Este mensaje es **transportado como carga útil dentro de un datagrama IP**. **UDP se basa en ICMP (capa de red) para notificar la imposibilidad de entrega** a nivel de proceso, a diferencia de TCP que utiliza el bit RST de su propia capa de transporte para el rechazo
-- Inciso a
-  ```bash
-    redes@debian:~$ sudo hping3 -2 -p 5353 127.0.0.1
-    HPING 127.0.0.1 (lo 127.0.0.1): udp mode set, 28 headers + 0 data bytes
-    ^C
-    --- 127.0.0.1 hping statistic ---
-    3 packets transmitted, 0 packets received, 100% packet loss
-    round-trip min/avg/max = 0.0/0.0/0.0 ms
-  ```
-- Inciso b
-  ```bash
-    redes@debian:~$ sudo hping3 -2 -p 40 -c 5 127.0.0.1
-    HPING 127.0.0.1 (lo 127.0.0.1): udp mode set, 28 headers + 0 data bytes
-    ICMP Port Unreachable from ip=127.0.0.1 name=localhost 
-    status=0 port=2713 seq=0
-    ICMP Port Unreachable from ip=127.0.0.1 name=localhost 
-    status=0 port=2714 seq=1
-    ICMP Port Unreachable from ip=127.0.0.1 name=localhost 
-    status=0 port=2715 seq=2
-    ICMP Port Unreachable from ip=127.0.0.1 name=localhost 
-    status=0 port=2716 seq=3
-    ICMP Port Unreachable from ip=127.0.0.1 name=localhost 
-    status=0 port=2717 seq=4
 
-    --- 127.0.0.1 hping statistic ---
-    5 packets transmitted, 5 packets received, 0% packet loss
-    round-trip min/avg/max = 1.8/3.5/4.7 ms
-  ```
-- Inciso c
-  ```bash
-    redes@debian:~$ sudo ss -u -l -p -n
-    State       Recv-Q      Send-Q           Local Address:Port            Peer Address:Port     Process                                                                                      
-    UNCONN      0           0                      0.0.0.0:631                  0.0.0.0:*         users:(("cups-browsed",pid=635,fd=7))                                                       
-    UNCONN      0           0                      0.0.0.0:59119                0.0.0.0:*         users:(("avahi-daemon",pid=518,fd=14))                                                      
-    UNCONN      0           0                    127.0.0.1:4038                 0.0.0.0:*         users:(("core-daemon",pid=605,fd=6))                                                        
-    UNCONN      0           0                      0.0.0.0:5353                 0.0.0.0:*         users:(("avahi-daemon",pid=518,fd=12))                                                      
-    UNCONN      0           0                         [::]:48990                   [::]:*         users:(("avahi-daemon",pid=518,fd=15))                                                      
-    UNCONN      0           0                         [::]:5353                    [::]:*         users:(("avahi-daemon",pid=518,fd=13))  
-  ```
-  El puerto **5353 UDP sí está en uso por el proceso avahi-daemon**, que implementa el protocolo mDNS (Multicast DNS). Este servicio **no responde directamente a paquetes unicast enviados a 127.0.0.1, ya que trabaja por multicast (224.0.0.251)**. Por eso, **hping3 no recibe respuesta, pero el paquete no es rechazado, simplemente es ignorado (UDP no establece conexión)**. El datagrama llega a un puerto donde sí hay un proceso escuchando (avahi-daemon), pero como no es un paquete multicast válido, no genera respuesta. En cambio, el **puerto 40 UDP no está en uso (no hay ningún proceso en ese puerto)**. Cuando llega un datagrama UDP a un puerto sin proceso escuchando, el **sistema operativo responde con un mensaje ICMP "Port Unreachable"**. `hping3` interpreta ese mensaje ICMP y muestra una respuesta
+#### Inciso a
+
+```bash
+  redes@debian:~$ sudo hping3 -2 -p 5353 127.0.0.1
+  HPING 127.0.0.1 (lo 127.0.0.1): udp mode set, 28 headers + 0 data bytes
+  ^C
+  --- 127.0.0.1 hping statistic ---
+  3 packets transmitted, 0 packets received, 100% packet loss
+  round-trip min/avg/max = 0.0/0.0/0.0 ms
+```
+
+#### Inciso b
+
+```bash
+  redes@debian:~$ sudo hping3 -2 -p 40 -c 5 127.0.0.1
+  HPING 127.0.0.1 (lo 127.0.0.1): udp mode set, 28 headers + 0 data bytes
+  ICMP Port Unreachable from ip=127.0.0.1 name=localhost 
+  status=0 port=2713 seq=0
+  ICMP Port Unreachable from ip=127.0.0.1 name=localhost 
+  status=0 port=2714 seq=1
+  ICMP Port Unreachable from ip=127.0.0.1 name=localhost 
+  status=0 port=2715 seq=2
+  ICMP Port Unreachable from ip=127.0.0.1 name=localhost 
+  status=0 port=2716 seq=3
+  ICMP Port Unreachable from ip=127.0.0.1 name=localhost 
+  status=0 port=2717 seq=4
+
+  --- 127.0.0.1 hping statistic ---
+  5 packets transmitted, 5 packets received, 0% packet loss
+  round-trip min/avg/max = 1.8/3.5/4.7 ms
+```
+#### Inciso c
+
+```bash
+  redes@debian:~$ sudo ss -u -l -p -n
+  State       Recv-Q      Send-Q           Local Address:Port            Peer Address:Port     Process                                                                                      
+  UNCONN      0           0                      0.0.0.0:631                  0.0.0.0:*         users:(("cups-browsed",pid=635,fd=7))                                                       
+  UNCONN      0           0                      0.0.0.0:59119                0.0.0.0:*         users:(("avahi-daemon",pid=518,fd=14))                                                      
+  UNCONN      0           0                    127.0.0.1:4038                 0.0.0.0:*         users:(("core-daemon",pid=605,fd=6))                                                        
+  UNCONN      0           0                      0.0.0.0:5353                 0.0.0.0:*         users:(("avahi-daemon",pid=518,fd=12))                                                      
+  UNCONN      0           0                         [::]:48990                   [::]:*         users:(("avahi-daemon",pid=518,fd=15))                                                      
+  UNCONN      0           0                         [::]:5353                    [::]:*         users:(("avahi-daemon",pid=518,fd=13))  
+```
+El puerto **5353 UDP sí está en uso por el proceso avahi-daemon**, que implementa el protocolo mDNS (Multicast DNS). Este servicio **no responde directamente a paquetes unicast enviados a 127.0.0.1, ya que trabaja por multicast (224.0.0.251)**. Por eso, **hping3 no recibe respuesta, pero el paquete no es rechazado, simplemente es ignorado (UDP no establece conexión)**. El datagrama llega a un puerto donde sí hay un proceso escuchando (avahi-daemon), pero como no es un paquete multicast válido, no genera respuesta. En cambio, el **puerto 40 UDP no está en uso (no hay ningún proceso en ese puerto)**. Cuando llega un datagrama UDP a un puerto sin proceso escuchando, el **sistema operativo responde con un mensaje ICMP "Port Unreachable"**. `hping3` interpreta ese mensaje ICMP y muestra una respuesta
 
 
 >[!important]
@@ -390,11 +395,11 @@ Si un host recibe un **datagrama UDP** en un puerto de destino para el cual no h
 
 #### Inciso a
 
-- Se encuentran establecidas 9 conexiones, ya que se puede observar que están en estado `ESTAB` 9 conexiones.
+- Se encuentran establecidas 8 conexiones, ya que se puede observar que están en estado `ESTAB` 9 conexiones, pero una de ellas, en particular, la que involucra a ssh, aparece 2 veces por la comuniación entre ambos extremos.
 
 #### Inciso b
 
-- Se encuentran abiertos a la espera de posibles nuevas conexiones los 5 puertos, ya que se puede observar que están en estado `LISTEN` 5 puertos.
+- Se encuentran abiertos a la espera de posibles nuevas conexiones 4 puertos, ya que se puede observar que están en estado `LISTEN` 5 puertos, pero el puerto 53 aparece dos veces, una con la IP `163.10.5.222` y otra con la IP localhost `127.0.0.1`.
 
 #### Inciso c
 
@@ -438,7 +443,7 @@ Si un host recibe un **datagrama UDP** en un puerto de destino para el cual no h
 
 #### Inciso a 
 
-El cliente envió un segmento `SYN` al servidor y este fue recibido ya que el servidor está en estado `SYN-RECV`. El servidor, al alcanzar este estado, recibe el `SYN` del cliente y responde con un segmento `SYN-ACK`. Sin embargo, el cliente no recibió este segmento de respuesta, ya que permanece en estado `SYN-SENT`, esperando el `SYN-ACK` del servidor para completar el saludo de tres vías. Entonces, podemos afirmar que el segmento `SYN` que el cliente envío al servidor llegó, pero el segmento `SYN-ACK` enviado por el servidor se perdió en la red y nunca llegó al cliente.
+El cliente envió un segmento `SYN` al servidor y este fue recibido ya que el servidor está en estado `SYN-RECV`. El servidor, al alcanzar este estado, recibe el `SYN` del cliente y responde con un segmento `SYN-ACK`. Sin embargo, el cliente no recibió este segmento de respuesta, ya que permanece en estado `SYN-SENT`, esperando el `SYN-ACK` del servidor para completar el saludo de tres vías. Entonces, podemos afirmar que el segmento `SYN` que el cliente envío al servidor llegó, pero el segmento `SYN-ACK` no llegó al cliente, por lo que podría haberse perdido.
 
 #### Inciso b
 
