@@ -100,5 +100,7 @@ La PC-E recibirá la ARP request, ARP replay y la respuesta ICMP del Eco (echo r
 
 ### Ejercicio 6
 
-a) Verdadero. El nodo no podrá navegar porque la configuración es inválida. Para una máscara `/26` (64 bits de host), la dirección `180.10.80.68` pertenece a la subred que va desde la `.64` hasta la `.127`. En este rango, la dirección 180.10.80.127 corresponde a la dirección de Broadcast, la cual es utilizada para comunicar a todos los hosts de la red y no puede ser asignada a la interfaz de un router para enrutar tráfico.
-b) Falso. Aunque ambos estándares pertenecen a la misma familia IEEE, un dispositivo inalámbrico (802.11) y uno Ethernet (802.3) utilizan formatos de trama diferentes en la Capa de Enlace de Datos. Por lo tanto, no existe una comunicación "directa" entre ellos, es necesario un dispositivo intermediario (como un Access Point o Bridge) que realice la traducción de tramas para convertir las cabeceras de un formato al otro y permitir el flujo de datos.
+- a) Verdadero. 
+  - El nodo no podrá navegar porque la configuración es inválida. Para una máscara `/26` (64 bits de host), la dirección `180.10.80.68` pertenece a la subred que va desde la `.64` hasta la `.127`. En este rango, la dirección 180.10.80.127 corresponde a la dirección de Broadcast, la cual es utilizada para comunicar a todos los hosts de la red y no puede ser asignada a la interfaz de un router para enrutar tráfico.
+- b) Falso. 
+  - Aunque ambos estándares pertenecen a la misma familia IEEE, un dispositivo inalámbrico (802.11) y uno Ethernet (802.3) utilizan formatos de trama diferentes en la Capa de Enlace de Datos. Por lo tanto, no existe una comunicación "directa" entre ellos, es necesario un dispositivo intermediario (como un Access Point o Bridge) que realice la traducción de tramas para convertir las cabeceras de un formato al otro y permitir el flujo de datos.
