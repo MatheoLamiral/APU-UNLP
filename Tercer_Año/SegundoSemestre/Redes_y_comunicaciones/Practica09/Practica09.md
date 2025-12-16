@@ -23,7 +23,7 @@ La función fundamental de la Capa de Enlace es la transferencia de paquetes ent
 ### Ejercicio 3
 
 - ¿Cómo se identifican dos máquinas en una red Ethernet?
-  - Dos máquinas (nodos) en una red Ethernet se **identifican mediante sus direcciones de la capa de enlace**. Es importante destacar que estas direcciones se asignan a los adaptadores de red (tarjetas de interfaz de red, NIC), y no al host o router en sí. Cuando un adaptador emisor quiere enviar una trama a un adaptador de destino, inserta la dirección MAC de destino en la trama y la envía a través de la LAN. El adaptador receptor procesará la trama si la dirección MAC de destino coincide con su propia dirección MAC. Si no hay coincidencia, el adaptador descarta la trama sin pasar el datagrama a la capa de red
+  - Dos máquinas (nodos) en una red Ethernet se **identifican mediante sus direcciones de la capa de enlace**. Es importante destacar que estas direcciones **se asignan a los adaptadores de red (tarjetas de interfaz de red, NIC), y no al host o router en sí**. Cuando un adaptador emisor quiere enviar una trama a un adaptador de destino, inserta la dirección MAC de destino en la trama y la envía a través de la LAN. El adaptador receptor procesará la trama si la dirección MAC de destino coincide con su propia dirección MAC. Si no hay coincidencia, el adaptador descarta la trama sin pasar el datagrama a la capa de red
 - ¿Cómo se llaman y qué características poseen estas direcciones?
   - Estas direcciones se conocen comúnmente como **dirección MAC (Medium Access Control)**. También se denominan dirección LAN o dirección física y sus características principales son:
     - **Longitud**: Tienen 6 bytes de longitud (48 bits) en la mayoría de las redes LAN, incluyendo Ethernet
@@ -60,7 +60,7 @@ El algoritmo de acceso al medio en Ethernet, CSMA/CD (Carrier Sense Multiple Acc
 
 ### Ejercicio 6
 
-El protocolo **ARP (Address Resolution Protocol)** tiene como finalidad obtener la dirección MAC correspondiente a una dirección IP dentro de la misma red local. Esta resolución es necesaria porque, para enviar una trama a través de una LAN, la capa de enlace debe conocer la dirección MAC del siguiente salto (ya sea el host de destino si está en la misma subred, o el router si está en otra). Sin ARP, los dispositivos no podrían entregar tramas correctamente dentro de la red local.
+El protocolo **ARP (Address Resolution Protocol)** tiene como finalidad **obtener la dirección MAC correspondiente a una dirección IP dentro de la misma red local**. Esta resolución es necesaria porque, para enviar una trama a través de una LAN, la capa de enlace debe conocer la dirección MAC del siguiente salto (ya sea el host de destino si está en la misma subred, o el router si está en otra). S**in ARP, los dispositivos no podrían entregar tramas correctamente dentro de la red local**.
 
 ### Ejercicio 7
 
@@ -75,10 +75,15 @@ El protocolo **ARP (Address Resolution Protocol)** tiene como finalidad obtener 
 
 ##### Inciso b
 
-Las colisiones solo pueden producirse en los segmentos de la red donde el medio es compartido, es decir, en los hubs. Ocurren cuando dos o más dispositivos conectados al mismo hub transmiten simultáneamente. En esta red, pueden ocurrir colisiones únicamente en el hub donde están Estaciones 1 a 5 y el Servidor 1, y en el hub donde están Estaciones 8, 9 y 10. En los enlaces con switches no pueden ocurrir colisiones.
-- NO hay colisiones en los switches, porque cada enlace entre un host y un switch es full-duplex y dedicado.
+Las colisiones solo pueden producirse en los segmentos de la red donde el medio es compartido, es decir, en los hubs. **Ocurren cuando dos o más dispositivos conectados al mismo hub transmiten simultáneamente** (Half-duplex). En esta red, pueden ocurrir colisiones únicamente en el hub donde están Estaciones 1 a 5 y el Servidor 1, y en el hub donde están Estaciones 8, 9 y 10.
+- **NO hay colisiones en los switches, porque cada enlace entre un host y un switch es full-duplex y dedicado**.
 - NO hay colisiones entre Switch1 y Switch2, porque ese enlace también es full-duplex.
 - NO hay colisiones entre dispositivos conectados directamente a un switch (como Estación 6, 7, 11, 12 o 13).
+
+>[!important]
+> - Que un enlace sea full-duplex significa que el dispositivo puede enviar y recibir datos simultáneamente por canales separados, lo que elimina la posibilidad de colisiones. 
+> - Que un enlace sea half duplex significa que permite la transmisión de datos en ambas direcciones, pero no simultáneamente, funcionando de manera similar a un walkie-talkie donde uno debe esperar a que el otro termine para poder hablar. En este modo, el dispositivo utiliza el mismo canal físico tanto para enviar como para recibir, por lo que si dos dispositivos intentan transmitir al mismo tiempo en un medio compartido (como ocurre en los Hubs), las señales se cruzan y generan una colisión, obligando a ambas partes a detenerse y retransmitir.
+> - Que un enlace sea dedicado implica que el cable es exclusivo para un solo dispositivo y no se comparte con nadie más
 
 ### Ejercicio 8
 
@@ -91,24 +96,24 @@ Hay 5 dominios de colisión en total:
 - La conexión de Switch 2 a Switch 1
 - La conexión de HUB a Switch 1
 
->[!note] NOTA
+>[!note]
 > Las conexiones de PCs a HUBS no cuentan como dominios de colisión ya que todos los nodos conectados al HUB pueden colisionar con los demás.
 
 #### Inciso b
 
-Hay solo 1 dominio de broadcast. Los dominios de broadcast se separan con el uso de routers, solo un dominio de broadcast por red.
+Hay solo 1 dominio de broadcast. Los **dominios de broadcast se separan con el uso de routers**, solo un dominio de broadcast por red.
 
 #### Inciso c
 
 - A envía una solicitud ARP consultando la MAC de C
-  - Switch 1 
-    |MAC|Port|
-    |---|----|
-    |MAC_PC_A  |Port_Switch2_Switch1   |  
   - Switch 2
     |MAC|Port|
     |---|----|
     |MAC_PC_A  |Port_PC_A_Switch2   |
+  - Switch 1 
+    |MAC|Port|
+    |---|----|
+    |MAC_PC_A  |Port_Switch2_Switch1   |  
 - C responde esta solicitud ARP
   - Switch 1 
     |MAC|Port|
@@ -116,10 +121,10 @@ Hay solo 1 dominio de broadcast. Los dominios de broadcast se separan con el uso
     |MAC_PC_A  |Port_Switch2_Switch1   |  
     |MAC_PC_C  |Port_Hub_Switch1   |
   - Switch 2
-  - |MAC|Port|
-    |---|----|
-    |MAC_PC_A  |Port_Switch2_Switch1  |
-    |MAC_PC_C  |Port_Switch1_Switch2  |
+    - |MAC|Port|
+      |---|----|
+      |MAC_PC_A  |Port_Switch2_Switch1  |
+      |MAC_PC_C  |Port_Switch1_Switch2  |
 - A envía una solicitud ARP consultando la MAC de B
   - Switch 1 
     |MAC|Port|
@@ -248,8 +253,8 @@ Si la PC A está en una red y se quiere comunicar con la PC B que está en otra 
   - CAPA 3: Red
     - **ip_origen**:IP_PC_A 
     - **ip_destino**:IP_PC_B
-  - >[!note] NOTA
-    > La MAC_Router hace referencia al router final antes de llegar a PC B
+  >[!note] 
+  > La MAC_Router hace referencia al router final antes de llegar a PC B
 
 
 
