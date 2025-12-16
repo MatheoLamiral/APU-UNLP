@@ -110,7 +110,7 @@ Si en `ejemplo.com` fuese requerimiento hacer uso óptimo de los recursos, debid
 
 #### Inciso b
 
-- En esta situación se observa que la ventana de recepción del cliente llega a 0 (`win=0`), lo que significa que el cliente no puede recibir más datos en ese momento. El mecanismo que debe tomar acción en esta situación es el control de flujo.
+- En esta situación se observa que la ventana de recepción de `175.0.10.2` llega a 0 (`win=0`), lo que significa que el no puede recibir más datos en ese momento. El mecanismo que debe tomar acción en esta situación es el control de flujo.
 
 ### Ejercicio 7
 
@@ -118,5 +118,7 @@ Si en `ejemplo.com` fuese requerimiento hacer uso óptimo de los recursos, debid
   - En HTTP 1.0 no se usan conexiones persistentes por defecto, pero en HTTP 1.1 sí.
 - b) Falso
   - Los registros CNAME asocian un alias a un nombre de dominio canónico, no directamente a una dirección IP. Para asociar un nombre a una IP se utilizan registros tipo `A` (IPv4) o `AAAA` (IPv6).
+  > [!note]
+  > Si se refiere a lo que termina haciendo indirectamente en la práctica, podríamos decir que la afirmación es verdadera, ya que al final de todo, CNAME funciona como un puente para llegar a la IP, pero técnicamente no es correcto decir que asocia directamente un nombre de dominio a una IP.
 - c) Falso
   - No es posible enviar segmentos con puerto origen  0 en TCP, ya que este puerto está reservado y no se utiliza para comunicaciones normales. En cambio, en UDP sí es posible usar el puerto 0 como puerto origen, si es solo de envío y no nos interesa la respuesta, no es necesario configurar como puerto origen un puerto válido.
