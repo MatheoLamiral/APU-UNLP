@@ -1,0 +1,43 @@
+services:
+  mysql:
+    image: mysql:8.3
+    container_name: blogdemensajes-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: db_blog_mensajes
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/001_init.sql:ro
+      - mysql_data:/var/lib/mysql
+    command: ["--default-authentication-plugin=caching_sha2_password"]
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uadmin -padmin --silent" ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  phpmyadmin:
+    image: phpmyadmin:5.2.1
+    container_name: blogdemensajes-phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: admin
+      PMA_PASSWORD: admin
+    ports:
+      - "8081:80"
+    depends_on:
+      - mysql
+  app:
+    build: .
+    restart: always
+    container_name: blog_app_container
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+
+volumes:
+  mysql_data:
